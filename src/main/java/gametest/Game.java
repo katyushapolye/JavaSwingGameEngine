@@ -4,7 +4,7 @@ import gametest.game.Player;
 
 public class Game {
 	final long SECOND_IN_NANO = 1000000000l;
-	final long FPS = 30l;
+	final long FPS = 60l;
 	final long FRAME_TARGET_TIME = SECOND_IN_NANO/FPS;
 	
 	
@@ -20,6 +20,7 @@ public class Game {
 		long deltaTime = 0l;//Tempo desde ultimo frame
 		double deltaTimeInSeconds = 0;
 		GameObject player = new Player("src/main/resources/Player_Sprite.png",400,400,0);
+		GameObject player2 = new Player("src/main/resources/Player_Sprite.png",200,400,90);
 		
 		while(true) {
 			if(System.nanoTime() - tickStart >= FRAME_TARGET_TIME) {
@@ -36,6 +37,7 @@ public class Game {
 				
 				//Drawn and then Display
 				gameWindow.DrawGameObject(player);
+				gameWindow.DrawGameObject(player2);
 				
 				gameWindow.display();
 				

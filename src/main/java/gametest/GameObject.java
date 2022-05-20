@@ -1,5 +1,4 @@
 package gametest;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -34,7 +33,7 @@ public class GameObject {
 			return;
 		}
 		//Graphics2D gtemp = sprite.createGraphics();
-		g.rotate(Math.toRadians(degrees),sprite.getWidth(),sprite.getHeight());
+		g.rotate(Math.toRadians(degrees),X - (sprite.getWidth()/2),Y - (sprite.getHeight()/2));
 		//g.translate(0,0);
 		//g.drawImage(sprite,null,0,0);
 		
