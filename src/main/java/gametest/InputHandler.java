@@ -1,12 +1,9 @@
 package gametest;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
-public class InputHandler extends JPanel implements KeyListener {
+public class InputHandler implements KeyListener {
 	public InputHandler() {
-		addKeyListener(this);
 		return;
 	};
 	
