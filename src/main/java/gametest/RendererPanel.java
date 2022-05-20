@@ -1,5 +1,6 @@
 package gametest;
 import javax.swing.JFrame;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -25,9 +26,9 @@ public class RendererPanel extends JFrame {
 	}
 
 	
-	public void DrawGameObjects(GameObject[] gm) {
+	public void DrawGameObject(GameObject gm) {
 		
-		screenCanvas.parseGameObjects(gm);
+		screenCanvas.addToDrawnBuffer(gm);
 	}
 	
 	public void display() {
@@ -45,10 +46,10 @@ public class RendererPanel extends JFrame {
 
 private class RendererCanvas extends JPanel{
 	
-	private GameObject[] gmBuffer = new GameObject[0];
+	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
 	public RendererCanvas() {
 		this.setSize(SCREEN_W, SCREEN_H);
-		this.setBackground(new Color(255,0,0));
+		this.setBackground(new Color(0,0,0));
 		System.out.println("Canvas Initialized");
 		}
 
@@ -56,21 +57,26 @@ private class RendererCanvas extends JPanel{
 	public void paintComponent(Graphics g) {
 		System.out.println("Screen has been painted");
 		super.paintComponent(g);
+		if(gameObjectList == null) {
+			return;
+		}
 		
-		for(int i = 0;i<gmBuffer.length;i++) {
-			gmBuffer[i].draw(g);
+		for(int i = 0;i<gameObjectList.size();i++) {
+		    	gameObjectList.get(i).draw(g);
 			}
 		Toolkit.getDefaultToolkit().sync();
+		gameObjectList.clear();
 			
 		
 		}
-	public void parseGameObjects(GameObject[] buffer) {
-		gmBuffer = buffer;
+	
+	public void addToDrawnBuffer(GameObject gm) {
+		gameObjectList.add(gm);
 	}
 	
 	public void clear() {
 		//Deleta todo o buffer trocando a referencia, dps o GC cuida da memoria < MEXER O GC N DA CONTA, TROCAR POR LISTA
-		gmBuffer = new GameObject[0];
+		gameObjectList.clear();
 		repaint();
 	}
 	
