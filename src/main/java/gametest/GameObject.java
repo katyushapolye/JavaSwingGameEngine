@@ -1,32 +1,47 @@
 package gametest;
 import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 
 public class GameObject {
-	private Image sprite = null;
-	private int X = 0;
-	private int Y = 0;
+	protected BufferedImage sprite = null;
+	protected int X = 0;
+	protected int Y = 0;
+	protected int degrees = 0;
 	
-	public GameObject(String pathToSpriteImage,int initX,int initY) {
+	public GameObject(String pathToSpriteImage,int initX,int initY,int rotation) {
 		this.X = initX;
+		this.degrees = rotation;
 		this.Y = initY;
-		ImageIcon ii = new ImageIcon(pathToSpriteImage);
-		sprite = ii.getImage();
+		try {
+		sprite = ImageIO.read(new File(pathToSpriteImage));
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}	
 		System.out.println(sprite.getHeight(null));
 		
 	}
 	
-	public void draw(Graphics g) {
+	public void draw(Graphics2D g) {
 		if(sprite == null) {
 			System.out.println("Warning - Spriteless GameObject");
 			return;
 		}
-		g.drawImage(this.sprite,X,Y,null);
+		//Graphics2D gtemp = sprite.createGraphics();
+		g.rotate(Math.toRadians(degrees),sprite.getWidth(),sprite.getHeight());
+		//g.translate(0,0);
+		//g.drawImage(sprite,null,0,0);
+		
+		g.drawImage(this.sprite,X - (sprite.getWidth()/2),Y - (sprite.getHeight()/2),null);
 	}
 	
-	public void updatePosition(int newX,int newY) {
+	public void offsetPosition(int newX,int newY) {
 		this.X  +=  newX;
 		this.Y +=  newY;
 	}

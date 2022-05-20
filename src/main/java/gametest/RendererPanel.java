@@ -4,23 +4,33 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 
 
 @SuppressWarnings("serial")
 public class RendererPanel extends JFrame {
-	final int SCREEN_W = 800;
-	final int SCREEN_H = 800;
+	int SCREEN_W = 800;
+	int SCREEN_H = 800;
 	
 	private RendererCanvas screenCanvas = null;
 	
-	public RendererPanel() {
+	public RendererPanel(int X,int Y) {
+		SCREEN_H = Y;
+		SCREEN_W = X;
+		if(X==0 || Y==0) {
+			SCREEN_W = 800;
+			SCREEN_H = 800;
+		}
+		
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		super.setSize(SCREEN_W, SCREEN_H);
 		super.setVisible(true);
+		super.setResizable(false);
 		screenCanvas = new RendererCanvas();
 		this.add(screenCanvas);
+		
 		
 		System.out.println("Renderer Window Initialized");	
 	}
@@ -50,19 +60,21 @@ private class RendererCanvas extends JPanel{
 	public RendererCanvas() {
 		this.setSize(SCREEN_W, SCREEN_H);
 		this.setBackground(new Color(0,0,0));
+		this.setLayout(null);
 		System.out.println("Canvas Initialized");
 		}
 
 	@Override
 	public void paintComponent(Graphics g) {
+		Graphics2D g2d = (Graphics2D)g;
 		System.out.println("Screen has been painted");
-		super.paintComponent(g);
+		super.paintComponent(g2d);
 		if(gameObjectList == null) {
 			return;
 		}
 		
 		for(int i = 0;i<gameObjectList.size();i++) {
-		    	gameObjectList.get(i).draw(g);
+		    	gameObjectList.get(i).draw(g2d);
 			}
 		Toolkit.getDefaultToolkit().sync();
 		gameObjectList.clear();
