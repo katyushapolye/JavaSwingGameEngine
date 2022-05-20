@@ -6,17 +6,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 
 @SuppressWarnings("serial")
-public class RendererPanel extends JFrame {
+public class RendererPanel extends JFrame implements ActionListener{
 	int SCREEN_W = 800;
 	int SCREEN_H = 800;
 	
 	private RendererCanvas screenCanvas = null;
 	
 	public RendererPanel(int X,int Y) {
+		addKeyListener(new InputHandler());
 		SCREEN_H = Y;
 		SCREEN_W = X;
 		if(X==0 || Y==0) {
@@ -49,6 +52,10 @@ public class RendererPanel extends JFrame {
 		screenCanvas.clear();
 		
 	}
+	public void actionPerformed(ActionEvent e) {
+		
+		
+	}
 
 	
 //Classe Interna para lidar com o Painel e fazer overrides de funções, como
@@ -67,7 +74,7 @@ private class RendererCanvas extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
-		System.out.println("Screen has been painted");
+		//System.out.println("Screen has been painted");
 		super.paintComponent(g2d);
 		if(gameObjectList == null) {
 			return;
@@ -94,9 +101,8 @@ private class RendererCanvas extends JPanel{
 	
 	
 
+	}
 
-
-}
 }
 
 

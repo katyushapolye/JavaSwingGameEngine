@@ -21,6 +21,7 @@ public class Game {
 		double deltaTimeInSeconds = 0;
 		GameObject player = new Player("src/main/resources/Player_Sprite.png",400,400,0);
 		GameObject player2 = new Player("src/main/resources/Player_Sprite.png",200,400,90);
+		InputHandler ih = new InputHandler();
 		
 		while(true) {
 			if(System.nanoTime() - tickStart >= FRAME_TARGET_TIME) {
@@ -30,6 +31,7 @@ public class Game {
 				//Check Game State
 				
 				//Pool Input
+				
 
 				
 				//Game Logic
@@ -42,10 +44,10 @@ public class Game {
 				gameWindow.display();
 				
 				
-				//Reset dos timers;
-				System.out.printf("DeltaTime:%d nanoSeconds%n",deltaTime);
-				System.out.printf("DeltaTime:%f Seconds%n",deltaTimeInSeconds);
-				System.out.printf("FPS:%d%n",SECOND_IN_NANO/deltaTime);
+				
+				//System.out.printf("DeltaTime:%d nanoSeconds%n",deltaTime);
+				//System.out.printf("DeltaTime:%f Seconds%n",deltaTimeInSeconds);
+				//System.out.printf("FPS:%d%n",SECOND_IN_NANO/deltaTime);
 				}
 			//THread.sleep não é preciso e erra o tempo de sleep, perdendo fps, deixe assim por enquanto até uma ideia melhor
 			else {
