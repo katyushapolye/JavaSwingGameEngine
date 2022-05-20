@@ -15,11 +15,12 @@ import java.awt.event.ActionListener;
 public class RendererPanel extends JFrame implements ActionListener{
 	int SCREEN_W = 800;
 	int SCREEN_H = 800;
-	
+	private InputHandler inputHandler;
 	private RendererCanvas screenCanvas = null;
 	
 	public RendererPanel(int X,int Y) {
-		addKeyListener(new InputHandler());
+		inputHandler= new InputHandler();
+		addKeyListener(inputHandler);
 		SCREEN_H = Y;
 		SCREEN_W = X;
 		if(X==0 || Y==0) {
@@ -50,6 +51,11 @@ public class RendererPanel extends JFrame implements ActionListener{
 	
 	public void clearScreen() {
 		screenCanvas.clear();
+		
+	}
+	
+	public InputHandler getInputHandler() {
+		return this.inputHandler;
 		
 	}
 	public void actionPerformed(ActionEvent e) {

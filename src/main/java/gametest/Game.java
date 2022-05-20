@@ -8,10 +8,13 @@ public class Game {
 	final long FRAME_TARGET_TIME = SECOND_IN_NANO/FPS;
 	
 	
+	
 	private RendererPanel gameWindow = null;
+	private InputHandler inputHandler = null;
 	
 	public Game(int ScreenWidth,int ScreenHeight) {
 		gameWindow = new RendererPanel(ScreenWidth, ScreenHeight);
+		inputHandler = gameWindow.getInputHandler();
 		
 	}
 	
@@ -21,7 +24,6 @@ public class Game {
 		double deltaTimeInSeconds = 0;
 		GameObject player = new Player("src/main/resources/Player_Sprite.png",400,400,0);
 		GameObject player2 = new Player("src/main/resources/Player_Sprite.png",200,400,90);
-		InputHandler ih = new InputHandler();
 		
 		while(true) {
 			if(System.nanoTime() - tickStart >= FRAME_TARGET_TIME) {
@@ -31,6 +33,17 @@ public class Game {
 				//Check Game State
 				
 				//Pool Input
+				while(inputHandler.isPoolingDone()) {
+					GameKeyEvent event = inputHandler.poolChar();
+					if(event.getEventType() ==  GameKeyEvent.EventType.Pressed) {
+						System.out.println("Pressed: " +event.getKeyChar());
+					}
+					if(event.getEventType() ==  GameKeyEvent.EventType.Released) {
+						System.out.println("Released: " +event.getKeyChar());
+					}
+					
+					
+				}
 				
 
 				
