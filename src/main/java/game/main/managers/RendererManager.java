@@ -1,6 +1,9 @@
-package gametest;
+package game.main.managers;
 
 import java.util.ArrayList;
+
+import game.main.core.GameObject;
+import game.main.core.RendererWindow;
 
 public class RendererManager {
 	private RendererWindow window = null;
@@ -8,7 +11,7 @@ public class RendererManager {
 	private ArrayList<GameObject> UILayer =  new ArrayList<GameObject>();
 	private ArrayList<GameObject> GAMEOBJECTLayer =  new ArrayList<GameObject>();
 	private ArrayList<GameObject> PARTICLELayer =  new ArrayList<GameObject>();
-	RendererManager(RendererWindow renderInterface){
+	public RendererManager(RendererWindow renderInterface){
 		this.window = renderInterface;
 		
 		
@@ -26,7 +29,7 @@ public class RendererManager {
 		
 	private void filterLayers(ArrayList<GameObject> objectsToRender) {
 		for(GameObject gm : objectsToRender) {
-			switch(gm.layer) {
+			switch(gm.getLayer()) {
 			case BACKGROUND:
 				BGLayer.add(gm);
 				break;

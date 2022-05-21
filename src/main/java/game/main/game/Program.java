@@ -1,6 +1,6 @@
-package gametest;
+package game.main.game;
 
-import gametest.game.Game;
+import game.main.core.Game;
 
 public class Program {
 

@@ -1,7 +1,9 @@
-package gametest;
+package game.main.managers;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+
+import game.main.core.GameKeyEvent;
 
 public class InputManager implements KeyListener {
 	ArrayList<GameKeyEvent> keyEvents =  new ArrayList<GameKeyEvent>();

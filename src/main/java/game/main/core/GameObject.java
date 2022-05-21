@@ -1,12 +1,13 @@
-package gametest;
+package game.main.core;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import gametest.Utils.*;
 
 import javax.imageio.ImageIO;
+
+import game.main.core.Utils.*;
 
 
 public class GameObject {
@@ -42,6 +43,8 @@ public class GameObject {
 		g.drawImage(sprite, applyTransform(), null);
 	}
 	
+	
+	public Layer getLayer() {return this.layer;}
 	public void setPosition(int newX,int newY) {
 		this.X = newX;
 		this.Y = newY;

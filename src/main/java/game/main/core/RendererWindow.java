@@ -1,7 +1,11 @@
-package gametest;
+package game.main.core;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+
+import game.main.managers.InputManager;
+import game.main.managers.RendererManager;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -99,7 +103,7 @@ private class RendererCanvas extends JPanel{
 	}
 	
 	public void clear() {
-		//Deleta todo o buffer trocando a referencia, dps o GC cuida da memoria < MEXER O GC N DA CONTA, TROCAR POR LISTA
+		//Deleta todo o buffer trocando a referencia, dps o GC cuida da memoria 
 		gameObjectList.clear();
 		repaint();
 	}

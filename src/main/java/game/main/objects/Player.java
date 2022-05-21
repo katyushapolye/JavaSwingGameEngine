@@ -1,8 +1,8 @@
-package gametest.game;
-import gametest.GameKeyEvent;
-import gametest.GameKeyEvent.EventType;
-import gametest.GameObject;
-import gametest.Utils.Layer;
+package game.main.objects;
+import game.main.core.GameKeyEvent;
+import game.main.core.GameObject;
+import game.main.core.GameKeyEvent.EventType;
+import game.main.core.Utils.Layer;
 
 public class Player extends GameObject{
 	private boolean isMovingUp = false;

@@ -1,4 +1,4 @@
-package gametest;
+package game.main.core;
 
 public class GameKeyEvent {
 	private char keyChar;
