@@ -6,7 +6,7 @@ import gametest.GameKeyEvent;
 import gametest.GameObject;
 import gametest.InputManager;
 import gametest.RendererManager;
-import gametest.RendererPanel;
+import gametest.RendererWindow;
 import gametest.Utils.Layer;
 
 public class Game {
@@ -16,12 +16,12 @@ public class Game {
 	
 	
 	
-	private RendererPanel gameWindow = null;
+	private RendererWindow gameWindow = null;
 	private InputManager inputHandler = null;
 	private RendererManager rendererManager = null;
 	
 	public Game(int ScreenWidth,int ScreenHeight) {
-		gameWindow = new RendererPanel(ScreenWidth, ScreenHeight);
+		gameWindow = new RendererWindow(ScreenWidth, ScreenHeight);
 		inputHandler = gameWindow.getInputHandler();
 		rendererManager = gameWindow.getRendererManager();
 		
@@ -33,10 +33,12 @@ public class Game {
 		long tickStart =  System.nanoTime();
 		long deltaTime = 1l;//Tempo desde ultimo frame
 		double deltaTimeInSeconds = 1;
-		
+		//debug 4 now
+		Player player = new Player("src/main/resources/Player_Sprite.png",400,400,0);
 		ArrayList<GameObject> GAME_OBJECTS_IN_SCENE = new ArrayList<GameObject>();
-		GAME_OBJECTS_IN_SCENE.add(new Player("src/main/resources/Player_Sprite.png",400,400,0));
+		GAME_OBJECTS_IN_SCENE.add(player);
 		GAME_OBJECTS_IN_SCENE.add(new GameObject("src/main/resources/Game_BG.png",400,400,0,Layer.BACKGROUND));
+		//debug 4 now
 
 		for(int i =0;i<10;i++) {
 			GAME_OBJECTS_IN_SCENE.add(new GameObject("src/main/resources/Player_Sprite.png",30+(i*80),100,i*20,Layer.GAMEOBJECT));
@@ -47,17 +49,23 @@ public class Game {
 				deltaTime = System.nanoTime() - tickStart;
 				deltaTimeInSeconds = (double)deltaTime/1000000000;
 				tickStart = System.nanoTime();	
-				System.out.printf("DeltaTime:%f Seconds%n",deltaTimeInSeconds);
-				System.out.printf("FPS:%d%n",SECOND_IN_NANO/deltaTime);
+				//System.out.printf("DeltaTime:%f Seconds%n",deltaTimeInSeconds);
+				//System.out.printf("FPS:%d%n",SECOND_IN_NANO/deltaTime);
 				//Check Game State
 				
 				//Pool Input
-				while(inputHandler.isPoolingDone()) {
-					GameKeyEvent event = inputHandler.poolEvent();
+				while(inputHandler.isPoolingDone()){
+					GameKeyEvent e = inputHandler.poolEvent();
+					player.sendInput(e);
+					
 				}
 
 				
 				//Game Logic
+				
+				for(GameObject gm : GAME_OBJECTS_IN_SCENE) {
+					gm.update(deltaTimeInSeconds);
+				}
 				
 				
 				//Drawn and then Display

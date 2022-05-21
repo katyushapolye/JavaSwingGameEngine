@@ -13,11 +13,13 @@ public class InputManager implements KeyListener {
 	
 	//Possivel otimização para eventos encavalados
 	public void keyPressed(KeyEvent e) {
-		keyEvents.add(new GameKeyEvent(e.getKeyChar(),GameKeyEvent.EventType.Pressed));
+		
+		System.out.println(e.getKeyCode());
+		keyEvents.add(new GameKeyEvent(e.getKeyChar(),e.getKeyCode(),GameKeyEvent.EventType.Pressed));
 		}
 
 	public void keyReleased(KeyEvent e) {
-		keyEvents.add(new GameKeyEvent(e.getKeyChar(),GameKeyEvent.EventType.Released));
+		keyEvents.add(new GameKeyEvent(e.getKeyChar(),e.getKeyCode(),GameKeyEvent.EventType.Released));
 
 		}
 	
@@ -32,7 +34,7 @@ public class InputManager implements KeyListener {
 		}
 	
 	
-	public GameKeyEvent poolChar() {
+	public GameKeyEvent poolEvent() {
 		if(keyEvents.size() == 0) {
 			return null;
 		}

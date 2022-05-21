@@ -62,7 +62,7 @@ public class GameObject {
 	
 	
 	public void update(double deltaTime) {
-		System.out.println("Waring - Object default Update has not been overridden");
+		//System.out.println("Waring - Object default Update has not been overridden");
 	}
 	
 	private AffineTransform applyTransform() {

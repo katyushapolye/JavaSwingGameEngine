@@ -3,12 +3,12 @@ package gametest;
 import java.util.ArrayList;
 
 public class RendererManager {
-	private RendererPanel window = null;
+	private RendererWindow window = null;
 	private ArrayList<GameObject> BGLayer =  new ArrayList<GameObject>();
 	private ArrayList<GameObject> UILayer =  new ArrayList<GameObject>();
 	private ArrayList<GameObject> GAMEOBJECTLayer =  new ArrayList<GameObject>();
 	private ArrayList<GameObject> PARTICLELayer =  new ArrayList<GameObject>();
-	RendererManager(RendererPanel renderInterface){
+	RendererManager(RendererWindow renderInterface){
 		this.window = renderInterface;
 		
 		

@@ -12,14 +12,14 @@ import java.awt.event.ActionListener;
 
 
 @SuppressWarnings("serial")
-public class RendererPanel extends JFrame implements ActionListener{
+public class RendererWindow extends JFrame implements ActionListener{
 	int SCREEN_W = 800;
 	int SCREEN_H = 800;
 	private InputManager inputHandler = null;
 	private RendererCanvas screenCanvas = null;
 	private RendererManager rendererManager = null;
 	
-	public RendererPanel(int X,int Y) {
+	public RendererWindow(int X,int Y) {
 		inputHandler= new InputManager();
 		rendererManager =  new RendererManager(this);
 		addKeyListener(inputHandler);
