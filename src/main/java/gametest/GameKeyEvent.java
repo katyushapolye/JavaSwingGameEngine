@@ -12,7 +12,7 @@ public class GameKeyEvent {
 	
 	public EventType getEventType() {return this.eventType;}
 	
-	static enum EventType{
+	public static enum EventType{
 		Pressed,
 		Released,
 		

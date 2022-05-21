@@ -15,11 +15,13 @@ import java.awt.event.ActionListener;
 public class RendererPanel extends JFrame implements ActionListener{
 	int SCREEN_W = 800;
 	int SCREEN_H = 800;
-	private InputHandler inputHandler;
+	private InputManager inputHandler = null;
 	private RendererCanvas screenCanvas = null;
+	private RendererManager rendererManager = null;
 	
 	public RendererPanel(int X,int Y) {
-		inputHandler= new InputHandler();
+		inputHandler= new InputManager();
+		rendererManager =  new RendererManager(this);
 		addKeyListener(inputHandler);
 		SCREEN_H = Y;
 		SCREEN_W = X;
@@ -40,23 +42,20 @@ public class RendererPanel extends JFrame implements ActionListener{
 	}
 
 	
-	public void DrawGameObject(GameObject gm) {
-		
-		screenCanvas.addToDrawnBuffer(gm);
-	}
 	
 	public void display() {
 		screenCanvas.repaint();
 	}
-	
-	public void clearScreen() {
-		screenCanvas.clear();
-		
+	public void drawGameObject(GameObject gm) {
+		screenCanvas.addToDrawnBuffer(gm);
 	}
 	
-	public InputHandler getInputHandler() {
+	public InputManager getInputHandler() {
 		return this.inputHandler;
 		
+	}
+	public RendererManager getRendererManager() {
+		return this.rendererManager;
 	}
 	public void actionPerformed(ActionEvent e) {
 		

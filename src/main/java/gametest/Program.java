@@ -1,4 +1,7 @@
 package gametest;
+
+import gametest.game.Game;
+
 public class Program {
 
 
