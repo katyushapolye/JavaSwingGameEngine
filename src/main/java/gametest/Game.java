@@ -18,6 +18,7 @@ public class Game {
 		
 	}
 	
+	//Check deltaTime, esta sendo calculado errado, deve ser o tempo desde o ultimo frame (tick completo)
 	public void run() {
 		long tickStart =  System.nanoTime();
 		long deltaTime = 0l;//Tempo desde ultimo frame
@@ -36,6 +37,7 @@ public class Game {
 				while(inputHandler.isPoolingDone()) {
 					GameKeyEvent event = inputHandler.poolChar();
 					if(event.getEventType() ==  GameKeyEvent.EventType.Pressed) {
+						player.offsetPosition((int)(500*deltaTimeInSeconds),0);
 						System.out.println("Pressed: " +event.getKeyChar());
 					}
 					if(event.getEventType() ==  GameKeyEvent.EventType.Released) {
