@@ -1,12 +1,12 @@
 package game.main.core;
 import javax.swing.JFrame;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-
 import game.main.managers.InputManager;
 import game.main.managers.RendererManager;
-
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -22,8 +22,10 @@ public class RendererWindow extends JFrame implements ActionListener{
 	private InputManager inputHandler = null;
 	private RendererCanvas screenCanvas = null;
 	private RendererManager rendererManager = null;
+	private RenderingHints renderingHints = null;
 	
 	public RendererWindow(int X,int Y) {
+		this.setResizable(false);
 		inputHandler= new InputManager();
 		rendererManager =  new RendererManager(this);
 		addKeyListener(inputHandler);
@@ -34,12 +36,16 @@ public class RendererWindow extends JFrame implements ActionListener{
 			SCREEN_H = 800;
 		}
 		
-		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		super.setSize(SCREEN_W, SCREEN_H);
-		super.setVisible(true);
-		super.setResizable(false);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//super.setSize(SCREEN_W, SCREEN_H);
+		this.setVisible(true);
 		screenCanvas = new RendererCanvas();
 		this.add(screenCanvas);
+		this.pack();
+		
+		
+		renderingHints =  new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		renderingHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		
 		
 		System.out.println("Renderer Window Initialized");	
@@ -74,7 +80,7 @@ private class RendererCanvas extends JPanel{
 	
 	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
 	public RendererCanvas() {
-		this.setSize(SCREEN_W, SCREEN_H);
+		this.setPreferredSize(new Dimension(SCREEN_W,SCREEN_H));
 		this.setBackground(new Color(0,0,0));
 		this.setLayout(null);
 		System.out.println("Canvas Initialized");
@@ -83,6 +89,7 @@ private class RendererCanvas extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
+		g2d.addRenderingHints(renderingHints);
 		//System.out.println("Screen has been painted");
 		super.paintComponent(g2d);
 		if(gameObjectList == null) {

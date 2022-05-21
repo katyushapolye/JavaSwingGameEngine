@@ -31,7 +31,7 @@ public class Game {
 		long deltaTime = 1l;// Tempo desde ultimo frame
 		double deltaTimeInSeconds = 1;
 		// debug 4 now
-		Player player = new Player("src/main/resources/Player_Sprite.png", 400, 400, 0);
+		Player player = new Player("src/main/resources/Player_Sprite.png",0,0, 0);
 		ArrayList<GameObject> GAME_OBJECTS_IN_SCENE = new ArrayList<GameObject>();
 		GAME_OBJECTS_IN_SCENE.add(player);
 		GAME_OBJECTS_IN_SCENE.add(new GameObject("src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND));

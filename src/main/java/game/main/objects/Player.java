@@ -9,11 +9,13 @@ public class Player extends GameObject{
 	private boolean isMovingDown = false;
 	private boolean isMovingLeft = false;
 	private boolean isMovingRight = false;
-	
+	private boolean isRotatingLeft = false;
+	private boolean isRotatingRight = false;
 
 	
 	private int playerVelocity = 200;
 	
+	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
 		super(PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT);
@@ -23,6 +25,7 @@ public class Player extends GameObject{
 	
 	@Override
 	public void update(double deltaTime) {
+		//System.out.println("X: " + this.X + "Y: " +this.Y);
 		if(isMovingUp) {
 			this.offsetPosition(0, (int)(deltaTime*-playerVelocity));
 		}
@@ -35,6 +38,13 @@ public class Player extends GameObject{
 		if(isMovingRight) {
 			this.offsetPosition((int)(deltaTime*playerVelocity),0);
 		}
+		if(isRotatingRight) {
+			this.offsetRotation((int)(deltaTime*rotatingVelocity));
+		}
+		if(isRotatingLeft) {
+			this.offsetRotation((int)(deltaTime*-rotatingVelocity));
+		}
+		
 		
 	}
 	
@@ -56,6 +66,12 @@ public class Player extends GameObject{
 			case 88:
 				this.playerVelocity = 100;
 				break;
+			case 81:
+				this.isRotatingLeft = true;
+				break;
+			case 69:
+				this.isRotatingRight = true;
+				break;
 				}
 			}
 			
@@ -76,6 +92,12 @@ public class Player extends GameObject{
 				break;
 			case 88:
 				this.playerVelocity = 200;
+				break;
+			case 81:
+				this.isRotatingLeft = false;
+				break;
+			case 69:
+				this.isRotatingRight = false;
 				break;
 				}
 			}

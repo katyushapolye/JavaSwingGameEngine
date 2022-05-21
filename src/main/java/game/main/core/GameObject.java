@@ -32,6 +32,7 @@ public class GameObject {
 			e.printStackTrace();
 		}	
 		System.out.println(sprite.getHeight(null));
+		System.out.println(sprite.getWidth(null));
 		
 	}
 	
@@ -40,6 +41,7 @@ public class GameObject {
 			System.out.println("Warning - Spriteless GameObject");
 			return;
 		}
+		//g.drawOval(this.X-(sprite.getWidth()/2),this.Y-(sprite.getHeight()/2), 30, 30); colisor interessante
 		g.drawImage(sprite, applyTransform(), null);
 	}
 	
