@@ -19,12 +19,13 @@ public class Game {
 	}
 	
 	//Check deltaTime, esta sendo calculado errado, deve ser o tempo desde o ultimo frame (tick completo)
+	
 	public void run() {
 		long tickStart =  System.nanoTime();
 		long deltaTime = 0l;//Tempo desde ultimo frame
 		double deltaTimeInSeconds = 0;
 		GameObject player = new Player("src/main/resources/Player_Sprite.png",400,400,0);
-		GameObject player2 = new Player("src/main/resources/Player_Sprite.png",200,400,90);
+		GameObject BG = new GameObject("src/main/resources/Game_BG.png",400,400,0);
 		
 		while(true) {
 			if(System.nanoTime() - tickStart >= FRAME_TARGET_TIME) {
@@ -37,15 +38,24 @@ public class Game {
 				while(inputHandler.isPoolingDone()) {
 					GameKeyEvent event = inputHandler.poolChar();
 					if(event.getEventType() ==  GameKeyEvent.EventType.Pressed) {
-						player.offsetPosition((int)(500*deltaTimeInSeconds),0);
-						System.out.println("Pressed: " +event.getKeyChar());
-					}
-					if(event.getEventType() ==  GameKeyEvent.EventType.Released) {
-						System.out.println("Released: " +event.getKeyChar());
-					}
-					
-					
-				}
+						switch(event.getKeyChar()) {
+						case 'w':
+							player.offsetPosition(0,(int)(-400*deltaTimeInSeconds));
+							break;	
+						case 's':
+							player.offsetPosition(0,(int)(400*deltaTimeInSeconds));
+							break;
+						case 'd':
+							player.offsetPosition((int)(400*deltaTimeInSeconds), 0);
+							break;
+						case 'a':
+							player.offsetPosition((int)(-400*deltaTimeInSeconds), 0);
+							break;
+						
+							}
+						}
+					}	
+				
 				
 
 				
@@ -53,17 +63,19 @@ public class Game {
 				
 				
 				//Drawn and then Display
+				//check render order of stuff <-- MAX PRIORITY!!! seems to be working, but you will never know
+				
+				gameWindow.DrawGameObject(BG);
 				gameWindow.DrawGameObject(player);
-				gameWindow.DrawGameObject(player2);
 				
 				gameWindow.display();
 				
-				
+				}
 				
 				//System.out.printf("DeltaTime:%d nanoSeconds%n",deltaTime);
 				//System.out.printf("DeltaTime:%f Seconds%n",deltaTimeInSeconds);
 				//System.out.printf("FPS:%d%n",SECOND_IN_NANO/deltaTime);
-				}
+				
 			//THread.sleep não é preciso e erra o tempo de sleep, perdendo fps, deixe assim por enquanto até uma ideia melhor
 			else {
 				/*
