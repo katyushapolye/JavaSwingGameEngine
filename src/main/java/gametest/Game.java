@@ -26,6 +26,10 @@ public class Game {
 		double deltaTimeInSeconds = 0;
 		GameObject player = new Player("src/main/resources/Player_Sprite.png",400,400,0);
 		GameObject BG = new GameObject("src/main/resources/Game_BG.png",400,400,0);
+		GameObject[] debugArray =  new GameObject[10];
+		for(int i =0;i<10;i++) {
+			debugArray[i] = new GameObject("src/main/resources/Player_Sprite.png",30+(i*80),100,0);
+			}
 		
 		while(true) {
 			if(System.nanoTime() - tickStart >= FRAME_TARGET_TIME) {
@@ -46,10 +50,10 @@ public class Game {
 							player.offsetPosition(0,(int)(400*deltaTimeInSeconds));
 							break;
 						case 'd':
-							player.offsetPosition((int)(400*deltaTimeInSeconds), 0);
+							player.offsetRotation(+10);
 							break;
 						case 'a':
-							player.offsetPosition((int)(-400*deltaTimeInSeconds), 0);
+							player.offsetRotation(-10);
 							break;
 						
 							}
@@ -63,10 +67,15 @@ public class Game {
 				
 				
 				//Drawn and then Display
-				//check render order of stuff <-- MAX PRIORITY!!! seems to be working, but you will never know
+				//check render order of stuff <-- MAX PRIORITY!!! seems to be working, but you will never know, test multiple targets
 				
 				gameWindow.DrawGameObject(BG);
 				gameWindow.DrawGameObject(player);
+				for(int i =0;i<10;i++) {
+					gameWindow.DrawGameObject(debugArray[i]);
+					}
+				
+				
 				
 				gameWindow.display();
 				

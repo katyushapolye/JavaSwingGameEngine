@@ -11,7 +11,7 @@ public class InputHandler implements KeyListener {
 	};
 	
 	
-	//Possivel otimização para eventos incavalados
+	//Possivel otimização para eventos encavalados
 	public void keyPressed(KeyEvent e) {
 		keyEvents.add(new GameKeyEvent(e.getKeyChar(),GameKeyEvent.EventType.Pressed));
 		}
@@ -28,7 +28,7 @@ public class InputHandler implements KeyListener {
 		}
 		else{
 			return true;	
-		}
+			}
 		}
 	
 	
@@ -36,8 +36,8 @@ public class InputHandler implements KeyListener {
 		if(keyEvents.size() == 0) {
 			return null;
 		}
-		GameKeyEvent temp = keyEvents.remove(0);
-		return temp;
+		return keyEvents.remove(0); //Retorna o elemento removido, estrutura de fila
+		
 	}
 
 	public void keyTyped(KeyEvent e) {
