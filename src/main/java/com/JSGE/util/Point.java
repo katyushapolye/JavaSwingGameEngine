@@ -1,4 +1,4 @@
-package game.main.utils;
+package com.JSGE.util;
 
 public class Point {
 	private int X=0;

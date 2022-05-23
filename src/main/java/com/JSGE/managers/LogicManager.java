@@ -1,10 +1,10 @@
-package game.main.managers;
+package com.JSGE.managers;
 
 import java.util.*;
 
-import game.main.core.GameObject;
-import game.main.utils.Point;
-import game.main.utils.Utils.Layer;
+import com.JSGE.core.GameObject;
+import com.JSGE.util.Point;
+import com.JSGE.util.Utils.Layer;
 
 public class LogicManager {
 	public LogicManager() {

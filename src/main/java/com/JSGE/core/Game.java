@@ -1,12 +1,11 @@
-package game.main.core;
+package com.JSGE.core;
 
 import java.util.ArrayList;
 
-import game.main.managers.InputManager;
-import game.main.managers.LogicManager;
-
-import game.main.objects.Player;
-import game.main.utils.Utils.Layer;
+import com.JSGE.managers.InputManager;
+import com.JSGE.managers.LogicManager;
+import com.JSGE.prefabs.Player;
+import com.JSGE.util.Utils.Layer;
 
 public class Game {
 	final long SECOND_IN_NANO = 1000000000l;

@@ -17,7 +17,7 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>gametest.Program</mainClass>
+            <mainClass>com.JSGE.main.Program</mainClass>
           </manifest>
         </archive>
         <descriptorRefs>

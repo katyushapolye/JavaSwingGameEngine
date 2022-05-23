@@ -1,4 +1,4 @@
-package game.main.utils;
+package com.JSGE.util;
 
 
 public final class Utils {

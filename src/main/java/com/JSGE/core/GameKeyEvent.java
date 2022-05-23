@@ -1,4 +1,4 @@
-package game.main.core;
+package com.JSGE.core;
 
 public class GameKeyEvent {
 	private char keyChar;

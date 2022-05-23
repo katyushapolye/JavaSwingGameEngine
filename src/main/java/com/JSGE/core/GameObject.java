@@ -1,4 +1,4 @@
-package game.main.core;
+package com.JSGE.core;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -8,8 +8,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import game.main.utils.*;
-import game.main.utils.Utils.Layer;
+import com.JSGE.util.*;
+import com.JSGE.util.Utils.Layer;
+
 import java.util.ArrayList;
 
 public class GameObject {

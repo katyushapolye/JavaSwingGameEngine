@@ -1,9 +1,10 @@
-package game.main.core;
+package com.JSGE.core;
 import javax.swing.JFrame;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import game.main.managers.InputManager;
+
+import com.JSGE.managers.InputManager;
 
 import java.awt.Color;
 import java.awt.Dimension;

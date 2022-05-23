@@ -1,3 +1,10 @@
-/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/gametest/RendererPanel.java
-/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/gametest/GameObject.java
-/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/gametest/Program.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/core/GameObject.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/prefabs/Player.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/util/Point.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/core/Game.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/util/Utils.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/managers/LogicManager.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/core/RendererWindow.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/main/Program.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/managers/InputManager.java
+/home/raphael/Projetos/Orientacao_Objetos/gametest/src/main/java/com/JSGE/core/GameKeyEvent.java

@@ -1,6 +1,6 @@
-package game.main.game;
+package com.JSGE.main;
 
-import game.main.core.Game;
+import com.JSGE.core.Game;
 
 public class Program {
 
