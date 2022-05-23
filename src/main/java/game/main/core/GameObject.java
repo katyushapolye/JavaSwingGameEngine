@@ -32,9 +32,11 @@ public class GameObject {
 	}
 	
 	public static void destroyAllGameObjects() {
-		TOTAL_GAME_OBJECT_COUNT=0;
+		TOTAL_GAME_OBJECT_COUNT= 0;
 		totalGameObjects.clear();
 	}
+	
+	
 	
 	public GameObject(String name,String pathToSpriteImage,int initX,int initY,int rotation,Layer initLayer,int colliderRadius){
 		this.name = name;
@@ -54,14 +56,13 @@ public class GameObject {
 		
 		totalGameObjects.add(this);
 		TOTAL_GAME_OBJECT_COUNT++;
-		System.out.println(sprite.getHeight(null));
-		System.out.println(sprite.getWidth(null));
 		
 	}
 	
+	//renderiza o objeto no graphics target desejado
 	public void draw(Graphics2D g) {
-		if(sprite == null) {
-			System.out.println("Warning - Spriteless GameObject");
+		if(sprite == null || sprite.getWidth() == -1) {
+			System.out.println("Warning - Spriteless GameObject, the sprite may have failed to load");
 			return;
 		}
 		g.drawImage(sprite, applyTransform(), null);
@@ -70,8 +71,11 @@ public class GameObject {
 	}
 	
 	
+	//Getters e Setters
+	public Utils.Layer getLayer() {
+		return this.layer;
+	}
 	
-	public Utils.Layer getLayer() {return this.layer;}
 	public void setPosition(int newX,int newY) {
 		this.X = newX;
 		this.Y = newY;
@@ -91,8 +95,7 @@ public class GameObject {
 	}
 	
 	public void update(double deltaTime) {
-		//System.out.println("Waring - Object default Update has not been overridden");
-		
+		//System.out.println("Waring - Object default Update has not been overridden, Please do not instantiate raw GameObjects");
 	}
 	
 	public int getColliderRadius() {
@@ -103,10 +106,14 @@ public class GameObject {
 		return new Point(this.X,this.Y);
 	}
 	
+	public int getRotation() {
+		return this.degrees;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
-	
+	//Fim getters and setters
 	
 	protected AffineTransform applyTransform() {
 		AffineTransform af = new AffineTransform();

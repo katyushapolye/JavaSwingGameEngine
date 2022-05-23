@@ -10,7 +10,7 @@ public class Point {
 	}
 	
 	public static float distance(Point p1,Point p2) {
-		return (float) Math.sqrt((double)(( p1.X*p1.X - p2.X*p2.X) +   (p1.Y*p1.Y - p2.Y*p2.Y)));
+		return (float) Math.sqrt((double)(Math.pow(( p1.X- p2.X),2) +   Math.pow((p1.Y-p2.Y),2)));
 	}
 
 }
