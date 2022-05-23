@@ -17,7 +17,7 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>com.JSGE.main.Program</mainClass>
+            <mainClass>jsge.main.Program</mainClass>
           </manifest>
         </archive>
         <descriptorRefs>

@@ -1,11 +1,11 @@
-package com.JSGE.prefabs;
+package jsge.prefabs;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import com.JSGE.core.GameKeyEvent;
-import com.JSGE.core.GameObject;
-import com.JSGE.core.GameKeyEvent.EventType;
-import com.JSGE.util.Utils.Layer;
+import jsge.core.GameKeyEvent;
+import jsge.core.GameObject;
+import jsge.core.GameKeyEvent.EventType;
+import jsge.util.Utils.Layer;
 
 public class Player extends GameObject{
 	private boolean isMovingUp = false;

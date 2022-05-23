@@ -1,9 +1,9 @@
-package com.JSGE.managers;
+package jsge.managers;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import com.JSGE.core.GameKeyEvent;
+import jsge.core.GameKeyEvent;
 
 public class InputManager implements KeyListener {
 	ArrayList<GameKeyEvent> keyEvents =  new ArrayList<GameKeyEvent>();

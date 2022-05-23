@@ -1,10 +1,10 @@
-package com.JSGE.core;
+package jsge.core;
 import javax.swing.JFrame;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-import com.JSGE.managers.InputManager;
+import jsge.managers.InputManager;
 
 import java.awt.Color;
 import java.awt.Dimension;

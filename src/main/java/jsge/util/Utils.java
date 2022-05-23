@@ -1,4 +1,4 @@
-package com.JSGE.util;
+package jsge.util;
 
 
 public final class Utils {

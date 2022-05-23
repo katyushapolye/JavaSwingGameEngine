@@ -1,10 +1,10 @@
-package com.JSGE.managers;
+package jsge.managers;
 
 import java.util.*;
 
-import com.JSGE.core.GameObject;
-import com.JSGE.util.Point;
-import com.JSGE.util.Utils.Layer;
+import jsge.core.GameObject;
+import jsge.util.Point;
+import jsge.util.Utils.Layer;
 
 public class LogicManager {
 	public LogicManager() {
@@ -28,7 +28,7 @@ public class LogicManager {
 						continue;
 					}
 					if(Point.distance(gm2.getPosition(), gm1.getPosition()) <= gm2.getColliderRadius()+gm1.getColliderRadius()) {
-						System.out.println("COLISION DETECTED BETWEEN " + gm1.getName() + " AND " +gm2.getName());
+						gm1.onCollision(gm2);
 					}
 				}
 				else {

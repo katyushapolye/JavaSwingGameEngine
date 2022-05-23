@@ -1,4 +1,4 @@
-package com.JSGE.core;
+package jsge.core;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -8,8 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.JSGE.util.*;
-import com.JSGE.util.Utils.Layer;
+import jsge.util.*;
+import jsge.util.Utils.Layer;
 
 import java.util.ArrayList;
 
@@ -36,6 +36,7 @@ public class GameObject {
 		TOTAL_GAME_OBJECT_COUNT= 0;
 		totalGameObjects.clear();
 	}
+	
 	
 	
 	
@@ -71,6 +72,20 @@ public class GameObject {
 		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
+	//Metodos para override
+	
+	public void onCollision(GameObject collision) {
+		System.out.println(this.name + " COLLIDED WITH " + collision.name);
+	}
+	
+	public void update(double deltaTime) {
+		//System.out.println("Waring - Object default Update has not been overridden, Please do not instantiate raw GameObjects");
+	}
+	
+	public void onDestroy() {
+		return;
+	};
+	
 	
 	//Getters e Setters
 	public Utils.Layer getLayer() {
@@ -93,10 +108,6 @@ public class GameObject {
 	
 	public void offsetRotation(int degrees) {
 		this.degrees = this.degrees+degrees;
-	}
-	
-	public void update(double deltaTime) {
-		//System.out.println("Waring - Object default Update has not been overridden, Please do not instantiate raw GameObjects");
 	}
 	
 	public int getColliderRadius() {

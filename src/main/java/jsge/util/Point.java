@@ -1,4 +1,4 @@
-package com.JSGE.util;
+package jsge.util;
 
 public class Point {
 	private int X=0;
