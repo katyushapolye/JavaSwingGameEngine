@@ -1,4 +1,5 @@
-package game.main.core;
+package game.main.utils;
+
 
 public final class Utils {
 	public static enum Layer{
@@ -8,4 +9,9 @@ public final class Utils {
 		PARTICLE,
 	}
 
+	
+	
 }
+
+
+

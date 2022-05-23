@@ -1,4 +1,5 @@
 package game.main.core;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -7,22 +8,28 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import game.main.core.Utils.*;
+import game.main.utils.*;
+import game.main.utils.Utils.Layer;
 
 
 public class GameObject {
+	protected String name;
 	protected BufferedImage sprite = null;
 	protected int X = 0;
 	protected int Y = 0;
 	protected int degrees = 0;
 	protected double[] scale =  new double[2];
-	protected Layer layer = null;
 	
-	public GameObject(String pathToSpriteImage,int initX,int initY,int rotation,Layer initLayer){
+	protected Layer layer = null;
+	protected int colliderRadius = 0;
+	
+	public GameObject(String name,String pathToSpriteImage,int initX,int initY,int rotation,Layer initLayer,int colliderRadius){
+		this.name = name;
 		this.layer = initLayer;
 		this.X = initX;
 		this.degrees = rotation;
 		this.Y = initY;
+		this.colliderRadius = colliderRadius;
 		scale[0] = 1;
 		scale[1] = 1;
 		try {
@@ -41,18 +48,19 @@ public class GameObject {
 			System.out.println("Warning - Spriteless GameObject");
 			return;
 		}
-		//g.drawOval(this.X-(sprite.getWidth()/2),this.Y-(sprite.getHeight()/2), 30, 30); colisor interessante
 		g.drawImage(sprite, applyTransform(), null);
+		g.setColor(Color.GREEN);
+		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
 	
-	public Layer getLayer() {return this.layer;}
+	public Utils.Layer getLayer() {return this.layer;}
 	public void setPosition(int newX,int newY) {
 		this.X = newX;
 		this.Y = newY;
 	}
 	
-	public void setRotarion(int degrees) {
+	public void setRotation(int degrees) {
 		this.degrees = degrees;
 	}
 	
@@ -65,12 +73,25 @@ public class GameObject {
 		this.degrees = this.degrees+degrees;
 	}
 	
-	
 	public void update(double deltaTime) {
 		//System.out.println("Waring - Object default Update has not been overridden");
+		
 	}
 	
-	private AffineTransform applyTransform() {
+	public int getColliderRadius() {
+		return this.colliderRadius;
+	}
+	
+	public Point getPosition() {
+		return new Point(this.X,this.Y);
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	
+	protected AffineTransform applyTransform() {
 		AffineTransform af = new AffineTransform();
 		af.translate(this.X, this.Y);
 		af.rotate(Math.toRadians(degrees));

@@ -16,7 +16,6 @@ public class InputManager implements KeyListener {
 	//Possivel otimização para eventos encavalados
 	public void keyPressed(KeyEvent e) {
 		
-		System.out.println(e.getKeyCode());
 		keyEvents.add(new GameKeyEvent(e.getKeyChar(),e.getKeyCode(),GameKeyEvent.EventType.Pressed));
 		}
 

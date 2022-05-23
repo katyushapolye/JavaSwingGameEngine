@@ -1,8 +1,12 @@
 package game.main.objects;
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+
 import game.main.core.GameKeyEvent;
 import game.main.core.GameObject;
 import game.main.core.GameKeyEvent.EventType;
-import game.main.core.Utils.Layer;
+import game.main.utils.Utils.Layer;
 
 public class Player extends GameObject{
 	private boolean isMovingUp = false;
@@ -11,14 +15,15 @@ public class Player extends GameObject{
 	private boolean isMovingRight = false;
 	private boolean isRotatingLeft = false;
 	private boolean isRotatingRight = false;
+	
 
 	
-	private int playerVelocity = 200;
+	private int playerVelocity = 400;
 	
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super(PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT);
+		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,40);
 		
 		
 	}
@@ -44,8 +49,21 @@ public class Player extends GameObject{
 		if(isRotatingLeft) {
 			this.offsetRotation((int)(deltaTime*-rotatingVelocity));
 		}
+		//System.out.println("X: " + this.X + " Y: " + this.Y);
 		
 		
+	}
+	
+	@Override
+	public void draw(Graphics2D g) {
+		if(sprite == null) {
+			System.out.println("Warning - Spriteless GameObject");
+			return;
+		}
+		
+		g.drawImage(sprite, super.applyTransform(), null);
+		g.setColor(Color.GREEN);
+		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
 	public void sendInput(GameKeyEvent e) {
@@ -64,7 +82,7 @@ public class Player extends GameObject{
 				this.isMovingRight = true;
 				break;
 			case 88:
-				this.playerVelocity = 100;
+				this.playerVelocity = 200;
 				break;
 			case 81:
 				this.isRotatingLeft = true;
@@ -91,7 +109,7 @@ public class Player extends GameObject{
 				this.isMovingRight = false;
 				break;
 			case 88:
-				this.playerVelocity = 200;
+				this.playerVelocity = 400;
 				break;
 			case 81:
 				this.isRotatingLeft = false;

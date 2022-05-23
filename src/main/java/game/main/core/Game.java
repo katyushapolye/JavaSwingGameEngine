@@ -2,10 +2,11 @@ package game.main.core;
 
 import java.util.ArrayList;
 
-import game.main.core.Utils.Layer;
 import game.main.managers.InputManager;
-import game.main.managers.RendererManager;
+import game.main.managers.LogicManager;
+
 import game.main.objects.Player;
+import game.main.utils.Utils.Layer;
 
 public class Game {
 	final long SECOND_IN_NANO = 1000000000l;
@@ -14,12 +15,12 @@ public class Game {
 
 	private RendererWindow gameWindow = null;
 	private InputManager inputHandler = null;
-	private RendererManager rendererManager = null;
+	private LogicManager logicManager = null;
 
 	public Game(int ScreenWidth, int ScreenHeight) {
 		gameWindow = new RendererWindow(ScreenWidth, ScreenHeight);
 		inputHandler = gameWindow.getInputHandler();
-		rendererManager = gameWindow.getRendererManager();
+		logicManager = new LogicManager();
 
 	}
 
@@ -31,16 +32,16 @@ public class Game {
 		long deltaTime = 1l;// Tempo desde ultimo frame
 		double deltaTimeInSeconds = 1;
 		// debug 4 now
-		Player player = new Player("src/main/resources/Player_Sprite.png",0,0, 0);
+		Player player = new Player("src/main/resources/Player_Sprite.png",400,400, 0);
 		ArrayList<GameObject> GAME_OBJECTS_IN_SCENE = new ArrayList<GameObject>();
 		GAME_OBJECTS_IN_SCENE.add(player);
-		GAME_OBJECTS_IN_SCENE.add(new GameObject("src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND));
-		// debug 4 now
+		GAME_OBJECTS_IN_SCENE.add(new GameObject("BG","src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND,0));
 
-		for (int i = 0; i < 10; i++) {
-			GAME_OBJECTS_IN_SCENE.add(new GameObject("src/main/resources/Player_Sprite.png", 30 + (i * 80), 100, i * 20,
-					Layer.GAMEOBJECT));
+		for (int i = 0; i < 1; i++) {
+			GAME_OBJECTS_IN_SCENE.add(new GameObject(("ENEMY_"+i) ,"src/main/resources/Player_Sprite.png", 30 + (i * 80), 100, i * 20,
+					Layer.GAMEOBJECT,25));
 		}
+		//debug 4 now
 
 		while (true) {
 			if (System.nanoTime() - tickStart >= FRAME_TARGET_TIME) {
@@ -60,13 +61,11 @@ public class Game {
 
 				// Game Logic
 
-				for (GameObject gm : GAME_OBJECTS_IN_SCENE) {
-					gm.update(deltaTimeInSeconds);
-				}
+				logicManager.handleLogic(GAME_OBJECTS_IN_SCENE, deltaTimeInSeconds);
 
 				// Drawn and then Display
 
-				rendererManager.handleRendering(GAME_OBJECTS_IN_SCENE);
+				gameWindow.renderGameObjects(GAME_OBJECTS_IN_SCENE);
 				gameWindow.display();
 
 			}
@@ -75,6 +74,7 @@ public class Game {
 			// THread.sleep não é preciso e erra o tempo de sleep, perdendo fps, deixe assim
 			// por enquanto até uma ideia melhor
 			else {
+				
 			}
 
 		}

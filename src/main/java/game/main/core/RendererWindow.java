@@ -4,7 +4,7 @@ import java.awt.RenderingHints;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import game.main.managers.InputManager;
-import game.main.managers.RendererManager;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -56,16 +56,16 @@ public class RendererWindow extends JFrame implements ActionListener{
 	public void display() {
 		screenCanvas.repaint();
 	}
-	public void drawGameObject(GameObject gm) {
+	public void renderGameObjects(ArrayList<GameObject> objectsToRender) {
+		this.rendererManager.handleRendering(objectsToRender);
+	}
+	private void drawGameObject(GameObject gm) {
 		screenCanvas.addToDrawnBuffer(gm);
 	}
 	
 	public InputManager getInputHandler() {
 		return this.inputHandler;
 		
-	}
-	public RendererManager getRendererManager() {
-		return this.rendererManager;
 	}
 	public void actionPerformed(ActionEvent e) {
 		
@@ -75,6 +75,72 @@ public class RendererWindow extends JFrame implements ActionListener{
 	
 //Classe Interna para lidar com o Painel e fazer overrides de funções, como
 //nunca sera utilizada fora de frame, fica como privada e subjulgada a classe do frame
+	private class RendererManager {
+		private RendererWindow window = null;
+		private ArrayList<GameObject> BGLayer =  new ArrayList<GameObject>();
+		private ArrayList<GameObject> UILayer =  new ArrayList<GameObject>();
+		private ArrayList<GameObject> GAMEOBJECTLayer =  new ArrayList<GameObject>();
+		private ArrayList<GameObject> PARTICLELayer =  new ArrayList<GameObject>();
+		public RendererManager(RendererWindow renderInterface){
+			this.window = renderInterface;
+			
+			
+		}
+		
+		public void handleRendering(ArrayList<GameObject> objectsToRender) {
+			
+				filterLayers(objectsToRender);
+				renderLayers();
+				clearLayers();
+				
+				
+			}
+			
+			
+		private void filterLayers(ArrayList<GameObject> objectsToRender) {
+			for(GameObject gm : objectsToRender) {
+				switch(gm.getLayer()) {
+				case BACKGROUND:
+					BGLayer.add(gm);
+					break;
+				case UI:
+					UILayer.add(gm);
+					break;
+				case GAMEOBJECT:
+					GAMEOBJECTLayer.add(gm);
+					break;
+				case PARTICLE:
+					PARTICLELayer.add(gm);
+					break;
+				}
+			}
+		}
+		
+		
+		private void renderLayers() {
+			//A ordem importa, primero é desenhado as layers de bg, dps gm, dps futuras particulas e dps UI
+			for(GameObject gm : BGLayer) {
+				window.drawGameObject(gm);
+			}
+			for(GameObject gm : GAMEOBJECTLayer) {
+				window.drawGameObject(gm);
+			}
+			for(GameObject gm : PARTICLELayer) {
+				window.drawGameObject(gm);
+			}
+			for(GameObject gm : UILayer) {
+				window.drawGameObject(gm);
+			}
+		}
+		
+		private void clearLayers() {
+			BGLayer.clear();
+			GAMEOBJECTLayer.clear();
+			PARTICLELayer.clear();
+			UILayer.clear();
+			
+		}
+	}
 
 private class RendererCanvas extends JPanel{
 	
