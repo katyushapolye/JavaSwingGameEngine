@@ -33,15 +33,12 @@ public class Game {
 		double deltaTimeInSeconds = 1;
 		// debug 4 now
 		Player player = new Player("src/main/resources/Player_Sprite.png",400,400, 0);
-		ArrayList<GameObject> GAME_OBJECTS_IN_SCENE = new ArrayList<GameObject>();
-		GAME_OBJECTS_IN_SCENE.add(player);
-		GAME_OBJECTS_IN_SCENE.add(new GameObject("BG","src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND,0));
+		new GameObject("BG","src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND,0);
 
 		for (int i = 0; i < 1; i++) {
-			GAME_OBJECTS_IN_SCENE.add(new GameObject(("ENEMY_"+i) ,"src/main/resources/Player_Sprite.png", 30 + (i * 80), 100, i * 20,
-					Layer.GAMEOBJECT,25));
+			new GameObject(("ENEMY_"+i) ,"src/main/resources/Player_Sprite.png", 30 + (i * 80), 100, i * 20,Layer.GAMEOBJECT,25);
 		}
-		//debug 4 now
+		
 
 		while (true) {
 			if (System.nanoTime() - tickStart >= FRAME_TARGET_TIME) {
@@ -61,11 +58,11 @@ public class Game {
 
 				// Game Logic
 
-				logicManager.handleLogic(GAME_OBJECTS_IN_SCENE, deltaTimeInSeconds);
+				logicManager.handleLogic(GameObject.getAllGameObjects(), deltaTimeInSeconds);
 
 				// Drawn and then Display
 
-				gameWindow.renderGameObjects(GAME_OBJECTS_IN_SCENE);
+				gameWindow.renderGameObjects(GameObject.getAllGameObjects());
 				gameWindow.display();
 
 			}

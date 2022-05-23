@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import game.main.utils.*;
 import game.main.utils.Utils.Layer;
-
+import java.util.ArrayList;
 
 public class GameObject {
 	protected String name;
@@ -22,6 +22,19 @@ public class GameObject {
 	
 	protected Layer layer = null;
 	protected int colliderRadius = 0;
+	
+	
+	private static int TOTAL_GAME_OBJECT_COUNT = 0;
+	private static ArrayList<GameObject> totalGameObjects =  new ArrayList<GameObject>();
+	
+	public static ArrayList<GameObject> getAllGameObjects() {
+		return totalGameObjects;
+	}
+	
+	public static void destroyAllGameObjects() {
+		TOTAL_GAME_OBJECT_COUNT=0;
+		totalGameObjects.clear();
+	}
 	
 	public GameObject(String name,String pathToSpriteImage,int initX,int initY,int rotation,Layer initLayer,int colliderRadius){
 		this.name = name;
@@ -38,6 +51,9 @@ public class GameObject {
 		catch(IOException e){
 			e.printStackTrace();
 		}	
+		
+		totalGameObjects.add(this);
+		TOTAL_GAME_OBJECT_COUNT++;
 		System.out.println(sprite.getHeight(null));
 		System.out.println(sprite.getWidth(null));
 		
@@ -52,6 +68,7 @@ public class GameObject {
 		g.setColor(Color.GREEN);
 		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
+	
 	
 	
 	public Utils.Layer getLayer() {return this.layer;}
