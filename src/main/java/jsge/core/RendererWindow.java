@@ -176,8 +176,8 @@ private class RendererCanvas extends JPanel{
 		gameObjectList.add(gm);
 	}
 	
+	@SuppressWarnings("unused")
 	public void clear() {
-		//Deleta todo o buffer trocando a referencia, dps o GC cuida da memoria 
 		gameObjectList.clear();
 		repaint();
 	}

@@ -28,6 +28,9 @@ public class GameObject {
 	private static int TOTAL_GAME_OBJECT_COUNT = 0;
 	private static ArrayList<GameObject> totalGameObjects =  new ArrayList<GameObject>();
 	
+	public static int getTotalGameObjectCount() {
+		return TOTAL_GAME_OBJECT_COUNT;
+	}
 	public static ArrayList<GameObject> getAllGameObjects() {
 		return totalGameObjects;
 	}
@@ -35,6 +38,12 @@ public class GameObject {
 	public static void destroyAllGameObjects() {
 		TOTAL_GAME_OBJECT_COUNT= 0;
 		totalGameObjects.clear();
+	}
+	
+	public static void destroyGameObject(GameObject gameObjectToDestroy) {
+		gameObjectToDestroy.onDestroy();
+		totalGameObjects.remove(gameObjectToDestroy);
+		
 	}
 	
 	
