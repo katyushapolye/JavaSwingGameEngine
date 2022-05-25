@@ -33,7 +33,7 @@ public class Game {
 		// debug 4 now
 		Player player = new Player("src/main/resources/Player_Sprite.png",400,400, 0);
 		new GameObject("BG","src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND,0);
-
+		player.setScale(1, 1);
 		for (int i = 0; i < 10; i++) {
 			new GameObject(("ENEMY_"+i) ,"src/main/resources/Player_Sprite.png", 30 + (i * 80), 100, i * 20,Layer.GAMEOBJECT,25);
 		}

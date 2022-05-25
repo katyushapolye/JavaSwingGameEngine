@@ -145,10 +145,10 @@ public class GameObject {
 	protected AffineTransform applyTransform() {
 		AffineTransform af = new AffineTransform();
 		af.translate(this.X, this.Y);
-		af.rotate(Math.toRadians(degrees));
-		af.translate(-sprite.getWidth()/2,-sprite.getHeight()/2);
 		af.scale(this.scale[0],this.scale[1]);
-	
+
+		af.rotate(Math.toRadians(degrees));
+		af.translate(-sprite.getWidth()/2,-sprite.getHeight()/2);	
 		return af;
 	}
 
