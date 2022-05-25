@@ -2,6 +2,7 @@ jsge/core/Game.class
 jsge/util/Utils.class
 jsge/util/Utils$Layer.class
 jsge/core/GameObject.class
+jsge/util/Clock.class
 jsge/managers/LogicManager.class
 jsge/main/Program.class
 jsge/core/GameKeyEvent$EventType.class
