@@ -1,7 +1,6 @@
 package jsge.core;
 
-
-
+import jsge.util.Clock;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.prefabs.Player;
@@ -27,26 +26,21 @@ public class Game {
 	// frame (tick completo)
 
 	public void run() {
-		long tickStart = System.nanoTime();
-		long deltaTime = 1l;// Tempo desde ultimo frame
-		double deltaTimeInSeconds = 1;
-		// debug 4 now
-		Player player = new Player("src/main/resources/Player_Sprite.png",400,400, 0);
-		new GameObject("BG","src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND,0);
+		// Scene Loading
+		Player player = new Player("src/main/resources/Player_Sprite.png", 400, 400, 0);
+		new GameObject("BG", "src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND, 0);
 		player.setScale(1, 1);
 		for (int i = 0; i < 10; i++) {
-			new GameObject(("ENEMY_"+i) ,"src/main/resources/Player_Sprite.png", 30 + (i * 80), 100, i * 20,Layer.GAMEOBJECT,25);
+			new GameObject(("ENEMY_" + i), "src/main/resources/Player_Sprite.png", 30 + (i * 80), 100, i * 20,
+					Layer.GAMEOBJECT, 25);
 		}
-		
+		// Scene loading end, fazer mais tarde
 
-		while (true) {
-			if (System.nanoTime() - tickStart >= FRAME_TARGET_TIME) {
-				deltaTime = System.nanoTime() - tickStart;
-				deltaTimeInSeconds = (double) deltaTime / 1000000000;
-				tickStart = System.nanoTime();
-				// System.out.printf("DeltaTime:%f Seconds%n",deltaTimeInSeconds);
-				// System.out.printf("FPS:%d%n",SECOND_IN_NANO/deltaTime);
-				// Check Game State
+		jsge.util.Clock gameClock = new Clock();
+		while (!(player.isPlayerDead())) {
+			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
+				double deltaTime = gameClock.resetClock();
+				System.out.println("FPS: " + (1.f/ (float) deltaTime));
 
 				// Pool Input
 				while (inputHandler.isPoolingDone()) {
@@ -57,24 +51,23 @@ public class Game {
 
 				// Game Logic
 
-				logicManager.handleLogic(GameObject.getAllGameObjects(), deltaTimeInSeconds);
+				logicManager.handleLogic(GameObject.getAllGameObjects(), deltaTime);
 
 				// Drawn and then Display
 
 				gameWindow.renderGameObjects(GameObject.getAllGameObjects());
 				gameWindow.display();
 
-			}
-			// System.out.printf("DeltaTime:%d nanoSeconds%n",deltaTime);
+			} else {
+				try {
+					Thread.sleep((FRAME_TARGET_TIME - gameClock.getElapsedTimeInNanoSeconds()) / 1000000);
+				} catch (Exception e) {
 
-			// THread.sleep não é preciso e erra o tempo de sleep, perdendo fps, deixe assim
-			// por enquanto até uma ideia melhor
-			else {
-				
+				}
+
 			}
 
 		}
 
 	}
-
 }

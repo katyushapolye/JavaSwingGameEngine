@@ -15,6 +15,8 @@ public class Player extends GameObject{
 	private boolean isRotatingLeft = false;
 	private boolean isRotatingRight = false;
 	
+	private boolean isPlayerDead = false;
+	
 
 	
 	private int playerVelocity = 400;
@@ -22,7 +24,7 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,20);
+		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,25);
 		
 		
 	}
@@ -51,6 +53,10 @@ public class Player extends GameObject{
 		if(isRotatingLeft) {
 			this.offsetRotation((int)(deltaTime*-rotatingVelocity));
 		}
+		//check for screen bounds
+		if(this.X > 800) {
+			this.X = 800;
+		}
 		//System.out.println("X: " + this.X + " Y: " + this.Y);
 		
 		
@@ -68,6 +74,10 @@ public class Player extends GameObject{
 		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
+	
+	public boolean isPlayerDead() {
+		return this.isPlayerDead;
+	}
 	public void sendInput(GameKeyEvent e) {
 		if(e.getEventType() == EventType.Pressed) {
 			switch(e.getKeyCode()) {
