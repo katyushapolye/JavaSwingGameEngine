@@ -22,7 +22,7 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,40);
+		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,20);
 		
 		
 	}

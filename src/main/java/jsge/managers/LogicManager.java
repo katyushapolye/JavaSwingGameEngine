@@ -32,8 +32,7 @@ public class LogicManager {
 						if (gm1.equals(gm2)) {
 							continue;
 						}
-						if (Point.distance(gm2.getPosition(), gm1.getPosition()) <= gm2.getColliderRadius()
-								+ gm1.getColliderRadius()) {
+						if (Point.distance(gm2.getPosition(), gm1.getPosition()) <= gm2.getColliderRadius()+ gm1.getColliderRadius()) {
 							gm1.onCollision(gm2);
 						}
 					} else {

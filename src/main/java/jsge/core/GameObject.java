@@ -48,7 +48,7 @@ public class GameObject {
 	
 	
 	
-	
+	//Adicionar overloads nesse metodo, para opções vazias etc
 	public GameObject(String name,String pathToSpriteImage,int initX,int initY,int rotation,Layer initLayer,int colliderRadius){
 		this.name = name;
 		this.layer = initLayer;
@@ -78,6 +78,7 @@ public class GameObject {
 		}
 		g.drawImage(sprite, applyTransform(), null);
 		g.setColor(Color.GREEN);
+		//debug
 		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
@@ -133,6 +134,11 @@ public class GameObject {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	public void setScale(double scaleX,double scaleY) {
+		this.scale[0] = scaleX;
+		this.scale[1] = scaleY;
 	}
 	//Fim getters and setters
 	
