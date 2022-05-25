@@ -27,6 +27,7 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 	
 	public GameRendererWindow(int X,int Y) {
 		this.setResizable(false);
+		
 		inputHandler= new InputManager();
 		rendererManager =  new RendererManager(this);
 		addKeyListener(inputHandler);
