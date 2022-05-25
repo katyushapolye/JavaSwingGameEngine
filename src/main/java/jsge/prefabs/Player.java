@@ -53,11 +53,9 @@ public class Player extends GameObject{
 		if(isRotatingLeft) {
 			this.offsetRotation((int)(deltaTime*-rotatingVelocity));
 		}
-		//check for screen bounds
-		if(this.X > 800) {
-			this.X = 800;
-		}
+		//384x448
 		//System.out.println("X: " + this.X + " Y: " + this.Y);
+		checkPlayerBounds();
 		
 		
 	}
@@ -133,6 +131,21 @@ public class Player extends GameObject{
 			}
 	
 		
+	}
+	
+	private void checkPlayerBounds() {
+		if(this.X >= 384+33) {
+			this.X = 384+33;
+		}
+		if(this.X <= 33) {
+			this.X = 33;
+		}
+		if(this.Y <= 16) {
+			this.Y = 16;
+		}
+		if(this.Y >= 448+16) {
+			this.Y = 448+16;
+		}
 	}
 		
 	
