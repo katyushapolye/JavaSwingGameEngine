@@ -11,12 +11,12 @@ public class Game {
 	final long FPS = 60l;
 	final long FRAME_TARGET_TIME = SECOND_IN_NANO / FPS;
 
-	private RendererWindow gameWindow = null;
+	private GameRendererWindow gameWindow = null;
 	private InputManager inputHandler = null;
 	private LogicManager logicManager = null;
 
 	public Game(int ScreenWidth, int ScreenHeight) {
-		gameWindow = new RendererWindow(ScreenWidth, ScreenHeight);
+		gameWindow = new GameRendererWindow(ScreenWidth, ScreenHeight);
 		inputHandler = gameWindow.getInputHandler();
 		logicManager = new LogicManager();
 

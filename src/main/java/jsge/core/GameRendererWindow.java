@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 
 
 @SuppressWarnings("serial")
-public class RendererWindow extends JFrame implements ActionListener{
+public class GameRendererWindow extends JFrame implements ActionListener{
 	int SCREEN_W = 800;
 	int SCREEN_H = 800;
 	private InputManager inputHandler = null;
@@ -25,7 +25,7 @@ public class RendererWindow extends JFrame implements ActionListener{
 	private RendererManager rendererManager = null;
 	private RenderingHints renderingHints = null;
 	
-	public RendererWindow(int X,int Y) {
+	public GameRendererWindow(int X,int Y) {
 		this.setResizable(false);
 		inputHandler= new InputManager();
 		rendererManager =  new RendererManager(this);
@@ -77,12 +77,12 @@ public class RendererWindow extends JFrame implements ActionListener{
 //Classe Interna para lidar com o Painel e fazer overrides de funções, como
 //nunca sera utilizada fora de frame, fica como privada e subjulgada a classe do frame
 	private class RendererManager {
-		private RendererWindow window = null;
+		private GameRendererWindow window = null;
 		private ArrayList<GameObject> BGLayer =  new ArrayList<GameObject>();
 		private ArrayList<GameObject> UILayer =  new ArrayList<GameObject>();
 		private ArrayList<GameObject> GAMEOBJECTLayer =  new ArrayList<GameObject>();
 		private ArrayList<GameObject> PARTICLELayer =  new ArrayList<GameObject>();
-		public RendererManager(RendererWindow renderInterface){
+		public RendererManager(GameRendererWindow renderInterface){
 			this.window = renderInterface;
 			
 			
