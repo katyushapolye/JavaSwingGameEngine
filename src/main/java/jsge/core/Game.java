@@ -27,13 +27,9 @@ public class Game {
 
 	public void run() {
 		// Scene Loading
-		Player player = new Player("src/main/resources/Player_Sprite.png", 400, 400, 0);
-		new GameObject("BG", "src/main/resources/Game_BG.png", 400, 400, 0, Layer.BACKGROUND, 0);
-		player.setScale(1, 1);
-		for (int i = 0; i < 10; i++) {
-			new GameObject(("ENEMY_" + i), "src/main/resources/Player_Sprite.png", 30 + (i * 80), 100, i * 20,
-					Layer.GAMEOBJECT, 25);
-		}
+		Player player = new Player("src/main/resources/Assets/Marisa_SpriteSheet.png", 30, 33, 0);
+		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", 320, 240, 0, Layer.BACKGROUND, 0);
+		
 		// Scene loading end, fazer mais tarde
 
 		jsge.util.Clock gameClock = new Clock();
