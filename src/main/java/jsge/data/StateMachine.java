@@ -32,10 +32,10 @@ public class StateMachine <T> {
 			
 	}
 	
-	public void changeState(String TransitionID) {
+	public void changeState(String transitionID) {
 		Transition<T> temp = null;
 		for (Transition<T> t : currentState.getAllTransitions()) {
-			if(t.transitionTrigger == TransitionID) {
+			if(t.transitionTrigger == transitionID) {
 				temp =t;
 			}
 		} 
@@ -112,9 +112,9 @@ public class StateMachine <T> {
 			}
 			State<T> temp = new State<T>(stateName,data);
 			stateList.add(temp);
-			originState.addTransition(new Transition<T>(trigger,originState,temp));
+			originState.addTransition(new Transition<T>(trigger,temp));
 			if(twoWay) {
-				temp.addTransition(new Transition<T>(trigger,temp,originState));
+				temp.addTransition(new Transition<T>(trigger,originState));
 			}
 			
 		}
@@ -134,40 +134,51 @@ public class StateMachine <T> {
 	}
 	
 	
+	public void dumpStateMachineOnConsole() {
+		System.out.println("Current State:  " + currentState.stateID);
+		System.out.println("Default State: " + defaultState.stateID);
+		
+		for (State<T> state : stateList) {
+			System.out.println("-State:  " + state.stateID);
+			state.dumpTransitions();
+		}
+	}
 	
-	
-	private class Transition<T>{
-		private State<T> originState = null;
-		private State<T> destinationState = null;
+	private class Transition<V>{
+		private State<V> destinationState = null;
 		private String transitionTrigger = null;
-		public Transition(String transitionTrigger,State<T> originState,State<T> destinationState) {
-			this.originState =  originState;
+		public Transition(String transitionTrigger,State<V> destinationState) {
 			this.destinationState =  destinationState;
 			this.transitionTrigger = transitionTrigger;
 			
 		}
 		
 	}
-	private class State<T>{
+	private class State<U>{
 		public String stateID;
-		private T data = null;
-		private ArrayList<Transition<T>> transitions = null;
+		private U data = null;
+		private ArrayList<Transition<U>> transitions = null;
 		
-		public State(String stateID,T data){
-			transitions = new ArrayList<Transition<T>>();
+		public State(String stateID,U data){
+			transitions = new ArrayList<Transition<U>>();
 			this.data = data;
 			this.stateID = stateID;
 		}
-		private ArrayList<Transition<T>> getAllTransitions(){
+		private ArrayList<Transition<U>> getAllTransitions(){
 			return this.transitions;
 		}
 		
-		public void addTransition(Transition<T> transition) {
+		public void addTransition(Transition<U> transition) {
 			transitions.add(transition);	
 		}
 		
-		public T getData() {
+		public U getData() {
 			return this.data;
+		}
+		public void dumpTransitions() {
+			for (Transition<U> t : transitions) {
+				System.out.println("===" + this.stateID + " --" + t.transitionTrigger + "--> " + t.destinationState.stateID);
+			}
 		}
 		
 	}

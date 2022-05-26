@@ -32,7 +32,7 @@ public class Game {
 		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", 320, 240, 0, Layer.UI, 0);
 		
 		
-		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_0.png", 30, 33, 0);
+		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 30, 33, 0);
 		
 		
 		// Scene loading end, fazer mais tarde
@@ -46,12 +46,17 @@ public class Game {
 		jsge.util.Clock animationClock = new Clock();
 		int i = 0;
 		AnimationClip ac =  new AnimationClip();
-		ac.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle",0.33f,4,true);
+		ac.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle",
+									0.25f,4,true);
+		AnimationClip ac2 = new AnimationClip();
+		ac2.loadAnimationSpriteSheet("Marisa_Right","src/main/resources/Assets/Marisa/Marisa_Moving_Right_Animation/Marisa_Right",
+									0.25f,3,true);
+
 		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>();
 		sm.addState("Marisa_Idle",ac,null,null,false);
 		sm.addState("Marisa_Moving_Left",ac,"Marisa_Idle","Left",true);
 		sm.forceStateChange("Marisa_Moving_Left");
-		
+		sm.dumpStateMachineOnConsole();
 		//ENDDEBUG ENDDEBUG ENDDEBUG
 		
 		
@@ -78,16 +83,9 @@ public class Game {
 				
 				//DEBUG --  DEBUG -- DEBUG -- DEBUG -- DEBUG
 				
-				if(animationClock.getElapsedTimeInSeconds() >= ac.getAnimationLength()/ac.getAnimationFrameCount()) {
+				if(animationClock.getElapsedTimeInSeconds() >= ac2.getAnimationLength()/ac2.getAnimationFrameCount()) {
 					animationClock.resetClock();
-					player.setSprite(ac.getAnimationFrame(i%ac.getAnimationFrameCount()));
-					if(i%2 == 0) {
-						sm.changeState("Left");
-					}
-					else {
-						sm.changeState("Left");
-					}
-					System.out.println(sm.getCurrentStateID());
+					player.setSprite(ac2.getAnimationFrame(i%ac2.getAnimationFrameCount()));
 					//System.out.println("Update sprite");
 					i++;
 					
