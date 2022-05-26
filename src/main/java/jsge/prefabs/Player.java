@@ -63,7 +63,7 @@ public class Player extends GameObject{
 	@Override
 	public void draw(Graphics2D g) {
 		if(sprite == null) {
-			System.out.println("Warning - Spriteless GameObject");
+			//System.out.println("Warning - Spriteless GameObject");
 			return;
 		}
 		

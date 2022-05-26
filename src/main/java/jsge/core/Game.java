@@ -1,6 +1,7 @@
 package jsge.core;
 
 import jsge.util.Clock;
+import jsge.data.AnimationClip;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.prefabs.Player;
@@ -27,16 +28,22 @@ public class Game {
 
 	public void run() {
 		// Scene Loading
-		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_01.png", 30, 33, 0);
 		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", 320, 240, 0, Layer.UI, 0);
+		AnimationClip ac =  new AnimationClip();
+		ac.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle",0.33f,4,true);
+		
+		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_0.png", 30, 33, 0);
+		
 		
 		// Scene loading end, fazer mais tarde
-
+		//Devem ser declarados assim pois há java.awt.clock
 		jsge.util.Clock gameClock = new Clock();
+		jsge.util.Clock animationClock = new Clock();
+		int i = 0;
 		while (!(player.isPlayerDead())) {
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
 				double deltaTime = gameClock.resetClock();
-				System.out.println("FPS: " + (1.f/ (float) deltaTime));
+				//System.out.println("FPS: " + (1.f/ (float) deltaTime));
 
 				// Pool Input
 				while (inputHandler.isPoolingDone()) {
@@ -50,6 +57,21 @@ public class Game {
 				logicManager.handleLogic(GameObject.getAllGameObjects(), deltaTime);
 
 				// Drawn and then Display
+				
+				
+			
+				
+				//DEBUG --  DEBUG -- DEBUG -- DEBUG -- DEBUG
+				if(animationClock.getElapsedTimeInSeconds() >= ac.getAnimationLength()/ac.getAnimationFrameCount()) {
+					animationClock.resetClock();
+					player.setSprite(ac.getAnimationFrame(i%ac.getAnimationFrameCount()));
+					System.out.println("Update sprite");
+					i++;
+					
+				}
+				//ENDDEBUG --  ENDDEBUG -- ENDDEBUG -- ENDDEBUG
+
+				
 
 				gameWindow.renderGameObjects(GameObject.getAllGameObjects());
 				gameWindow.display();

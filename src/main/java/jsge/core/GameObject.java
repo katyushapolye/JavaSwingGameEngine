@@ -73,7 +73,7 @@ public class GameObject {
 	//renderiza o objeto no graphics target desejado
 	public void draw(Graphics2D g) {
 		if(sprite == null || sprite.getWidth() == -1) {
-			System.out.println("Warning - Spriteless GameObject, the sprite may have failed to load");
+			//System.out.println("Warning - Spriteless GameObject, the sprite may have failed to load");
 			return;
 		}
 		g.drawImage(sprite, applyTransform(), null);
@@ -98,6 +98,10 @@ public class GameObject {
 	
 	
 	//Getters e Setters
+	
+	public void setSprite(BufferedImage sprite) {
+		this.sprite = sprite;
+	}
 	public Utils.Layer getLayer() {
 		return this.layer;
 	}

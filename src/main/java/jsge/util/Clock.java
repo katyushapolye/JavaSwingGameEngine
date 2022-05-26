@@ -11,7 +11,7 @@ public class Clock {
 	}
 	
 	public double getElapsedTimeInSeconds() {
-		return (System.nanoTime()- epoch)/1000000000;
+		return (System.nanoTime()- epoch)/((double)1000000000);
 	}
 	
 	
