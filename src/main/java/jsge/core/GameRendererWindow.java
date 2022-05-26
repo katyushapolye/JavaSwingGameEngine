@@ -31,7 +31,7 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 	private RenderingHints renderingHints = null;
 	
 	public GameRendererWindow(int X,int Y) {
-		//this.setResizable(false);
+		this.setResizable(false);
 		
 		inputHandler= new InputManager();
 		rendererManager =  new RendererManager(this);
@@ -163,11 +163,10 @@ private class RendererCanvas extends JPanel{
 		System.out.println("Canvas Initialized");
 		}
 
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
-		
-		//trocar para usar variavel atualizada sempre que mudar a tela, como o tamanho atual o jframe
 		g2d.scale((float)this.getWidth()/(float)SCREEN_DEFAULT_SIZE_W,(float)this.getHeight()/(float)SCREEN_DEFAULT_SIZE_H);
 		g2d.addRenderingHints(renderingHints);
 		//System.out.println("Screen has been painted");

@@ -19,12 +19,12 @@ public class Player extends GameObject{
 	
 
 	
-	private int playerVelocity = 400;
+	private int playerVelocity = 420;
 	
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,25);
+		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,5);
 		
 		
 	}
@@ -134,17 +134,18 @@ public class Player extends GameObject{
 	}
 	
 	private void checkPlayerBounds() {
-		if(this.X >= 384+33) {
-			this.X = 384+33;
+		//ainda estou testando com as screen bounds
+		if(this.X >= 384+33 -16) {
+			this.X = 384+33 -16;
 		}
-		if(this.X <= 33) {
-			this.X = 33;
+		if(this.X <= 33+16) {
+			this.X = 33+16;
 		}
-		if(this.Y <= 16) {
-			this.Y = 16;
+		if(this.Y <= 16+15) {
+			this.Y = 16+15;
 		}
-		if(this.Y >= 448+16) {
-			this.Y = 448+16;
+		if(this.Y >= 448+16-15) {
+			this.Y = 448+16-15;
 		}
 	}
 		

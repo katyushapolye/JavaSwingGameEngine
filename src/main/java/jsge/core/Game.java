@@ -2,6 +2,7 @@ package jsge.core;
 
 import jsge.util.Clock;
 import jsge.data.AnimationClip;
+import jsge.data.StateMachine;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.prefabs.Player;
@@ -29,8 +30,7 @@ public class Game {
 	public void run() {
 		// Scene Loading
 		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", 320, 240, 0, Layer.UI, 0);
-		AnimationClip ac =  new AnimationClip();
-		ac.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle",0.33f,4,true);
+		
 		
 		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_0.png", 30, 33, 0);
 		
@@ -38,8 +38,23 @@ public class Game {
 		// Scene loading end, fazer mais tarde
 		//Devem ser declarados assim pois há java.awt.clock
 		jsge.util.Clock gameClock = new Clock();
+		
+		
+		
+		//DEBUG DEBUG DEBUG DEBUG
+		
 		jsge.util.Clock animationClock = new Clock();
 		int i = 0;
+		AnimationClip ac =  new AnimationClip();
+		ac.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle",0.33f,4,true);
+		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>();
+		sm.addState("Marisa_Idle",ac,null,null,false);
+		sm.addState("Marisa_Moving_Left",ac,"Marisa_Idle","Left",true);
+		sm.forceStateChange("Marisa_Moving_Left");
+		
+		//ENDDEBUG ENDDEBUG ENDDEBUG
+		
+		
 		while (!(player.isPlayerDead())) {
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
 				double deltaTime = gameClock.resetClock();
@@ -62,13 +77,22 @@ public class Game {
 			
 				
 				//DEBUG --  DEBUG -- DEBUG -- DEBUG -- DEBUG
+				
 				if(animationClock.getElapsedTimeInSeconds() >= ac.getAnimationLength()/ac.getAnimationFrameCount()) {
 					animationClock.resetClock();
 					player.setSprite(ac.getAnimationFrame(i%ac.getAnimationFrameCount()));
-					System.out.println("Update sprite");
+					if(i%2 == 0) {
+						sm.changeState("Left");
+					}
+					else {
+						sm.changeState("Left");
+					}
+					System.out.println(sm.getCurrentStateID());
+					//System.out.println("Update sprite");
 					i++;
 					
 				}
+				
 				//ENDDEBUG --  ENDDEBUG -- ENDDEBUG -- ENDDEBUG
 
 				

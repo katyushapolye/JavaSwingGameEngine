@@ -1,23 +1,173 @@
 package jsge.data;
+import java.util.*;
 
-public class StateMachine {
+
+public class StateMachine <T> {
+	private State<T> currentState;
+	private State<T> defaultState;
+	private State<T> exitState;
+	
+	
+	//REUTILIZAR USANDO GENERICO PARA MAQUINA DE ESTADO DO JOGO <- REFATORAR
+	private ArrayList<State<T>> stateList;
 	
 	public StateMachine() {
+		stateList =  new ArrayList<State<T>>();
 		
+	}
+	
+	//public StateMachine(StateMachine sm) {
+	//	this = sm;
+	//}
+	
+	public void forceStateChange(String stateID) {
+		State<T> temp = findStatebyID(stateID);
+		if(temp == null){
+			System.out.println("Error - State not found");
+			return;
+		}
+		else {
+			currentState = temp;
+		}
+			
+	}
+	
+	public void changeState(String TransitionID) {
+		Transition<T> temp = null;
+		for (Transition<T> t : currentState.getAllTransitions()) {
+			if(t.transitionTrigger == TransitionID) {
+				temp =t;
+			}
+		} 
+		if(temp == null) {
+			System.out.println("Error - No transition matches this ID for the current state");
+			return;
+		}
+		 currentState = temp.destinationState;
+		
+	}
+	
+	public void exitMachine() {
+		this.currentState = this.exitState;
+	}
+	
+	public void setDefaultState(String stateID) {
+		State<T> temp = this.findStatebyID(stateID);
+		if(temp == null) {
+			System.out.println("Error - State not found");
+			return;
+		}
+		this.defaultState = temp;
+	}
+	public void setExitState(String stateID) {
+		State<T> temp = this.findStatebyID(stateID);
+		if(temp == null) {
+			System.out.println("Error - State not found");
+			return;
+		}
+		this.exitState = temp;
+	}
+	
+	public void resetMachine() {
+		this.currentState = this.defaultState;
+	}
+	
+	public String getCurrentStateID() {
+		return this.currentState.stateID;
+	}
+	
+	//Refatorar para generalizar a maquina
+	public T getCurrentStateData() {
+		return this.currentState.getData();
+	}
+	
+	public void addState(String stateName,T data,String sourceState,String trigger,boolean twoWay) {
+		if(sourceState ==  null || stateList.size() == 0) {
+			System.out.println("No state previously set, setting " + stateName + " as default state");
+
+			sourceState = "origin";
+			stateList.add(new State<T>(stateName,data));
+			defaultState =  stateList.get(0);
+			currentState =  defaultState;
+			exitState = defaultState;
+			
+		}
+		else {
+			State<T> originState = null;
+			
+			for (int i = 0; i < stateList.size(); i++) {
+				if(stateList.get(i).stateID == stateName) {
+					System.out.println("Error - Failed to create state in State in StateMachine, Duplicated stateID");
+					break;
+				}
+				if(stateList.get(i).stateID == sourceState) {
+					originState = stateList.get(i);
+				}
+				
+			}
+			
+			if(originState == null) {
+				System.out.println("Error - Failed to create state in State in StateMachine, Origin state not found");
+
+			}
+			State<T> temp = new State<T>(stateName,data);
+			stateList.add(temp);
+			originState.addTransition(new Transition<T>(trigger,originState,temp));
+			if(twoWay) {
+				temp.addTransition(new Transition<T>(trigger,temp,originState));
+			}
+			
+		}
+		
+		
+	}
+	
+	private State<T> findStatebyID(String ID) {
+		State<T> returnState = null;
+		for (State<T> state : stateList) {
+			if (state.stateID == ID) {
+				returnState = state;
+				return returnState;
+			}
+		}
+		return returnState;
 	}
 	
 	
 	
 	
-	private class Transition{
-		public Transition() {
+	private class Transition<T>{
+		private State<T> originState = null;
+		private State<T> destinationState = null;
+		private String transitionTrigger = null;
+		public Transition(String transitionTrigger,State<T> originState,State<T> destinationState) {
+			this.originState =  originState;
+			this.destinationState =  destinationState;
+			this.transitionTrigger = transitionTrigger;
 			
 		}
 		
 	}
-	private class State{
-		public State(){
-			
+	private class State<T>{
+		public String stateID;
+		private T data = null;
+		private ArrayList<Transition<T>> transitions = null;
+		
+		public State(String stateID,T data){
+			transitions = new ArrayList<Transition<T>>();
+			this.data = data;
+			this.stateID = stateID;
+		}
+		private ArrayList<Transition<T>> getAllTransitions(){
+			return this.transitions;
+		}
+		
+		public void addTransition(Transition<T> transition) {
+			transitions.add(transition);	
+		}
+		
+		public T getData() {
+			return this.data;
 		}
 		
 	}
