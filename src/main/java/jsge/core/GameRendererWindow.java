@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 import jsge.managers.InputManager;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,15 +19,19 @@ import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
 public class GameRendererWindow extends JFrame implements ActionListener{
-	int SCREEN_W = 800;
-	int SCREEN_H = 800;
+	int SCREEN_W = 640;
+	int SCREEN_H = 480;
+	
+	int SCREEN_DEFAULT_SIZE_W = 640;
+	int SCREEN_DEFAULT_SIZE_H = 480;
+	
 	private InputManager inputHandler = null;
 	private RendererCanvas screenCanvas = null;
 	private RendererManager rendererManager = null;
 	private RenderingHints renderingHints = null;
 	
 	public GameRendererWindow(int X,int Y) {
-		this.setResizable(false);
+		//this.setResizable(false);
 		
 		inputHandler= new InputManager();
 		rendererManager =  new RendererManager(this);
@@ -34,15 +39,19 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 		SCREEN_H = Y;
 		SCREEN_W = X;
 		if(X==0 || Y==0) {
-			SCREEN_W = 800;
-			SCREEN_H = 800;
+			SCREEN_W = 640;
+			SCREEN_H = 480;
 		}
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//super.setSize(SCREEN_W, SCREEN_H);
-		this.setVisible(true);
 		screenCanvas = new RendererCanvas();
-		this.add(screenCanvas);
+		this.setLayout(new BorderLayout());
+		
+		this.add(screenCanvas,BorderLayout.CENTER);
+		
+		this.setUndecorated(false);
+		this.setVisible(true);
 		this.pack();
 		
 		
@@ -157,6 +166,9 @@ private class RendererCanvas extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
+		
+		//trocar para usar variavel atualizada sempre que mudar a tela, como o tamanho atual o jframe
+		g2d.scale((float)this.getWidth()/(float)SCREEN_DEFAULT_SIZE_W,(float)this.getHeight()/(float)SCREEN_DEFAULT_SIZE_H);
 		g2d.addRenderingHints(renderingHints);
 		//System.out.println("Screen has been painted");
 		super.paintComponent(g2d);
