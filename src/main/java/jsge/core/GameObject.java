@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import jsge.components.AnimationController;
 import jsge.util.*;
 import jsge.util.Utils.Layer;
 
@@ -15,11 +16,19 @@ import java.util.ArrayList;
 
 public class GameObject {
 	protected String name;
+	
+	//To create sprite class
 	protected BufferedImage sprite = null;
+	
+	//To create transform class
 	protected int X = 0;
 	protected int Y = 0;
 	protected int degrees = 0;
 	protected double[] scale =  new double[2];
+	
+	//Planned components
+	
+	protected AnimationController animationController = null;
 	
 	protected Layer layer = null;
 	protected int colliderRadius = 0;
@@ -79,7 +88,6 @@ public class GameObject {
 		g.drawImage(sprite, applyTransform(), null);
 		g.setColor(Color.GREEN);
 		//debug
-		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
 	//Metodos para override
@@ -89,6 +97,9 @@ public class GameObject {
 	}
 	
 	public void update(double deltaTime) {
+		if(animationController != null) {
+			animationController.updateAnimationController();
+		}
 		//System.out.println("Waring - Object default Update has not been overridden, Please do not instantiate raw GameObjects");
 	}
 	
@@ -99,9 +110,15 @@ public class GameObject {
 	
 	//Getters e Setters
 	
+	
+	public void setAnimationController(AnimationController animationController) {
+		this.animationController = animationController;
+	}
+	
 	public void setSprite(BufferedImage sprite) {
 		this.sprite = sprite;
 	}
+	
 	public Utils.Layer getLayer() {
 		return this.layer;
 	}

@@ -56,4 +56,8 @@ public class AnimationClip {
 		public int getAnimationFrameCount() {
 			return this.animationFrames;
 		}
+		
+		public boolean getAnimationLooping() {
+			return this.loops;
+		}
 }

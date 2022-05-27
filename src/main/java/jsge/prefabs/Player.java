@@ -1,10 +1,13 @@
 package jsge.prefabs;
+import jsge.components.AnimationController;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
 import jsge.core.GameKeyEvent;
 import jsge.core.GameObject;
 import jsge.core.GameKeyEvent.EventType;
+import jsge.data.AnimationClip;
+import jsge.data.StateMachine;
 import jsge.util.Utils.Layer;
 
 public class Player extends GameObject{
@@ -26,6 +29,30 @@ public class Player extends GameObject{
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
 		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,5);
 		
+		//Player State Machine Initialization
+		AnimationClip idleAnimation =  new AnimationClip();
+		idleAnimation.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle",
+									0.25f,4,true);
+		AnimationClip leftAnimation = new AnimationClip();
+		leftAnimation.loadAnimationSpriteSheet("Marisa_Left","src/main/resources/Assets/Marisa/Marisa_Moving_Left_Animation/Marisa_Left",
+									0.25f,3,true);
+		
+		AnimationClip rightAnimation = new AnimationClip();
+		rightAnimation.loadAnimationSpriteSheet("Marisa_Right","src/main/resources/Assets/Marisa/Marisa_Moving_Right_Animation/Marisa_Right",
+									0.25f,3,true);
+
+		
+		//BUG GRAVE - INVESTIGAR
+		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>();
+		sm.addState("Marisa_Idle",idleAnimation,null,null,false);
+		sm.addState("Marisa_Moving_Left",leftAnimation,"Marisa_Idle","Left",false);
+		sm.addState("Marisa_Moving_Right", rightAnimation, "Marisa_Idle","Right", false);
+		sm.setDefaultState("Marisa_Idle");
+		
+		sm.dumpStateMachineOnConsole();
+		
+		this.animationController =  new AnimationController(sm ,this);
+		
 		
 	}
 	@Override
@@ -34,6 +61,7 @@ public class Player extends GameObject{
 	}
 	@Override
 	public void update(double deltaTime) {
+		this.animationController.updateAnimationController();
 		//System.out.println("X: " + this.X + "Y: " +this.Y);
 		if(isMovingUp) {
 			this.offsetPosition(0, (int)(deltaTime*-playerVelocity));
@@ -87,9 +115,12 @@ public class Player extends GameObject{
 				break;
 			case 37:
 				this.isMovingLeft = true;
+				this.animationController.sendTrigger("Left");
 				break;
 			case 39:
 				this.isMovingRight = true;
+				this.animationController.sendTrigger("Right");
+
 				break;
 			case 88:
 				this.playerVelocity = 200;
@@ -114,9 +145,11 @@ public class Player extends GameObject{
 				break;
 			case 37:
 				this.isMovingLeft = false;
+				this.animationController.resetState();
 				break;
 			case 39:
 				this.isMovingRight = false;
+				this.animationController.resetState();
 				break;
 			case 88:
 				this.playerVelocity = 400;

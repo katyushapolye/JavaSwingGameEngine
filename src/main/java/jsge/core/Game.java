@@ -38,26 +38,7 @@ public class Game {
 		// Scene loading end, fazer mais tarde
 		//Devem ser declarados assim pois há java.awt.clock
 		jsge.util.Clock gameClock = new Clock();
-		
-		
-		
-		//DEBUG DEBUG DEBUG DEBUG
-		
-		jsge.util.Clock animationClock = new Clock();
-		int i = 0;
-		AnimationClip ac =  new AnimationClip();
-		ac.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle",
-									0.25f,4,true);
-		AnimationClip ac2 = new AnimationClip();
-		ac2.loadAnimationSpriteSheet("Marisa_Right","src/main/resources/Assets/Marisa/Marisa_Moving_Right_Animation/Marisa_Right",
-									0.25f,3,true);
-
-		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>();
-		sm.addState("Marisa_Idle",ac,null,null,false);
-		sm.addState("Marisa_Moving_Left",ac,"Marisa_Idle","Left",true);
-		sm.forceStateChange("Marisa_Moving_Left");
-		sm.dumpStateMachineOnConsole();
-		//ENDDEBUG ENDDEBUG ENDDEBUG
+	
 		
 		
 		while (!(player.isPlayerDead())) {
@@ -80,18 +61,7 @@ public class Game {
 				
 				
 			
-				
-				//DEBUG --  DEBUG -- DEBUG -- DEBUG -- DEBUG
-				
-				if(animationClock.getElapsedTimeInSeconds() >= ac2.getAnimationLength()/ac2.getAnimationFrameCount()) {
-					animationClock.resetClock();
-					player.setSprite(ac2.getAnimationFrame(i%ac2.getAnimationFrameCount()));
-					//System.out.println("Update sprite");
-					i++;
-					
-				}
-				
-				//ENDDEBUG --  ENDDEBUG -- ENDDEBUG -- ENDDEBUG
+	
 
 				
 

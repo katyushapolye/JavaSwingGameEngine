@@ -6,6 +6,7 @@ public class StateMachine <T> {
 	private State<T> currentState;
 	private State<T> defaultState;
 	private State<T> exitState;
+	private String lastTransitionTrigger = null; //Para evitar chamadas duplicadas
 	
 	
 	//REUTILIZAR USANDO GENERICO PARA MAQUINA DE ESTADO DO JOGO <- REFATORAR
@@ -40,10 +41,20 @@ public class StateMachine <T> {
 			}
 		} 
 		if(temp == null) {
+			
+			if(transitionID == lastTransitionTrigger) {
+				System.out.println("Warning - Duplicated transition on StateMachine, Is This Intended Behaviour? - TransitionTriggerID = " + lastTransitionTrigger);
+				return; //Evita error se for enviado a msm chamada diversas vezes
+				
+			}
+			
 			System.out.println("Error - No transition matches this ID for the current state");
 			return;
+		
+		
 		}
 		 currentState = temp.destinationState;
+		 lastTransitionTrigger = temp.transitionTrigger;
 		
 	}
 	
