@@ -1,5 +1,4 @@
 jsge/core/Game.class
-jsge/util/Utils$Layer.class
 jsge/data/StateMachine.class
 jsge/components/AnimationController.class
 jsge/managers/LogicManager.class
@@ -8,14 +7,11 @@ jsge/data/StateMachine$Transition.class
 jsge/prefabs/Player.class
 jsge/core/GameRendererWindow$1.class
 jsge/core/GameRendererWindow$RendererCanvas.class
-jsge/util/Utils.class
 jsge/core/GameObject.class
 jsge/core/GameRendererWindow.class
-jsge/util/Clock.class
 jsge/core/GameKeyEvent$EventType.class
 jsge/data/StateMachine$State.class
 jsge/managers/InputManager.class
-jsge/util/Point.class
 jsge/core/GameRendererWindow$RendererManager.class
 jsge/data/AnimationClip.class
 jsge/core/GameKeyEvent.class

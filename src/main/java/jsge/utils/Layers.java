@@ -1,7 +1,7 @@
-package jsge.util;
+package jsge.utils;
 
 
-public final class Utils {
+public final class Layers {
 	public static enum Layer{
 		BACKGROUND,
 		UI,

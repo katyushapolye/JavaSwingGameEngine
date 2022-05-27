@@ -1,6 +1,7 @@
 package jsge.prefabs;
 import jsge.components.AnimationController;
-import java.awt.Color;
+import jsge.components.Transform;
+
 import java.awt.Graphics2D;
 
 import jsge.core.GameKeyEvent;
@@ -8,7 +9,7 @@ import jsge.core.GameObject;
 import jsge.core.GameKeyEvent.EventType;
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
-import jsge.util.Utils.Layer;
+import jsge.utils.Layers.Layer;
 
 public class Player extends GameObject{
 	private boolean isMovingUp = false;
@@ -27,7 +28,7 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, X, Y,rotation,Layer.GAMEOBJECT,5);
+		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,5);
 		
 		//Player State Machine Initialization
 		AnimationClip idleAnimation =  new AnimationClip();
@@ -65,22 +66,22 @@ public class Player extends GameObject{
 		this.animationController.updateAnimationController();
 		//System.out.println("X: " + this.X + "Y: " +this.Y);
 		if(isMovingUp) {
-			this.offsetPosition(0, (int)(deltaTime*-playerVelocity));
+			this.transform.offsetPosition(0, (int)(deltaTime*-playerVelocity));
 		}
 		if(isMovingDown) {
-			this.offsetPosition(0, (int)(deltaTime*playerVelocity));
+			this.transform.offsetPosition(0, (int)(deltaTime*playerVelocity));
 		}
 		if(isMovingLeft) {
-			this.offsetPosition((int)(deltaTime*-playerVelocity),0);
+			this.transform.offsetPosition((int)(deltaTime*-playerVelocity),0);
 		}
 		if(isMovingRight) {
-			this.offsetPosition((int)(deltaTime*playerVelocity),0);
+			this.transform.offsetPosition((int)(deltaTime*playerVelocity),0);
 		}
 		if(isRotatingRight) {
-			this.offsetRotation((int)(deltaTime*rotatingVelocity));
+			this.transform.offsetRotation((int)(deltaTime*rotatingVelocity));
 		}
 		if(isRotatingLeft) {
-			this.offsetRotation((int)(deltaTime*-rotatingVelocity));
+			this.transform.offsetRotation((int)(deltaTime*-rotatingVelocity));
 		}
 		checkAnimationState();
 		checkPlayerBounds();
@@ -90,7 +91,7 @@ public class Player extends GameObject{
 	@Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
-		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
+		g.drawOval(this.transform.getY()-colliderRadius,this.transform.getY() -colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
 	
@@ -112,7 +113,7 @@ public class Player extends GameObject{
 			case 39:
 				this.isMovingRight = true;
 				break;
-			case 88:
+			case 16:
 				this.playerVelocity = 200;
 				break;
 			case 81:
@@ -139,7 +140,7 @@ public class Player extends GameObject{
 			case 39:
 				this.isMovingRight = false;
 				break;
-			case 88:
+			case 16:
 				this.playerVelocity = 400;
 				break;
 			case 81:
@@ -170,17 +171,17 @@ public class Player extends GameObject{
 	
 	private void checkPlayerBounds() {
 		//ainda estou testando com as screen bounds
-		if(this.X >= 384+33 -16) {
-			this.X = 384+33 -16;
+		if(this.transform.getX() >= 384+33 -16) {
+			this.transform.setX(384+33 -16);
 		}
-		if(this.X <= 33+16) {
-			this.X = 33+16;
+		if(this.transform.getX() <= 33+16) {
+			this.transform.setX(33+16);
 		}
-		if(this.Y <= 16+15) {
-			this.Y = 16+15;
+		if(this.transform.getY() <= 16+15) {
+			this.transform.setY(16+15);
 		}
-		if(this.Y >= 448+16-15) {
-			this.Y = 448+16-15;
+		if(this.transform.getY() >= 448+16-15) {
+			this.transform.setY(448+16-15);
 		}
 	}
 		

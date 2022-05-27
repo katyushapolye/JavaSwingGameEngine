@@ -1,10 +1,11 @@
 package jsge.core;
 
-import jsge.util.Clock;
+import jsge.components.Transform;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.prefabs.Player;
-import jsge.util.Utils.Layer;
+import jsge.utils.Clock;
+import jsge.utils.Layers.Layer;
 
 public class Game {
 	final long SECOND_IN_NANO = 1000000000l;
@@ -27,7 +28,7 @@ public class Game {
 
 	public void run() {
 		// Scene Loading
-		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", 320, 240, 0, Layer.UI, 0);
+		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png",new Transform(320,240), Layer.UI, 0);
 		
 		
 		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 30, 33, 0);
@@ -35,7 +36,7 @@ public class Game {
 		
 		// Scene loading end, fazer mais tarde
 		//Devem ser declarados assim pois há java.awt.clock
-		jsge.util.Clock gameClock = new Clock();
+		jsge.utils.Clock gameClock = new Clock();
 	
 		
 		

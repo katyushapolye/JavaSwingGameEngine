@@ -3,8 +3,9 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import jsge.components.AnimationController;
 import jsge.components.Sprite;
-import jsge.util.*;
-import jsge.util.Utils.Layer;
+import jsge.components.Transform;
+import jsge.utils.*;
+import jsge.utils.Layers.Layer;
 
 import java.util.ArrayList;
 
@@ -14,11 +15,7 @@ public class GameObject {
 	protected Sprite sprite = null;
 	protected AnimationController animationController = null;
 	
-	//To create transform class
-	protected int X = 0;
-	protected int Y = 0;
-	protected int degrees = 0;
-	protected double[] scale =  new double[2];
+	protected Transform transform = null;
 	
 	//Planned components
 	
@@ -52,7 +49,7 @@ public class GameObject {
 	
 	
 	//Adicionar overloads nesse metodo, para opções vazias etc
-	public GameObject(String name,String pathToSprite,int initX,int initY,int rotation,Layer initLayer,int colliderRadius){
+	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer,int colliderRadius){
 		if(name == null) {
 			System.out.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
@@ -64,14 +61,8 @@ public class GameObject {
 		}
 		this.layer = initLayer;
 		
-		//Vai ser um transform
-		this.X = initX;
-		this.degrees = rotation;
-		this.Y = initY;
-		this.colliderRadius = colliderRadius;
-		scale[0] = 1;
-		scale[1] = 1;
-		
+
+		this.transform = transform;
 		
 		this.sprite = new Sprite(pathToSprite);
 		
@@ -82,7 +73,7 @@ public class GameObject {
 	}
 	
 	public GameObject(String name,Layer initLayer){
-		if(name == null) {
+		if(name == null || name.contentEquals("")) {
 			System.out.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
@@ -91,32 +82,17 @@ public class GameObject {
 			System.out.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
-		this.layer = initLayer;
-		this.X = 0;
-		this.degrees = 0;
-		this.Y = 0;
-		this.colliderRadius = 0;
-		scale[0] = 1;
-		scale[1] = 1;
 		
-		
-		
+		this.transform = new Transform();
 		totalGameObjects.add(this);
 		TOTAL_GAME_OBJECT_COUNT++;
 		
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	//renderiza o objeto no graphics target desejado
 	public void draw(Graphics2D g) {
-		if(sprite == null) {
-			//System.out.println("Warning - Spriteless GameObject, the sprite may have failed to load");
+		if(sprite == null || this.transform == null) {
+			System.out.println("GameObject: Warning - Spriteless or Transformless GameObject, the sprite may have failed to load or the Transform was manually set as null, Is this intended Behaviour?");;
 			return;
 		}
 		g.drawImage(sprite.getSprite(), applyTransform(), null);
@@ -161,47 +137,22 @@ public class GameObject {
 	}
 	
 	
-	public Utils.Layer getLayer() {
+	public Layers.Layer getLayer() {
 		return this.layer;
 	}
 	
-	public void setPosition(int newX,int newY) {
-		this.X = newX;
-		this.Y = newY;
-	}
-	
-	public void setRotation(int degrees) {
-		this.degrees = degrees;
-	}
-	
-	public void offsetPosition(int newX,int newY) {
-		this.X  +=  newX;
-		this.Y +=  newY;
-	}
-	
-	public void offsetRotation(int degrees) {
-		this.degrees = this.degrees+degrees;
-	}
 	
 	public int getColliderRadius() {
 		return this.colliderRadius;
 	}
 	
-	public Point getPosition() {
-		return new Point(this.X,this.Y);
-	}
-	
-	public int getRotation() {
-		return this.degrees;
-	}
 	
 	public String getName() {
 		return this.name;
 	}
 	
-	public void setScale(double scaleX,double scaleY) {
-		this.scale[0] = scaleX;
-		this.scale[1] = scaleY;
+	public Transform getTransform() {
+		return this.transform;
 	}
 	//Fim getters and setters
 	
@@ -209,10 +160,10 @@ public class GameObject {
 	//Metodos internos para controle e transform
 	protected AffineTransform applyTransform() {
 		AffineTransform af = new AffineTransform();
-		af.translate(this.X, this.Y);
-		af.scale(this.scale[0],this.scale[1]);
+		af.translate(this.transform.getX() ,this.transform.getY());
+		af.scale(this.transform.getScale()[0],this.transform.getScale()[1]);
 
-		af.rotate(Math.toRadians(degrees));
+		af.rotate(Math.toRadians(this.transform.getRotation()));
 		af.translate(-sprite.getWidth()/2,-sprite.getHeight()/2);	
 		return af;
 	}

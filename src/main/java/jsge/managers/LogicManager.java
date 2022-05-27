@@ -3,8 +3,8 @@ package jsge.managers;
 import java.util.*;
 
 import jsge.core.GameObject;
-import jsge.util.Point;
-import jsge.util.Utils.Layer;
+import jsge.utils.Point;
+import jsge.utils.Layers.Layer;
 
 public class LogicManager {
 	public LogicManager() {
@@ -32,7 +32,7 @@ public class LogicManager {
 						if (gm1.equals(gm2)) {
 							continue;
 						}
-						if (Point.distance(gm2.getPosition(), gm1.getPosition()) <= gm2.getColliderRadius()+ gm1.getColliderRadius()) {
+						if (Point.distance(gm2.getTransform().getPosition(), gm1.getTransform().getPosition()) <= gm2.getColliderRadius()+ gm1.getColliderRadius()) {
 							gm1.onCollision(gm2);
 						}
 					} else {

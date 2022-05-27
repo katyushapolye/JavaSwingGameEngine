@@ -2,7 +2,7 @@ package jsge.components;
 
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
-import jsge.util.Clock;
+import jsge.utils.Clock;
 
 
 public class AnimationController {

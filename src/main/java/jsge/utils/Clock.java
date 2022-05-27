@@ -1,4 +1,4 @@
-package jsge.util;
+package jsge.utils;
 
 public class Clock {
 	long epoch = 0;
