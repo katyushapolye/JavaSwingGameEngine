@@ -59,7 +59,7 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 		renderingHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		
 		
-		System.out.println("Renderer Window Initialized");	
+		System.out.println("RendererWindow: Renderer Window Initialized");	
 	}
 
 	
@@ -160,7 +160,7 @@ private class RendererCanvas extends JPanel{
 		this.setPreferredSize(new Dimension(SCREEN_W,SCREEN_H));
 		this.setBackground(new Color(0,0,0));
 		this.setLayout(null);
-		System.out.println("Canvas Initialized");
+		System.out.println("RendererWindow: Canvas Initialized");
 		}
 
 	

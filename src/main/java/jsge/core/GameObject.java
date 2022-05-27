@@ -54,12 +54,12 @@ public class GameObject {
 	//Adicionar overloads nesse metodo, para opções vazias etc
 	public GameObject(String name,String pathToSprite,int initX,int initY,int rotation,Layer initLayer,int colliderRadius){
 		if(name == null) {
-			System.out.println("Error - Nameless GameObject initialized");
+			System.out.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("Error - Layerless GameObject initialized");
+			System.out.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.layer = initLayer;
@@ -83,12 +83,12 @@ public class GameObject {
 	
 	public GameObject(String name,Layer initLayer){
 		if(name == null) {
-			System.out.println("Error - Nameless GameObject initialized");
+			System.out.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("Error - Layerless GameObject initialized");
+			System.out.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.layer = initLayer;

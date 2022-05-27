@@ -31,7 +31,7 @@ public class AnimationClip {
 				tempName = "";
 				}
 				catch(Exception e) {
-					System.out.println("Error - An animation frame has failed to load - baseName: " + basePathName);
+					System.out.println("AnimationClip: Warning - An animation frame has failed to load - baseName: " + basePathName);
 					return;
 				}
 			}
@@ -44,7 +44,7 @@ public class AnimationClip {
 			return this.spriteSheet[index];
 			}
 			catch(Exception e) {
-				System.out.println("Error - Failed to retrive animation frame " + index + " from clip "+animationClipName);
+				System.out.println("AnimationClip: Warning - Failed to retrive animation frame " + index + " from clip "+animationClipName);
 				return null;
 			}
 			

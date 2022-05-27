@@ -51,9 +51,6 @@ public class Player extends GameObject{
 		sm.addTransition("Marisa_Moving_Left","Marisa_Moving_Right","Right");
 		
 		sm.addTransition("Marisa_Moving_Right","Marisa_Moving_Left","Left");
-
-		
-		sm.dumpStateMachineOnConsole();
 		
 		this.animationController =  new AnimationController(sm ,this.sprite);
 		
