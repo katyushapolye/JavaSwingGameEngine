@@ -14,9 +14,10 @@ public class AnimationController {
 	private int currentAnimationFrames = 0;
 	private AnimationClip currentAnimationClip = null;
 	private int currentFrame = 0;
+	
 
 	//Lembrar de trocar GameOBject por classe encapsulada sprite num futuro proximo
-	public AnimationController(StateMachine<AnimationClip> stateMachine,Sprite spriteToControl ){
+	public AnimationController(StateMachine<AnimationClip> stateMachine,Sprite spriteToControl){
 		this.currentStateMachine = stateMachine;
 		this.spriteToControl = spriteToControl;
 		this.animationClock = new Clock();

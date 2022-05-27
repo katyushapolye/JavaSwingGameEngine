@@ -42,12 +42,16 @@ public class Player extends GameObject{
 									0.25f,3,true);
 
 		
-		//BUG GRAVE - INVESTIGAR
-		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>();
-		sm.addState("Marisa_Idle",idleAnimation,null,null,false);
-		sm.addState("Marisa_Moving_Left",leftAnimation,"Marisa_Idle","Left",false);
-		sm.addState("Marisa_Moving_Right", rightAnimation, "Marisa_Idle","Right", false);
+		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>(false);
+		sm.addState("Marisa_Idle",idleAnimation,null,null);
+		sm.addState("Marisa_Moving_Left",leftAnimation,"Marisa_Idle","Left");
+		sm.addState("Marisa_Moving_Right", rightAnimation, "Marisa_Idle","Right");
 		sm.setDefaultState("Marisa_Idle");
+		
+		sm.addTransition("Marisa_Moving_Left","Marisa_Moving_Right","Right");
+		
+		sm.addTransition("Marisa_Moving_Right","Marisa_Moving_Left","Left");
+
 		
 		sm.dumpStateMachineOnConsole();
 		
@@ -81,22 +85,14 @@ public class Player extends GameObject{
 		if(isRotatingLeft) {
 			this.offsetRotation((int)(deltaTime*-rotatingVelocity));
 		}
-		//384x448
-		//System.out.println("X: " + this.X + " Y: " + this.Y);
+		checkAnimationState();
 		checkPlayerBounds();
-		
 		
 	}
 	
 	@Override
 	public void draw(Graphics2D g) {
-		if(sprite == null) {
-			//System.out.println("Warning - Spriteless GameObject");
-			return;
-		}
-		
-		g.drawImage(this.sprite.getSprite(), super.applyTransform(), null);
-		g.setColor(Color.GREEN);
+		super.draw(g);
 		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
@@ -115,12 +111,9 @@ public class Player extends GameObject{
 				break;
 			case 37:
 				this.isMovingLeft = true;
-				this.animationController.sendTrigger("Left");
 				break;
 			case 39:
 				this.isMovingRight = true;
-				this.animationController.sendTrigger("Right");
-
 				break;
 			case 88:
 				this.playerVelocity = 200;
@@ -145,11 +138,9 @@ public class Player extends GameObject{
 				break;
 			case 37:
 				this.isMovingLeft = false;
-				this.animationController.resetState();
 				break;
 			case 39:
 				this.isMovingRight = false;
-				this.animationController.resetState();
 				break;
 			case 88:
 				this.playerVelocity = 400;
@@ -163,6 +154,20 @@ public class Player extends GameObject{
 				}
 			}
 	
+		
+	}
+	
+	
+	private void checkAnimationState() {
+		if((isMovingLeft && isMovingRight) || isMovingLeft == false && isMovingRight == false ) {
+			this.animationController.resetState();
+		}
+		else if(isMovingLeft) {
+			this.animationController.sendTrigger("Left");	
+		}
+		else if(isMovingRight) {
+			this.animationController.sendTrigger("Right");
+		}
 		
 	}
 	

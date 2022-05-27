@@ -8,12 +8,13 @@ public class StateMachine <T> {
 	private State<T> exitState;
 	private String lastTransitionTrigger = null; //Para evitar chamadas duplicadas
 	
+	private boolean debugMode = false;
 	
-	//REUTILIZAR USANDO GENERICO PARA MAQUINA DE ESTADO DO JOGO <- REFATORAR
 	private ArrayList<State<T>> stateList;
 	
-	public StateMachine() {
+	public StateMachine(boolean debugMode) {
 		stateList =  new ArrayList<State<T>>();
+		this.debugMode = debugMode;
 		
 	}
 	
@@ -24,7 +25,7 @@ public class StateMachine <T> {
 	public void forceStateChange(String stateID) {
 		State<T> temp = findStatebyID(stateID);
 		if(temp == null){
-			System.out.println("Error - State not found");
+			if(debugMode) System.out.println("Warning - State not found");
 			return;
 		}
 		else {
@@ -43,12 +44,14 @@ public class StateMachine <T> {
 		if(temp == null) {
 			
 			if(transitionID == lastTransitionTrigger) {
-				System.out.println("Warning - Duplicated transition on StateMachine, Is This Intended Behaviour? - TransitionTriggerID = " + lastTransitionTrigger);
+				if(debugMode) System.out.println("Warning - Duplicated transition on StateMachine, Is This Intended Behaviour? - TransitionTriggerID = " + lastTransitionTrigger);
 				return; //Evita error se for enviado a msm chamada diversas vezes
 				
 			}
 			
-			System.out.println("Error - No transition matches this ID for the current state");
+			if(debugMode) {
+				System.out.println("Warning - No transition matches this ID for the current state");
+			}
 			return;
 		
 		
@@ -64,8 +67,8 @@ public class StateMachine <T> {
 	
 	public void setDefaultState(String stateID) {
 		State<T> temp = this.findStatebyID(stateID);
-		if(temp == null) {
-			System.out.println("Error - State not found");
+		if(temp == null || debugMode) {
+			System.out.println("Warning - State not found");
 			return;
 		}
 		this.defaultState = temp;
@@ -73,7 +76,7 @@ public class StateMachine <T> {
 	public void setExitState(String stateID) {
 		State<T> temp = this.findStatebyID(stateID);
 		if(temp == null) {
-			System.out.println("Error - State not found");
+			if(debugMode)System.out.println("Warning - State not found");
 			return;
 		}
 		this.exitState = temp;
@@ -93,7 +96,37 @@ public class StateMachine <T> {
 		return this.currentState.getData();
 	}
 	
-	public void addState(String stateName,T data,String sourceState,String trigger,boolean twoWay) {
+	public void addTransition(String originStateID,String destinationStateID,String transitionTrigger) {
+		State<T> originState = null;
+		State<T> destinationState = null;
+		if(destinationStateID.contentEquals(originStateID)){
+			System.out.println("Warning - State Cannot make a transition to itself, Aborting insertion");
+
+		}
+		for (int i = 0; i < stateList.size(); i++) {
+			if(stateList.get(i).stateID == originStateID) {
+				originState = stateList.get(i);
+			}
+			if(stateList.get(i).stateID == destinationStateID) {
+				destinationState = stateList.get(i);
+			}
+			
+		}
+		if(originState == null || destinationState == null) {
+			System.out.println("Warning - One of the States was not found for transition");
+		}
+		for (Transition<T> t : originState.getAllTransitions()) {
+			if(t.transitionTrigger == transitionTrigger || t.destinationState.equals(destinationState)) {
+				System.out.println("Warning - Duplicated Transition from State " + originStateID + " to State " + destinationStateID + ", Aborting insertion");
+				return;
+
+			}
+			
+		}
+		originState.getAllTransitions().add(new Transition<T>(transitionTrigger, destinationState));
+	}
+	
+	public void addState(String stateName,T data,String sourceState,String trigger) {
 		if(sourceState ==  null || stateList.size() == 0) {
 			System.out.println("No state previously set, setting " + stateName + " as default state");
 
@@ -109,7 +142,7 @@ public class StateMachine <T> {
 			
 			for (int i = 0; i < stateList.size(); i++) {
 				if(stateList.get(i).stateID == stateName) {
-					System.out.println("Error - Failed to create state in State in StateMachine, Duplicated stateID");
+					System.out.println("Warning - Failed to create state in State in StateMachine, Duplicated stateID");
 					break;
 				}
 				if(stateList.get(i).stateID == sourceState) {
@@ -119,16 +152,12 @@ public class StateMachine <T> {
 			}
 			
 			if(originState == null) {
-				System.out.println("Error - Failed to create state in State in StateMachine, Origin state not found");
+				System.out.println("Warning - Failed to create state in State in StateMachine, Origin state not found");
 
 			}
 			State<T> temp = new State<T>(stateName,data);
 			stateList.add(temp);
 			originState.addTransition(new Transition<T>(trigger,temp));
-			if(twoWay) {
-				temp.addTransition(new Transition<T>(trigger,originState));
-			}
-			
 		}
 		
 		

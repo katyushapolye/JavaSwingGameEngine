@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class GameObject {
 	protected String name;
 	
-	//To create sprite class
 	protected Sprite sprite = null;
 	protected AnimationController animationController = null;
 	
@@ -40,6 +39,7 @@ public class GameObject {
 	
 	public static void destroyAllGameObjects() {
 		TOTAL_GAME_OBJECT_COUNT= 0;
+		//Call all destroy functions
 		totalGameObjects.clear();
 	}
 	
