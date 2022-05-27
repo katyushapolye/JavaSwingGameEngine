@@ -1,14 +1,13 @@
 package jsge.components;
 
-import jsge.core.GameObject;
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
 import jsge.util.Clock;
-import java.awt.image.BufferedImage;
+
 
 public class AnimationController {
 	private StateMachine<AnimationClip> currentStateMachine = null;
-	private GameObject gm = null;
+	private Sprite spriteToControl = null;
 	private Clock animationClock = null;
 	
 	private float currentAnimationLength = 0;
@@ -17,9 +16,9 @@ public class AnimationController {
 	private int currentFrame = 0;
 
 	//Lembrar de trocar GameOBject por classe encapsulada sprite num futuro proximo
-	public AnimationController(StateMachine<AnimationClip> stateMachine,GameObject gm ){
+	public AnimationController(StateMachine<AnimationClip> stateMachine,Sprite spriteToControl ){
 		this.currentStateMachine = stateMachine;
-		this.gm = gm;
+		this.spriteToControl = spriteToControl;
 		this.animationClock = new Clock();
 		internalUpdate(this.currentStateMachine.getCurrentStateData());
 	}
@@ -40,7 +39,7 @@ public class AnimationController {
 	public void updateAnimationController() {
 		if(animationClock.getElapsedTimeInSeconds() >= currentAnimationLength/(float)currentAnimationFrames){
 			animationClock.resetClock();
-			gm.setSprite(currentAnimationClip.getAnimationFrame(currentFrame%currentAnimationFrames));
+			spriteToControl.changeSprite(currentAnimationClip.getAnimationFrame(currentFrame%currentAnimationFrames));
 			currentFrame++;
 			
 			//Optimização aqui, tentar fazer o check uma vez só
@@ -59,9 +58,6 @@ public class AnimationController {
 	}
 	
 	
-	private AnimationClip getCurrentStateAnimationClip() {
-		return this.currentStateMachine.getCurrentStateData();
-	}
 	
 	private void internalUpdate(AnimationClip newClip) {
 		this.currentAnimationClip = newClip;

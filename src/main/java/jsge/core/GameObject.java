@@ -1,14 +1,8 @@
 package jsge.core;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import jsge.components.AnimationController;
+import jsge.components.Sprite;
 import jsge.util.*;
 import jsge.util.Utils.Layer;
 
@@ -18,7 +12,8 @@ public class GameObject {
 	protected String name;
 	
 	//To create sprite class
-	protected BufferedImage sprite = null;
+	protected Sprite sprite = null;
+	protected AnimationController animationController = null;
 	
 	//To create transform class
 	protected int X = 0;
@@ -28,7 +23,6 @@ public class GameObject {
 	
 	//Planned components
 	
-	protected AnimationController animationController = null;
 	
 	protected Layer layer = null;
 	protected int colliderRadius = 0;
@@ -58,37 +52,78 @@ public class GameObject {
 	
 	
 	//Adicionar overloads nesse metodo, para opções vazias etc
-	public GameObject(String name,String pathToSpriteImage,int initX,int initY,int rotation,Layer initLayer,int colliderRadius){
+	public GameObject(String name,String pathToSprite,int initX,int initY,int rotation,Layer initLayer,int colliderRadius){
+		if(name == null) {
+			System.out.println("Error - Nameless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
+		}
 		this.name = name;
+		if(initLayer == null) {
+			System.out.println("Error - Layerless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
+		}
 		this.layer = initLayer;
+		
+		//Vai ser um transform
 		this.X = initX;
 		this.degrees = rotation;
 		this.Y = initY;
 		this.colliderRadius = colliderRadius;
 		scale[0] = 1;
 		scale[1] = 1;
-		try {
-		sprite = ImageIO.read(new File(pathToSpriteImage));
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}	
+		
+		
+		this.sprite = new Sprite(pathToSprite);
+		
 		
 		totalGameObjects.add(this);
 		TOTAL_GAME_OBJECT_COUNT++;
 		
 	}
 	
+	public GameObject(String name,Layer initLayer){
+		if(name == null) {
+			System.out.println("Error - Nameless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
+		}
+		this.name = name;
+		if(initLayer == null) {
+			System.out.println("Error - Layerless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
+		}
+		this.layer = initLayer;
+		this.X = 0;
+		this.degrees = 0;
+		this.Y = 0;
+		this.colliderRadius = 0;
+		scale[0] = 1;
+		scale[1] = 1;
+		
+		
+		
+		totalGameObjects.add(this);
+		TOTAL_GAME_OBJECT_COUNT++;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	//renderiza o objeto no graphics target desejado
 	public void draw(Graphics2D g) {
-		if(sprite == null || sprite.getWidth() == -1) {
+		if(sprite == null) {
 			//System.out.println("Warning - Spriteless GameObject, the sprite may have failed to load");
 			return;
 		}
-		g.drawImage(sprite, applyTransform(), null);
-		g.setColor(Color.GREEN);
+		g.drawImage(sprite.getSprite(), applyTransform(), null);
 		//debug
 	}
+	
+	
 	
 	//Metodos para override
 	
@@ -110,14 +145,21 @@ public class GameObject {
 	
 	//Getters e Setters
 	
+	public void setSpriteComponent(Sprite sprite) {
+		this.sprite = sprite;
+	}
+	
+	public Sprite getSpriteComponent() {
+		return this.sprite;
+	}
+	
+	
+	
 	
 	public void setAnimationController(AnimationController animationController) {
 		this.animationController = animationController;
 	}
 	
-	public void setSprite(BufferedImage sprite) {
-		this.sprite = sprite;
-	}
 	
 	public Utils.Layer getLayer() {
 		return this.layer;
@@ -163,6 +205,8 @@ public class GameObject {
 	}
 	//Fim getters and setters
 	
+	
+	//Metodos internos para controle e transform
 	protected AffineTransform applyTransform() {
 		AffineTransform af = new AffineTransform();
 		af.translate(this.X, this.Y);

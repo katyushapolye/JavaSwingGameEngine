@@ -81,6 +81,7 @@ public class StateMachine <T> {
 	
 	public void resetMachine() {
 		this.currentState = this.defaultState;
+		this.lastTransitionTrigger = null;
 	}
 	
 	public String getCurrentStateID() {

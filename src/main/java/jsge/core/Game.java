@@ -1,8 +1,6 @@
 package jsge.core;
 
 import jsge.util.Clock;
-import jsge.data.AnimationClip;
-import jsge.data.StateMachine;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.prefabs.Player;

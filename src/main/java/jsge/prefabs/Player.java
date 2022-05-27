@@ -51,7 +51,7 @@ public class Player extends GameObject{
 		
 		sm.dumpStateMachineOnConsole();
 		
-		this.animationController =  new AnimationController(sm ,this);
+		this.animationController =  new AnimationController(sm ,this.sprite);
 		
 		
 	}
@@ -95,7 +95,7 @@ public class Player extends GameObject{
 			return;
 		}
 		
-		g.drawImage(sprite, super.applyTransform(), null);
+		g.drawImage(this.sprite.getSprite(), super.applyTransform(), null);
 		g.setColor(Color.GREEN);
 		g.drawOval(this.X-colliderRadius,this.Y-colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
