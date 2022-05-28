@@ -28,7 +28,7 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,5);
+		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,5,true);
 		
 		//Player State Machine Initialization
 		AnimationClip idleAnimation =  new AnimationClip();
@@ -36,11 +36,11 @@ public class Player extends GameObject{
 									0.25f,4,true);
 		AnimationClip leftAnimation = new AnimationClip();
 		leftAnimation.loadAnimationSpriteSheet("Marisa_Left","src/main/resources/Assets/Marisa/Marisa_Moving_Left_Animation/Marisa_Left",
-									0.25f,3,true);
+									0.23f,3,true);
 		
 		AnimationClip rightAnimation = new AnimationClip();
 		rightAnimation.loadAnimationSpriteSheet("Marisa_Right","src/main/resources/Assets/Marisa/Marisa_Moving_Right_Animation/Marisa_Right",
-									0.25f,3,true);
+									0.23f,3,true);
 
 		
 		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>(false);
@@ -98,7 +98,8 @@ public class Player extends GameObject{
 	public boolean isPlayerDead() {
 		return this.isPlayerDead;
 	}
-	public void sendInput(GameKeyEvent e) {
+	@Override
+	public void receiveInput(GameKeyEvent e) {
 		if(e.getEventType() == EventType.Pressed) {
 			switch(e.getKeyCode()) {
 			case 38:

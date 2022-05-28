@@ -32,23 +32,21 @@ public class Game {
 		
 		
 		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 30, 33, 0);
-		
-		
-		// Scene loading end, fazer mais tarde
-		//Devem ser declarados assim pois há java.awt.clock
-		jsge.utils.Clock gameClock = new Clock();
 	
 		
 		
+		jsge.utils.Clock gameClock = new Clock();
 		while (!(player.isPlayerDead())) {
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
 				double deltaTime = gameClock.resetClock();
 				//System.out.println("FPS: " + (1.f/ (float) deltaTime));
 
-				// Pool Input
+				// Pool Input and send to all gameobjects that receive it
 				while (inputHandler.isPoolingDone()) {
 					GameKeyEvent e = inputHandler.poolEvent();
-					player.sendInput(e);
+					for (GameObject go : GameObject.getAllInputReceiverGameObjects()) {
+						go.receiveInput(e);
+					}
 
 				}
 

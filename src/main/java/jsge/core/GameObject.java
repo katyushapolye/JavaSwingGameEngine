@@ -19,18 +19,27 @@ public class GameObject {
 	protected Transform transform = null;
 	
 	
+	//Flags
+	
 	protected Layer layer = null;
+	private boolean receivesInput = false;
+	
 	protected int colliderRadius = 0;
 	
 	
 	private static int TOTAL_GAME_OBJECT_COUNT = 0;
 	private static ArrayList<GameObject> totalGameObjects =  new ArrayList<GameObject>();
+	private static ArrayList<GameObject> inputReceiverGameObjects =  new ArrayList<GameObject>();
 	
 	public static int getTotalGameObjectCount() {
 		return TOTAL_GAME_OBJECT_COUNT;
 	}
 	public static ArrayList<GameObject> getAllGameObjects() {
 		return totalGameObjects;
+	}
+	
+	public static ArrayList<GameObject> getAllInputReceiverGameObjects(){
+		return inputReceiverGameObjects;
 	}
 	
 	public static void destroyAllGameObjects() {
@@ -59,7 +68,7 @@ public class GameObject {
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.layer = initLayer;
-		
+		this.receivesInput = false;
 
 		this.transform = transform;
 		
@@ -67,6 +76,30 @@ public class GameObject {
 		
 		
 		totalGameObjects.add(this);
+		TOTAL_GAME_OBJECT_COUNT++;
+		
+	}
+	
+	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer,int colliderRadius,boolean receivesInput){
+		if(name == null) {
+			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
+		}
+		this.name = name;
+		if(initLayer == null) {
+			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
+		}
+		this.layer = initLayer;
+		this.receivesInput = receivesInput;
+
+		this.transform = transform;
+		
+		this.sprite = new Sprite(pathToSprite);
+		
+		
+		totalGameObjects.add(this);
+		inputReceiverGameObjects.add(this);
 		TOTAL_GAME_OBJECT_COUNT++;
 		
 	}
@@ -99,6 +132,13 @@ public class GameObject {
 	
 
 	//Metodos para override
+	
+	public void receiveInput(GameKeyEvent event) {
+		if(this.receivesInput == true) {
+			System.out.println("GameObject: Warning - GameObject " + this.name + " is receiving input, but the method has not been overwritten, is this intended Behaviour?");
+			
+		}
+	}
 	public void onCollision(GameObject collision) {
 		System.out.println(this.name + " COLLIDED WITH " + collision.name);
 	}
