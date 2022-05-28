@@ -1,7 +1,9 @@
 package jsge.core;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import jsge.components.AnimationController;
+import jsge.components.Collider;
 import jsge.components.Sprite;
 import jsge.components.Transform;
 import jsge.utils.*;
@@ -13,10 +15,11 @@ public class GameObject {
 	protected String name;
 	
 	
-	//COMPONENTS
+	//COMPONENTS Talvez trocar por uma lista de uma superclasse de componentes
 	protected Sprite sprite = null;
 	protected AnimationController animationController = null;
 	protected Transform transform = null;
+	protected Collider collider = null;
 	
 	
 	//Flags
@@ -24,7 +27,6 @@ public class GameObject {
 	protected Layer layer = null;
 	private boolean receivesInput = false;
 	
-	protected int colliderRadius = 0;
 	
 	
 	private static int TOTAL_GAME_OBJECT_COUNT = 0;
@@ -70,8 +72,9 @@ public class GameObject {
 		this.layer = initLayer;
 		this.receivesInput = false;
 
-		this.transform = transform;
 		
+		this.transform = transform;
+		this.collider = new Collider(colliderRadius,transform);
 		this.sprite = new Sprite(pathToSprite);
 		
 		
@@ -92,9 +95,10 @@ public class GameObject {
 		}
 		this.layer = initLayer;
 		this.receivesInput = receivesInput;
+		
 
 		this.transform = transform;
-		
+		this.collider = new Collider(colliderRadius,this.transform);
 		this.sprite = new Sprite(pathToSprite);
 		
 		
@@ -127,6 +131,9 @@ public class GameObject {
 			return;
 		}
 		g.drawImage(sprite.getSprite(), applyTransform(), null);
+		g.setColor(new Color(0,0,255));
+		g.drawOval(this.collider.getX()-collider.getRadius(),this.collider.getY() -  collider.getRadius(), collider.getRadius()*2,collider.getRadius()*2); 
+
 		//debug
 	}
 	
@@ -144,9 +151,7 @@ public class GameObject {
 	}
 	
 	public void update(double deltaTime) {
-		if(animationController != null) {
-			animationController.updateAnimationController();
-		}
+		internalUpdate();
 		//System.out.println("Waring - Object default Update has not been overridden, Please do not instantiate raw GameObjects");
 	}
 	
@@ -174,9 +179,8 @@ public class GameObject {
 		return this.layer;
 	}
 	
-	
-	public int getColliderRadius() {
-		return this.colliderRadius;
+	public Collider getCollider() {
+		return this.collider;
 	}
 	
 	
@@ -203,6 +207,14 @@ public class GameObject {
 		af.rotate(Math.toRadians(this.transform.getRotation()));
 		af.translate(-sprite.getWidth()/2,-sprite.getHeight()/2);	
 		return af;
+	}
+	
+	
+	//Uma lista de componentes seria mais interessante
+	void internalUpdate() {
+		if(collider != null)collider.internalUpdate();
+		if(animationController!= null)animationController.internalUpdate();
+		
 	}
 
 }

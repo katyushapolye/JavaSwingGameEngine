@@ -37,7 +37,7 @@ public class AnimationController {
 
 	}
 	
-	public void updateAnimationController() {
+	public void internalUpdate() {
 		if(animationClock.getElapsedTimeInSeconds() >= currentAnimationLength/(float)currentAnimationFrames){
 			animationClock.resetClock();
 			spriteToControl.changeSprite(currentAnimationClip.getAnimationFrame(currentFrame%currentAnimationFrames));

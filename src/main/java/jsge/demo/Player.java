@@ -1,4 +1,4 @@
-package jsge.prefabs;
+package jsge.demo;
 import jsge.components.AnimationController;
 import jsge.components.Transform;
 
@@ -28,7 +28,7 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,5,true);
+		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,10,true);
 		
 		//Player State Machine Initialization
 		AnimationClip idleAnimation =  new AnimationClip();
@@ -63,7 +63,7 @@ public class Player extends GameObject{
 	}
 	@Override
 	public void update(double deltaTime) {
-		this.animationController.updateAnimationController();
+		this.animationController.internalUpdate();
 		//System.out.println("X: " + this.X + "Y: " +this.Y);
 		if(isMovingUp) {
 			this.transform.offsetPosition(0, (int)(deltaTime*-playerVelocity));
@@ -86,12 +86,13 @@ public class Player extends GameObject{
 		checkAnimationState();
 		checkPlayerBounds();
 		
+		super.update(deltaTime);
+				
 	}
 	
 	@Override
 	public void draw(Graphics2D g) {
 		super.draw(g);
-		g.drawOval(this.transform.getY()-colliderRadius,this.transform.getY() -colliderRadius, colliderRadius*2, colliderRadius*2); 
 	}
 	
 	

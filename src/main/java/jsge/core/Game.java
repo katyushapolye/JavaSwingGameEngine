@@ -1,9 +1,9 @@
 package jsge.core;
 
 import jsge.components.Transform;
+import jsge.demo.Player;
 import jsge.managers.InputManager;
-import jsge.managers.LogicManager;
-import jsge.prefabs.Player;
+import jsge.managers.CollisionManager;
 import jsge.utils.Clock;
 import jsge.utils.Layers.Layer;
 
@@ -14,23 +14,19 @@ public class Game {
 
 	private GameRendererWindow gameWindow = null;
 	private InputManager inputHandler = null;
-	private LogicManager logicManager = null;
+	private CollisionManager collisionManager = null;
 
 	public Game(int ScreenWidth, int ScreenHeight) {
 		gameWindow = new GameRendererWindow(ScreenWidth, ScreenHeight);
 		inputHandler = gameWindow.getInputManager();
-		logicManager = new LogicManager();
+		collisionManager = new CollisionManager();
 
 	}
-
-	// Check deltaTime, esta sendo calculado errado, deve ser o tempo desde o ultimo
-	// frame (tick completo)
+	
 
 	public void run() {
 		// Scene Loading
-		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png",new Transform(320,240), Layer.UI, 0);
-		
-		
+		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png",new Transform(320,240), Layer.GAMEOBJECT, 10);
 		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 30, 33, 0);
 	
 		
@@ -40,7 +36,6 @@ public class Game {
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
 				double deltaTime = gameClock.resetClock();
 				//System.out.println("FPS: " + (1.f/ (float) deltaTime));
-
 				// Pool Input and send to all gameobjects that receive it
 				while (inputHandler.isPoolingDone()) {
 					GameKeyEvent e = inputHandler.poolEvent();
@@ -51,8 +46,7 @@ public class Game {
 				}
 
 				// Game Logic
-
-				logicManager.handleLogic(GameObject.getAllGameObjects(), deltaTime);
+				collisionManager.handleLogic(GameObject.getAllGameObjects(), deltaTime);
 
 				// Drawn and then Display
 				
@@ -78,3 +72,5 @@ public class Game {
 
 	}
 }
+	
+	
