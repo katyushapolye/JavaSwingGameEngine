@@ -28,7 +28,7 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,10,true);
+		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,10,10,true);
 		
 		//Player State Machine Initialization
 		AnimationClip idleAnimation =  new AnimationClip();

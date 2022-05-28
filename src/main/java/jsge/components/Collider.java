@@ -86,7 +86,7 @@ public class Collider{
 	public boolean isColliding(Collider colision) {
 		if(colision.colliderType == ColliderType.Rect) {
 			if(this.colliderType ==  ColliderType.Rect) {
-				//Pouco otimizado, pensar em quadrantes dps
+				//NAO ESTA FUNCIONANDO == //NAO ESTA FUNCIONANDO == //NAO ESTA FUNCIONANDO
 				if(this.Y < colision.X + colision.width &&
 					this.X + this.width > colision.X &&
 					this.Y < colision.Y + colision.height &&
@@ -95,7 +95,7 @@ public class Collider{
 					return true;
 				}
 				else {
-					//this é circular e e colision é rect
+					//NAO ESTA FUNCIONANDO == //NAO ESTA FUNCIONANDO == //NAO ESTA FUNCIONANDO
 					
 					float dx = Math.abs(this.X - colision.X);
 					float dy = Math.abs(this.Y - colision.Y);
@@ -127,8 +127,7 @@ public class Collider{
 				
 			}
 			else {
-				//this é rect e e colision é circular
-				
+				//NAO ESTA FUNCIONANDO == //NAO ESTA FUNCIONANDO == //NAO ESTA FUNCIONANDO
 				float dx = Math.abs(colision.X - this.X);
 				float dy = Math.abs(colision.Y - this.Y);
 				if(dx > this.width/2 + colision.radius) {return false;}

@@ -26,7 +26,7 @@ public class Game {
 
 	public void run() {
 		// Scene Loading
-		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png",new Transform(320,240), Layer.GAMEOBJECT, 10);
+		new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png",new Transform(320,240),Layer.GAMEOBJECT,50,50);
 		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 30, 33, 0);
 	
 		
