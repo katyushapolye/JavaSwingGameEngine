@@ -25,7 +25,7 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 	int SCREEN_DEFAULT_SIZE_W = 640;
 	int SCREEN_DEFAULT_SIZE_H = 480;
 	
-	private InputManager inputHandler = null;
+	private InputManager inputManager = null;
 	private RendererCanvas screenCanvas = null;
 	private RendererManager rendererManager = null;
 	private RenderingHints renderingHints = null;
@@ -33,9 +33,9 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 	public GameRendererWindow(int X,int Y) {
 		this.setResizable(false);
 		
-		inputHandler= new InputManager();
+		inputManager= new InputManager();
 		rendererManager =  new RendererManager(this);
-		addKeyListener(inputHandler);
+		addKeyListener(inputManager);
 		SCREEN_H = Y;
 		SCREEN_W = X;
 		if(X==0 || Y==0) {
@@ -58,7 +58,6 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 		renderingHints =  new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		renderingHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		
-		
 		System.out.println("RendererWindow: Renderer Window Initialized");	
 	}
 
@@ -74,8 +73,8 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 		screenCanvas.addToDrawnBuffer(gm);
 	}
 	
-	public InputManager getInputHandler() {
-		return this.inputHandler;
+	public InputManager getInputManager() {
+		return this.inputManager;
 		
 	}
 	public void actionPerformed(ActionEvent e) {

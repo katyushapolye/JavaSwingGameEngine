@@ -12,12 +12,11 @@ import java.util.ArrayList;
 public class GameObject {
 	protected String name;
 	
+	
+	//COMPONENTS
 	protected Sprite sprite = null;
 	protected AnimationController animationController = null;
-	
 	protected Transform transform = null;
-	
-	//Planned components
 	
 	
 	protected Layer layer = null;
@@ -88,8 +87,7 @@ public class GameObject {
 		TOTAL_GAME_OBJECT_COUNT++;
 		
 	}
-	
-	
+		
 	public void draw(Graphics2D g) {
 		if(sprite == null || this.transform == null) {
 			System.out.println("GameObject: Warning - Spriteless or Transformless GameObject, the sprite may have failed to load or the Transform was manually set as null, Is this intended Behaviour?");;
@@ -99,10 +97,8 @@ public class GameObject {
 		//debug
 	}
 	
-	
-	
+
 	//Metodos para override
-	
 	public void onCollision(GameObject collision) {
 		System.out.println(this.name + " COLLIDED WITH " + collision.name);
 	}
@@ -118,7 +114,6 @@ public class GameObject {
 		return;
 	};
 	
-	
 	//Getters e Setters
 	
 	public void setSpriteComponent(Sprite sprite) {
@@ -128,8 +123,6 @@ public class GameObject {
 	public Sprite getSpriteComponent() {
 		return this.sprite;
 	}
-	
-	
 	
 	
 	public void setAnimationController(AnimationController animationController) {
@@ -153,6 +146,10 @@ public class GameObject {
 	
 	public Transform getTransform() {
 		return this.transform;
+	}
+	
+	public void setTransformComponent(Transform transform) {
+		this.transform = transform;
 	}
 	//Fim getters and setters
 	

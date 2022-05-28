@@ -18,7 +18,7 @@ public class Game {
 
 	public Game(int ScreenWidth, int ScreenHeight) {
 		gameWindow = new GameRendererWindow(ScreenWidth, ScreenHeight);
-		inputHandler = gameWindow.getInputHandler();
+		inputHandler = gameWindow.getInputManager();
 		logicManager = new LogicManager();
 
 	}
