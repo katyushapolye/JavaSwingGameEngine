@@ -247,6 +247,9 @@ public class GameObject {
 	
 	//Metodos internos para controle e transform
 	protected AffineTransform applyTransform() {
+		if(sprite.getHeight() == -1) {
+			System.out.println("GameObject: Warning - No sprite set as default, please check your GameObject Constructor");
+		}
 		AffineTransform af = new AffineTransform();
 		af.translate(this.transform.getX() ,this.transform.getY());
 		af.scale(this.transform.getScale()[0],this.transform.getScale()[1]);

@@ -21,7 +21,9 @@ public class Sprite {
 	
 	public void changeSprite(BufferedImage spriteTexture) {
 		this.spriteTexture = spriteTexture;
-	}
+		this.width =  this.spriteTexture.getWidth();
+		this.height = this.spriteTexture.getHeight();
+		}
 	
 	
 	public BufferedImage getSprite() {
