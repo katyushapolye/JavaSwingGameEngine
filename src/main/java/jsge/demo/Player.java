@@ -32,6 +32,8 @@ public class Player extends GameObject{
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
 		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,10,true);
 		
+		
+		//check directory bug in windows
 		System.out.println("Player: Player Parent GameObject Created");
 		AnimationClip idleAnimation =  new AnimationClip();
 		idleAnimation.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle",

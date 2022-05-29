@@ -2,6 +2,7 @@ jsge/components/Collider.class
 jsge/demo/Menu.class
 jsge/data/StateMachine.class
 jsge/components/AnimationController.class
+jsge/prefabs/Text.class
 jsge/demo/Program.class
 jsge/managers/SceneManager.class
 jsge/components/Transform.class
