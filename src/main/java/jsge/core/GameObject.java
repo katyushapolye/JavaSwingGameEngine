@@ -85,6 +85,24 @@ public class GameObject {
 		TOTAL_GAME_OBJECT_COUNT++;
 		
 	}
+	
+	public GameObject(String name,Transform transform,Layer initLayer){
+		if(name == null) {
+			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
+		}
+		this.name = name;
+		if(initLayer == null) {
+			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
+		}
+		this.layer = initLayer;
+		this.receivesInput = false;
+		this.transform = transform;	
+		totalGameObjects.add(this);
+		TOTAL_GAME_OBJECT_COUNT++;
+		
+	}
 	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer,int colliderWidth,int colliderHeight){
 		if(name == null) {
 			System.out.println("GameObject: Error - Nameless GameObject initialized");
@@ -101,6 +119,30 @@ public class GameObject {
 
 		this.transform = transform;
 		this.collider = new Collider(colliderWidth,colliderHeight,this.transform);
+		this.sprite = new Sprite(pathToSprite);
+		
+		
+		totalGameObjects.add(this);
+		inputReceiverGameObjects.add(this);
+		TOTAL_GAME_OBJECT_COUNT++;
+		
+	}
+	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer){
+		if(name == null) {
+			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
+		}
+		this.name = name;
+		if(initLayer == null) {
+			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
+		}
+		this.layer = initLayer;
+		this.receivesInput = false;
+		
+
+		this.transform = transform;
+		this.collider = null;
 		this.sprite = new Sprite(pathToSprite);
 		
 		
@@ -181,9 +223,10 @@ public class GameObject {
 		}
 		g.drawImage(sprite.getSprite(), applyTransform(), null);
 		g.setColor(new Color(0,0,255));
-		g.drawOval(this.collider.getX()-collider.getRadius(),this.collider.getY() -  collider.getRadius(), collider.getRadius()*2,collider.getRadius()*2); 
-		g.drawRect(this.collider.getX()-collider.getWidth(),this.collider.getY() -  collider.getHeight(), collider.getWidth()*2,collider.getHeight()*2); 
-		
+		//g.drawOval(this.collider.getX()-collider.getRadius(),this.collider.getY() -  collider.getRadius(), collider.getRadius()*2,collider.getRadius()*2); 
+		//g.drawRect(this.collider.getX()-collider.getWidth(),this.collider.getY() -  collider.getHeight(), collider.getWidth()*2,collider.getHeight()*2); 
+		//g.setPaintMode();
+		g.setColor(new Color(0,0,0));
 		//debug
 	}
 	

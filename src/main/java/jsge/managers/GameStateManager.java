@@ -15,7 +15,7 @@ public class GameStateManager {
 		this.sm.addState("Exit", GameStates.Exit,"Running","Exit");
 		
 		
-		sm.dumpStateMachineOnConsole();
+		//sm.dumpStateMachineOnConsole();
 	
 	}
 	

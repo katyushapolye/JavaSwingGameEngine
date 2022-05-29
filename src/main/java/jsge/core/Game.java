@@ -1,27 +1,23 @@
 package jsge.core;
 
 import java.awt.event.WindowEvent;
-import java.util.HashMap;
-import java.util.Map;
-
-import jsge.components.Transform;
 import jsge.data.Scene;
-import jsge.demo.Player;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.managers.SceneManager;
 import jsge.managers.GameStateManager;
 import jsge.utils.Clock;
 import jsge.utils.GameState.GameStates;
-import jsge.utils.Layers.Layer;
 
 public class Game {
 	//Lembrar de implementar arquitetura de singleton para isso
 	private static boolean openInstance = false; 
 	
-	final long SECOND_IN_NANO = 1000000000l;
-	final long FPS = 60l;
-	final long FRAME_TARGET_TIME = SECOND_IN_NANO / FPS;
+	static final long SECOND_IN_NANO = 1000000000l;
+	static final long TARGET_FPS = 60l;
+	final long FRAME_TARGET_TIME = SECOND_IN_NANO / TARGET_FPS;
+	
+	public static double DELTA_TIME = 0;
 
 	private GameRendererWindow gameWindow = null;
 	private InputManager inputManager = null;
@@ -29,7 +25,6 @@ public class Game {
 	private static GameStateManager gameStateManager = null; // nos devemos dar autoria para os GO's muder o estado do jogo
 	private static SceneManager sceneManager = null;
 	
-	private Scene firstScene = null;
 	
 	
 	public Game(int ScreenWidth, int ScreenHeight,Scene firstScene) {
@@ -46,6 +41,8 @@ public class Game {
 		logicManager = new LogicManager();
 		gameStateManager = new GameStateManager();
 		sceneManager = new SceneManager(firstScene);
+		
+		System.out.println("Game Initialized");
 		
 		
 	}	
@@ -91,7 +88,7 @@ public class Game {
 		while (true) {
 
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
-				double deltaTime = gameClock.resetClock();
+				DELTA_TIME = gameClock.resetClock();
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();
 					for (GameObject go : GameObject.getAllInputReceiverGameObjects()) {
@@ -101,7 +98,7 @@ public class Game {
 				}
 
 				if (gameStateManager.getCurrentGameState() != GameStates.Halted) {
-					logicManager.handleLogic(GameObject.getAllGameObjects(), deltaTime);
+					logicManager.handleLogic(GameObject.getAllGameObjects(), DELTA_TIME);
 					sceneManager.updateCurrentScene();
 				
 				}

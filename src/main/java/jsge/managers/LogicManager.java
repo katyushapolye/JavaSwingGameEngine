@@ -33,7 +33,7 @@ public class LogicManager {
 
 		// Retirar isso porque causa error ao destruir objetos numa coleção durante a
 		// iteração, usar FOR padrão e
-		// retirar try catch
+		// retirar try catch tratar objetos sem colisor importante tb
 		try {
 			for (GameObject gm1 : GameObjectOnScene) {
 				for (GameObject gm2 : GameObjectOnScene) {
