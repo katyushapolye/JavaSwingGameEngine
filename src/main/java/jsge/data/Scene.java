@@ -1,18 +1,19 @@
 package jsge.data;
 
-import jsge.core.Game;
+import jsge.utils.Clock;
 
 public class Scene {
 	
 	private String sceneName;
 	
+	protected Clock sceneClock;
+	
 	public Scene(String sceneName) {
 		this.sceneName = sceneName;
+		this.sceneClock =  new Clock();
 		
 	}
 	//Getters
-	
-	
 	public String getSceneName() {
 		return this.sceneName;
 	}
@@ -21,7 +22,7 @@ public class Scene {
 	
 	
 	public void sceneBootStrap() {
-		//Called on scene loading, not on gameloop
+		//Called on scene change
 	}
 	
 	public void sceneUpdate() {
@@ -29,7 +30,7 @@ public class Scene {
 	}
 	
 	public void sceneExit() {
-		//Called on scene unloading, not on game loop
+		//Called on scene change, if it is being the scene changed from
 	}
 	
 	

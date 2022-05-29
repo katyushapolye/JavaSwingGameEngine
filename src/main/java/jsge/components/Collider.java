@@ -85,6 +85,9 @@ public class Collider {
 	}
 
 	public boolean isColliding(Collider colision) {
+		if(this.radius == 0 || this.height ==  0 || this.width == 0 || colision.radius == 0 || colision.height == 0 || colision.width ==0) {
+			return false;
+		}
 		if (colision.colliderType == ColliderType.Rect) {
 			if (this.colliderType == ColliderType.Rect) {
 				//implementar aqi AABB

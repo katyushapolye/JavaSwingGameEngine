@@ -47,6 +47,9 @@ public class GameObject {
 	public static void destroyAllGameObjects() {
 		TOTAL_GAME_OBJECT_COUNT= 0;
 		//Call all destroy functions
+		for (GameObject gameObject : totalGameObjects) {
+			gameObject.onDestroy();
+		}
 		totalGameObjects.clear();
 	}
 	

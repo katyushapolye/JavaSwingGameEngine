@@ -4,7 +4,6 @@ import java.util.*;
 
 import jsge.core.Game;
 import jsge.core.GameObject;
-import jsge.utils.Point;
 import jsge.utils.GameState.GameStates;
 import jsge.utils.Layers.Layer;
 
@@ -23,7 +22,7 @@ public class LogicManager {
 		catch(Exception e) {
 			
 		}
-		if(Game.gameStateManager.getCurrentGameState() == GameStates.Running) {
+		if(Game.getGameStateManager().getCurrentGameState() == GameStates.Running) {
 			checkAllColisions(GameObjectOnScene);
 		}
 	}

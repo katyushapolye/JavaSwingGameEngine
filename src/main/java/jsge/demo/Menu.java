@@ -17,16 +17,21 @@ public class Menu extends Scene{
 
 	@Override
 	public void sceneBootStrap() {
-		// TODO Auto-generated method stub
-		Player player = new Player("",200,200,0);
+		//
+		Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png",200,200,0);
 		GameObject bg = new GameObject("BG","src/main/resources/Assets/Touhou_GameBG.png",new Transform(320,240),Layer.UI,0);
-		 debug = new Scene("Test");
+		Scene p1 = new Scene("Phase-1");
+		Game.getSceneManager().loadScene(p1);
 		
 		
 	}	
 	
 	@Override
-	public void sceneUpdate() {
+	public void sceneUpdate(){
+		System.out.println(this.sceneClock.getElapsedTimeInSeconds());
+		if(this.sceneClock.getElapsedTimeInSeconds() >= 30.f) {
+			Game.getSceneManager().changeScene(Game.getSceneManager().getFirstSceneIndexByName("Phase-1"));
+		}
 		
 	}
 	

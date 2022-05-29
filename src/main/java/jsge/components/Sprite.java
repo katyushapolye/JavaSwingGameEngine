@@ -46,7 +46,7 @@ public class Sprite {
 			
 		}
 		catch(Exception e) {
-			System.out.println("Warning - Failed to load file "+ pathToFile + ". This may lead to Unexpected behaviour!");
+			System.out.println("Sprite: Warning - Failed to load file "+ pathToFile + ". This may lead to Unexpected behaviour!");
 			this.width = -1;
 			this.height = -1;
 		}

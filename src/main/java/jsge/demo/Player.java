@@ -32,7 +32,7 @@ public class Player extends GameObject{
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
 		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,10,true);
 		
-		//Player State Machine Initialization
+		System.out.println("Player: Player Parent GameObject Created");
 		AnimationClip idleAnimation =  new AnimationClip();
 		idleAnimation.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle",
 									0.25f,4,true,false);
@@ -43,6 +43,8 @@ public class Player extends GameObject{
 		AnimationClip rightAnimation = new AnimationClip();
 		rightAnimation.loadAnimationSpriteSheet("Marisa_Right","src/main/resources/Assets/Marisa/Marisa_Moving_Right_Animation/Marisa_Right",
 									0.23f,3,true,false);
+		
+		System.out.println("Player: Player Animations Loaded");
 
 		
 		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>(false);
@@ -52,10 +54,16 @@ public class Player extends GameObject{
 		sm.setDefaultState("Marisa_Idle");
 		
 		sm.addTransition("Marisa_Moving_Left","Marisa_Moving_Right","Right");
-		
 		sm.addTransition("Marisa_Moving_Right","Marisa_Moving_Left","Left");
 		
+		System.out.println("Player: Player StateMachine Created");
+		
 		this.animationController =  new AnimationController(sm ,this.sprite);
+		
+		System.out.println("Player: Player AnimationController Created");
+		
+		System.out.println("Player: Player Created");
+
 		
 		
 	}
@@ -103,7 +111,7 @@ public class Player extends GameObject{
 	}
 	@Override
 	public void receiveInput(GameKeyEvent e) {
-		if(Game.gameStateManager.getCurrentGameState() == GameStates.Running) {
+		if(Game.getGameStateManager().getCurrentGameState() == GameStates.Running) {
 		if(e.getEventType() == EventType.Pressed) {
 			switch(e.getKeyCode()) {
 			case 38:
@@ -128,7 +136,7 @@ public class Player extends GameObject{
 				this.isRotatingRight = true;
 				break;
 			case 27:
-				Game.gameStateManager.changeGameState(GameStates.Paused);
+				Game.getGameStateManager().changeGameState(GameStates.Paused);
 				}
 			}
 			
@@ -163,7 +171,7 @@ public class Player extends GameObject{
 			if(e.getEventType() == EventType.Pressed) {
 				switch(e.getKeyCode()) {
 				case 27:
-					Game.gameStateManager.changeGameState(GameStates.Running);
+					Game.getGameStateManager().changeGameState(GameStates.Running);
 					break;
 			
 		

@@ -1,7 +1,6 @@
 package jsge.core;
 
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,12 +9,16 @@ import jsge.data.Scene;
 import jsge.demo.Player;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
+import jsge.managers.SceneManager;
 import jsge.managers.GameStateManager;
 import jsge.utils.Clock;
 import jsge.utils.GameState.GameStates;
 import jsge.utils.Layers.Layer;
 
 public class Game {
+	//Lembrar de implementar arquitetura de singleton para isso
+	private static boolean openInstance = false; 
+	
 	final long SECOND_IN_NANO = 1000000000l;
 	final long FPS = 60l;
 	final long FRAME_TARGET_TIME = SECOND_IN_NANO / FPS;
@@ -23,31 +26,50 @@ public class Game {
 	private GameRendererWindow gameWindow = null;
 	private InputManager inputManager = null;
 	private LogicManager logicManager = null;
+	private static GameStateManager gameStateManager = null; // nos devemos dar autoria para os GO's muder o estado do jogo
+	private static SceneManager sceneManager = null;
+	
+	private Scene firstScene = null;
 	
 	
-	public static GameStateManager gameStateManager = null; // nos devemos dar autoria para os GO's muder o estado do jogo
-
-	
-	
-	private Scene currentGameScene = null;
-	private Scene nextScene = null;
-	
-
-	private Map<Integer,Scene> gameScenes = null;
-	
-	public Game(int ScreenWidth, int ScreenHeight) {
+	public Game(int ScreenWidth, int ScreenHeight,Scene firstScene) {
+		
+		if(openInstance == true) {
+			System.out.println("Game: FATAL ERROR - ONLY ONE INSTANCE ALLOWED OF GAME");
+			throw new RuntimeException(new Error("Terminated - Error 0x0013 - GAME MUST HAVE ONE, AND ONLY ONE INSTANCE"));
+		}
+		openInstance = true;
+		
 		
 		gameWindow = new GameRendererWindow(ScreenWidth, ScreenHeight);
 		inputManager = gameWindow.getInputManager();
 		logicManager = new LogicManager();
 		gameStateManager = new GameStateManager();
-		gameScenes = new HashMap<Integer,Scene>();
+		sceneManager = new SceneManager(firstScene);
 		
+		
+	}	
+	public static GameStateManager getGameStateManager() {
+		if(gameStateManager == null) {
+			System.out.println("Game: FATAL ERROR - NOT ALLOWED TO CALL GAMESTATEMANAGER WHEN THERE ISN'T A GAME RUNNING");
+			throw new RuntimeException(new Error("Terminated - Error 0x0012 - GAME MUST HAVE A VALID INSTANCE"));
+			
+		}
+		return gameStateManager;
 	}
 	
-	public void gameStart(Scene firstScene) {
-		gameScenes.put(0,firstScene);
-		this.currentGameScene = firstScene;
+	public static SceneManager getSceneManager() {
+		if(sceneManager == null) {
+			System.out.println("Game: FATAL ERROR - NOT ALLOWED TO CALL SCENEMANAGER WHEN THERE ISN'T A GAME RUNNING");
+			throw new RuntimeException(new Error("Terminated - Error 0x0012 - GAME MUST HAVE A VALID INSTANCE"));
+		}
+		return sceneManager;
+	}
+	
+	
+	public void gameStart() {
+
+		
 		gameRun();
 	}
 	
@@ -55,17 +77,10 @@ public class Game {
 	//Em desenvolvimento para acomodar multiplas scenas
 
 	private void gameRun() {
-			while(true) {
-			Player player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png",200,200,0);
-			GameObject bg = new GameObject("BG","src/main/resources/Assets/Touhou_GameBG.png",new Transform(320,240),Layer.UI,0);
+			sceneManager.changeScene(0);
 			gameLoop();
+			gameDispose();
 			
-			
-			if(gameStateManager.getCurrentGameState() == GameStates.Exit) {
-				gameDispose();
-				}
-			}
-
 		}
 	
 	
@@ -87,7 +102,8 @@ public class Game {
 
 				if (gameStateManager.getCurrentGameState() != GameStates.Halted) {
 					logicManager.handleLogic(GameObject.getAllGameObjects(), deltaTime);
-					currentGameScene.sceneUpdate();
+					sceneManager.updateCurrentScene();
+				
 				}
 
 				if (gameStateManager.getCurrentGameState() != GameStates.Halted) {
@@ -99,13 +115,8 @@ public class Game {
 				
 				if (gameStateManager.getCurrentGameState() == GameStates.Exit) {
 					return;
-				}
-				if (gameStateManager.getCurrentGameState() == GameStates.LoadNextScene) {
+				}		
 					
-					return;
-						
-					
-				}
 
 			} else {
 				try {
@@ -127,6 +138,9 @@ public class Game {
 		System.out.println("GameExit");
 		gameWindow.dispatchEvent(new WindowEvent(gameWindow, WindowEvent.WINDOW_CLOSING));
 	}
+	
+	
+	
 }
 	
 

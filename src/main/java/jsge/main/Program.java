@@ -8,10 +8,12 @@ public class Program {
 
 
 	public static void main(String[] args){
-		Game game = new Game(800,600);
 		Scene firstScene = new Menu("Menu");
-		game.gameStart(firstScene);
 		
+		Game game = new Game(800,600,firstScene);
+		
+		game.gameStart();
+
 		return;
 		
 	}

@@ -40,7 +40,7 @@ public class AnimationController {
 	}
 	
 	public void internalUpdate() {
-		if(currentAnimationClip.updatesOnPause() == false && Game.gameStateManager.getCurrentGameState() == GameStates.Paused) {
+		if(currentAnimationClip.updatesOnPause() == false && Game.getGameStateManager().getCurrentGameState() == GameStates.Paused) {
 			return;
 		}
 		if(animationClock.getElapsedTimeInSeconds() >= currentAnimationLength/(float)currentAnimationFrames){

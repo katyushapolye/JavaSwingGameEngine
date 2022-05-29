@@ -5,8 +5,7 @@ public class GameState {
 		Running, //Everything updates
 		Halted, //Only input is received
 		Paused, //Collisions are not checked, animations will depend on the tag you've put, update calls normally for GO's
-		LoadNextScene,
-		Exit,
+		Exit, //will terminate the game at the end of the tick it was set to
 	}
 
 }
