@@ -1,8 +1,10 @@
 package jsge.components;
 
+import jsge.core.Game;
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
 import jsge.utils.Clock;
+import jsge.utils.GameState.GameStates;
 
 
 public class AnimationController {
@@ -38,6 +40,9 @@ public class AnimationController {
 	}
 	
 	public void internalUpdate() {
+		if(currentAnimationClip.updatesOnPause() == false && Game.gameStateManager.getCurrentGameState() == GameStates.Paused) {
+			return;
+		}
 		if(animationClock.getElapsedTimeInSeconds() >= currentAnimationLength/(float)currentAnimationFrames){
 			animationClock.resetClock();
 			spriteToControl.changeSprite(currentAnimationClip.getAnimationFrame(currentFrame%currentAnimationFrames));

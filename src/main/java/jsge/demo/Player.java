@@ -4,11 +4,13 @@ import jsge.components.Transform;
 
 import java.awt.Graphics2D;
 
+import jsge.core.Game;
 import jsge.core.GameKeyEvent;
 import jsge.core.GameObject;
 import jsge.core.GameKeyEvent.EventType;
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
+import jsge.utils.GameState.GameStates;
 import jsge.utils.Layers.Layer;
 
 public class Player extends GameObject{
@@ -28,19 +30,19 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,10,10,true);
+		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,10,true);
 		
 		//Player State Machine Initialization
 		AnimationClip idleAnimation =  new AnimationClip();
 		idleAnimation.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle",
-									0.25f,4,true);
+									0.25f,4,true,false);
 		AnimationClip leftAnimation = new AnimationClip();
 		leftAnimation.loadAnimationSpriteSheet("Marisa_Left","src/main/resources/Assets/Marisa/Marisa_Moving_Left_Animation/Marisa_Left",
-									0.23f,3,true);
+									0.23f,3,true,true);
 		
 		AnimationClip rightAnimation = new AnimationClip();
 		rightAnimation.loadAnimationSpriteSheet("Marisa_Right","src/main/resources/Assets/Marisa/Marisa_Moving_Right_Animation/Marisa_Right",
-									0.23f,3,true);
+									0.23f,3,true,false);
 
 		
 		StateMachine<AnimationClip> sm =  new StateMachine<AnimationClip>(false);
@@ -101,6 +103,7 @@ public class Player extends GameObject{
 	}
 	@Override
 	public void receiveInput(GameKeyEvent e) {
+		if(Game.gameStateManager.getCurrentGameState() == GameStates.Running) {
 		if(e.getEventType() == EventType.Pressed) {
 			switch(e.getKeyCode()) {
 			case 38:
@@ -124,6 +127,8 @@ public class Player extends GameObject{
 			case 69:
 				this.isRotatingRight = true;
 				break;
+			case 27:
+				Game.gameStateManager.changeGameState(GameStates.Paused);
 				}
 			}
 			
@@ -153,6 +158,18 @@ public class Player extends GameObject{
 				break;
 				}
 			}
+		}
+		else {
+			if(e.getEventType() == EventType.Pressed) {
+				switch(e.getKeyCode()) {
+				case 27:
+					Game.gameStateManager.changeGameState(GameStates.Running);
+					break;
+			
+		
+				}
+			}
+		}
 	
 		
 	}

@@ -2,20 +2,30 @@ package jsge.managers;
 
 import java.util.*;
 
+import jsge.core.Game;
 import jsge.core.GameObject;
 import jsge.utils.Point;
+import jsge.utils.GameState.GameStates;
 import jsge.utils.Layers.Layer;
 
-public class CollisionManager {
-	public CollisionManager() {
+public class LogicManager {
+	public LogicManager() {
 		return;
 	}
 
 	public void handleLogic(ArrayList<GameObject> GameObjectOnScene, double deltaTime) {
-		for (GameObject gm : GameObjectOnScene) {
-			gm.update(deltaTime);
+		//Retirar dps loop foreach e colocar i para evitar bugs
+		try {
+			for (GameObject gm : GameObjectOnScene) {
+				gm.update(deltaTime);
+			}
 		}
-		checkAllColisions(GameObjectOnScene);
+		catch(Exception e) {
+			
+		}
+		if(Game.gameStateManager.getCurrentGameState() == GameStates.Running) {
+			checkAllColisions(GameObjectOnScene);
+		}
 	}
 
 	// otimização possivel usando quadrantes de tela e tags de colisao, olhar tb
@@ -47,4 +57,7 @@ public class CollisionManager {
 
 	}
 
+	
+	
+	
 }

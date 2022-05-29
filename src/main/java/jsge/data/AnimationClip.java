@@ -11,18 +11,21 @@ public class AnimationClip {
 		private BufferedImage[] spriteSheet = null;
 		float animationLength = 0;
 		int animationFrames = 0;
+		
 		boolean loops = false;
+		boolean updatesOnPause = false;
 		
 		public AnimationClip(){
 			
 		}
 		
 		//Feito assim por limitações no swing
-		public void loadAnimationSpriteSheet(String animationClipName,String basePathName,float duration,int amountOfFrames,boolean isLooping) {
+		public void loadAnimationSpriteSheet(String animationClipName,String basePathName,float duration,int amountOfFrames,boolean isLooping,boolean updatesOnPause) {
 			BufferedImage[] newSpriteSheet =  new BufferedImage[amountOfFrames];
 			this.animationClipName = animationClipName;
 			this.animationLength = duration;
 			animationFrames = amountOfFrames;
+			this.updatesOnPause = updatesOnPause;
 			loops = isLooping;
 			for(int i = 0;i<amountOfFrames;i++) {
 				try {
@@ -59,5 +62,8 @@ public class AnimationClip {
 		
 		public boolean getAnimationLooping() {
 			return this.loops;
+		}
+		public boolean updatesOnPause() {
+			return this.updatesOnPause;
 		}
 }
