@@ -90,19 +90,24 @@ public class Collider {
 		}
 		if (colision.colliderType == ColliderType.Rect) {
 			if (this.colliderType == ColliderType.Rect) {
-				//implementar aqi AABB
-				System.out.println("Not implemented AABB collision");
-				return false;
+				if(this.X<colision.X+colision.width && this.X+this.width>colision.X && this.Y<colision.Y+colision.height&&this.Y+this.height>colision.Y)//n sei se é this e colision ali
+					System.out.println("Collision Detected");
+					return true;
+			        }
 
-			}
+			
 			else {
 				//implementar aqui colisao circulo-rect
-				System.out.println("Not implemented collision between Rect and Circle");
-				return false;
+				if(Point.distance(new Point(this.X, this.Y),new Point(colision.X, colision.Y))<= colision.radius){
+					System.out.println("Collision Detected");
+					
+					System.out.println("Not implemented collision between Rect and Circle");
+					return true;//tava false
+				}
 			}
-		}
 			
-		else {
+		}
+		else{
 			if (this.colliderType == ColliderType.Circle) {
 				if (Point.distance(new Point(this.X, this.Y), new Point(colision.X, colision.Y)) <= this.radius+ colision.radius) {
 					return true;
@@ -110,15 +115,23 @@ public class Collider {
 			}
 			else {
 				//implementar aqui colisao circulo-rect
+				if(Point.distance(new Point(this.X, this.Y),new Point(colision.X, colision.Y))<= colision.radius){
+                                        System.out.println("Collision Detected");
+
 				System.out.println("Not implemented collision between Rect and Circle");
-				return false;
+				return true;//tava false
+				}
 
 			}
+		
+		return false;
 		}
 		return false;
 	}
+		
 }
 	
 		
+
 
 
