@@ -1,5 +1,5 @@
 ## (J)ava (S)wing (G)ame (E)ngine
-## A light-weight game engine framework made for beginners.
+## A light-weight game engine framework made for (and by) beginners.
 
 ![JavaLog](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 
