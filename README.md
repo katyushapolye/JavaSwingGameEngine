@@ -33,16 +33,16 @@ and then
 ```sh
 mvn package
 ```
-
-Generating pre-built zip archives for distribution:
-
-```sh
-gulp build dist --prod
-```
 ## License
 
 MIT
 
-******
+***
+
+The idea of free software is that users of computing deserve freedom. They deserve in particular to have control over their computing. And proprietary software does not allow users to have control of their computing.
+
+Richard Stallman
+
+***
 
 
