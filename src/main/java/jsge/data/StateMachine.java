@@ -10,7 +10,7 @@ public class StateMachine <T> {
 	
 	private boolean debugMode = false;
 	
-	private ArrayList<State<T>> stateList;
+	private List<State<T>> stateList;
 	
 	public StateMachine(boolean debugMode) {
 		stateList =  new ArrayList<State<T>>();
@@ -37,13 +37,13 @@ public class StateMachine <T> {
 	public void changeState(String transitionID) {
 		Transition<T> temp = null;
 		for (Transition<T> t : currentState.getAllTransitions()) {
-			if(t.transitionTrigger == transitionID) {
+			if(t.transitionTrigger.contentEquals(transitionID)) {
 				temp =t;
 			}
 		} 
 		if(temp == null) {
 			
-			if(transitionID == lastTransitionTrigger) {
+			if(transitionID == lastTransitionTrigger) { //checar msm objeto
 				if(debugMode) System.out.println("StateMachine: Warning - Duplicated transition on StateMachine, Is This Intended Behaviour? - TransitionTriggerID = " + lastTransitionTrigger);
 				return; //Evita error se for enviado a msm chamada diversas vezes
 				
@@ -109,10 +109,10 @@ public class StateMachine <T> {
 
 		}
 		for (int i = 0; i < stateList.size(); i++) {
-			if(stateList.get(i).stateID == originStateID) {
+			if(stateList.get(i).stateID.contentEquals(originStateID)) {
 				originState = stateList.get(i);
 			}
-			if(stateList.get(i).stateID == destinationStateID) {
+			if(stateList.get(i).stateID.contentEquals(destinationStateID)) {
 				destinationState = stateList.get(i);
 			}
 			
@@ -146,11 +146,11 @@ public class StateMachine <T> {
 			State<T> originState = null;
 			
 			for (int i = 0; i < stateList.size(); i++) {
-				if(stateList.get(i).stateID == stateName) {
+				if(stateList.get(i).stateID.contentEquals(stateName)) {
 					System.out.println("StateMachine: Warning - Failed to create state in State in StateMachine, Duplicated stateID");
 					break;
 				}
-				if(stateList.get(i).stateID == sourceState) {
+				if(stateList.get(i).stateID.contentEquals(sourceState)) {
 					originState = stateList.get(i);
 				}
 				
@@ -171,7 +171,7 @@ public class StateMachine <T> {
 	private State<T> findStatebyID(String ID) {
 		State<T> returnState = null;
 		for (State<T> state : stateList) {
-			if (state.stateID == ID) {
+			if (state.stateID.contentEquals(ID)) {
 				returnState = state;
 				return returnState;
 			}
@@ -210,7 +210,7 @@ public class StateMachine <T> {
 			this.data = data;
 			this.stateID = stateID;
 			if(this.data == null) {
-				System.out.println("StateMachine: SEVERE WARNING - NULL POINTER IN STATEMACHINE DATA, THIS CAN LEAD TO FATAL ERRORS - STATEID: " + this.stateID);
+				System.out.println("StateMachine: SEVERE WARNING - NULL POINTER LOADED IN STATEMACHINE DATA, THIS CAN LEAD TO FATAL ERRORS - STATEID: " + this.stateID);
 
 			}
 		}

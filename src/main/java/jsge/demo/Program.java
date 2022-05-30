@@ -13,7 +13,8 @@ public class Program {
 		Scene firstScene = new Menu("Menu");
 		Game game = new Game(800,600,firstScene);
 		game.gameStart();
-
+		
+		
 		return;
 		
 	}

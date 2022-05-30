@@ -8,13 +8,18 @@ import jsge.data.Scene;
 
 public class SceneManager {
 	
+	
+	//BUG CONTADOR DE TOTAL DE SCENAS QUE JA FOI CARREGADA, POIS PODE REPITIR
 	private Scene currentLoadedScene = null;
 	private HashMap<Integer,Scene> loadedScenes = null;
+	
+	private int sceneLoadedCount = 0;
 	
 	
 	public SceneManager(Scene firstScene) {
 		loadedScenes = new HashMap<Integer, Scene>();
-		loadedScenes.put(0, firstScene);
+		loadedScenes.put(sceneLoadedCount, firstScene);
+		sceneLoadedCount++;
 		currentLoadedScene = firstScene;
 		
 	}
@@ -50,7 +55,8 @@ public class SceneManager {
 			System.out.println("SceneManager: FATAL ERROR - Loading null references into memory is not allowed");
 			throw new RuntimeException(new Error("Terminated - Error 0x000B - Null reference cannot be loaded"));
 		}
-		loadedScenes.put(loadedScenes.size(),scene);
+		loadedScenes.put(sceneLoadedCount,scene);
+		sceneLoadedCount++;
 	}
 	
 	public void unloadScene(int index) {

@@ -37,7 +37,7 @@ public class Player extends GameObject{
 		System.out.println("Player: Player Parent GameObject Created");
 		AnimationClip idleAnimation =  new AnimationClip();
 		idleAnimation.loadAnimationSpriteSheet("Marisa_Idle","src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle",
-									0.25f,4,true,false);
+									0.33f,4,true,false);
 		AnimationClip leftAnimation = new AnimationClip();
 		leftAnimation.loadAnimationSpriteSheet("Marisa_Left","src/main/resources/Assets/Marisa/Marisa_Moving_Left_Animation/Marisa_Left",
 									0.23f,3,true,true);
