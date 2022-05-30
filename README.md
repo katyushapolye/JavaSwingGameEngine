@@ -1,9 +1,9 @@
 ## (J)ava (S)wing (G)ame (E)ngine
 ## A light-weight game engine framework made for beginners.
 
-[JSGE (https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)]
+![JavaLog](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+![Build Status](https://img.shields.io/badge/build-dev-yellow)
 
 The JSGE frame-work is designed to teach basic concepts from more powerful and well-established game engines, as well
 as to give the user a general idea of how OOP is applied in Game Programing and Software development in general.
