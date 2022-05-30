@@ -10,9 +10,9 @@ as to give the user a general idea of how OOP is applied in Game Programing and 
 
 ## Main Features
 
-- Fully Flexible Renderer, Supporting multiples Sprites with a bunch of options for transforming said Sprites on the run.
+- Fully Flexible Renderer, Supporting multiples Sprites with a lot of Transforms already implemented.
 - Basic Collision System.
-- Basic Input Handling Capability, Stearing away from Java's Swing Event Oriented Programming.
+- Basic Input Handling Capability, steering away from Java's Swing Event Oriented Programming.
 - A Basic Game Demo.
 
 ## Creators
