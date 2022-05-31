@@ -1,5 +1,4 @@
 jsge/components/Collider.class
-jsge/demo/Menu.class
 jsge/data/StateMachine.class
 jsge/components/AnimationController.class
 jsge/prefabs/Text.class

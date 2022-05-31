@@ -8,6 +8,7 @@ import jsge.managers.SceneManager;
 import jsge.managers.GameStateManager;
 import jsge.utils.Clock;
 import jsge.utils.GameState.GameStates;
+import jsge.utils.Timer;
 
 public class Game {
 	//Lembrar de implementar arquitetura de singleton para isso
@@ -99,6 +100,7 @@ public class Game {
 
 				if (gameStateManager.getCurrentGameState() != GameStates.Halted) {
 					logicManager.handleLogic(GameObject.getAllGameObjects(), DELTA_TIME);
+					checkAllTimers();
 					sceneManager.updateCurrentScene();
 				
 				}
@@ -134,6 +136,12 @@ public class Game {
 	private void gameDispose() {
 		System.out.println("GameExit");
 		gameWindow.dispatchEvent(new WindowEvent(gameWindow, WindowEvent.WINDOW_CLOSING));
+	}
+	
+	private void checkAllTimers() {
+		for(int i = 0;i<Timer.getAllActiveTimers().size();i++) {
+			Timer.getAllActiveTimers().get(i).checkTimer();
+		}		
 	}
 	
 	
