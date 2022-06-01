@@ -71,7 +71,7 @@ public class Player extends GameObject{
 	}
 	@Override
 	public void onCollision(GameObject collision) {
-		GameObject.destroyGameObject(this);
+		//	GameObject.destroyGameObject(this);
 	}
 	@Override
 	public void update(double deltaTime) {
