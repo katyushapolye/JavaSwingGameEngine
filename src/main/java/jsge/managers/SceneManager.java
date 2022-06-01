@@ -45,6 +45,7 @@ public class SceneManager {
 			System.out.println("SceneManager: FATAL ERROR - Scene of index "+ sceneIndex + " not found");
 			throw new RuntimeException(new Error("Terminated - Error 0x000A - Scene not found in memory"));
 		}
+		
 		currentLoadedScene.sceneBootStrap();
 		
 	}

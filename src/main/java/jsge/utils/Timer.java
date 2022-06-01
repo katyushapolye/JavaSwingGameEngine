@@ -44,7 +44,7 @@ public class Timer <T> {
 	public void checkTimer() {
 		if(epoch+(interval*1000) <= System.currentTimeMillis()) {
 			timerCallback.callback(args);
-			System.out.println("Timer: Sending Callback");
+			System.out.println("Timer: Sending Callback, funcion: " + timerCallback.toString());
 			if(this.recursive) {
 				epoch =  System.currentTimeMillis();
 				return;

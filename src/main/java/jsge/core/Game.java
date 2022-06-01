@@ -92,8 +92,15 @@ public class Game {
 				DELTA_TIME = gameClock.resetClock();
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();
+					try {
+						
+					
 					for (GameObject go : GameObject.getAllInputReceiverGameObjects()) {
 						go.receiveInput(e);
+					}
+					}
+					catch(Exception exception) {
+						
 					}
 
 				}

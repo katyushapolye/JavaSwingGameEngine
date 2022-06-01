@@ -3,10 +3,15 @@ package jsge.demo.MenuScene;
 import java.awt.Color;
 
 import jsge.components.Transform;
+import jsge.core.Game;
 import jsge.core.GameKeyEvent;
 import jsge.core.GameKeyEvent.EventType;
+import jsge.prefabs.ColoredPanel;
 import jsge.prefabs.Text;
 import jsge.core.GameObject;
+import jsge.data.Scene;
+import jsge.demo.stage_1.Stage_1_Scene;
+import jsge.utils.GameState;
 import jsge.utils.Layers.Layer;
 
 public class MenuGameObject extends GameObject {
@@ -18,7 +23,12 @@ public class MenuGameObject extends GameObject {
 	public MenuGameObject() {
 		super("menuInputHandler", new Transform(0, 0), Layer.BACKGROUND, true);
 		BG = new GameObject("BG","src/main/resources/Assets/Scratchs/Touhou_Etherial_Nightmare_BG.jpg",new Transform(320,240),Layer.BACKGROUND);
+		Scene stage_1 = new Stage_1_Scene();
+		Game.getSceneManager().loadScene(stage_1);
+		
 		BG.getTransform().setScale(0.90,0.75);
+		
+		BG.getSpriteComponent().setAlpha(0.5d);
 		UIOptions = new MenuGameObjectContainer();
 		UIOptions.menuOptions[0].getTransform().offsetPosition(5,0);
 		UIOptions.menuOptions[0].setColor(new Color(150,0,128));
@@ -28,12 +38,11 @@ public class MenuGameObject extends GameObject {
 
 	@Override
 	public void receiveInput(GameKeyEvent e) {
-		if (e.getEventType() == EventType.Pressed) {
+		if (e.getEventType() == EventType.Pressed)  {
 			switch (e.getKeyCode()) {
 			case 38:
 				pastSelectedOption = currentSelectedOption;
 				currentSelectedOption--;
-				System.out.println("UP");
 				break;
 			case 40:
 				pastSelectedOption = currentSelectedOption;
@@ -41,7 +50,10 @@ public class MenuGameObject extends GameObject {
 				break;
 			case 10:
 				if(this.currentSelectedOption == 0) {
-					System.out.println("GAME START");
+					Game.getSceneManager().changeScene(Game.getSceneManager().getFirstSceneIndexByName("stage_1"));
+				}
+				else if(this.currentSelectedOption == 3) {
+					Game.getGameStateManager().changeGameState(GameState.GameStates.Exit);
 				}
 			
 			default:
@@ -88,7 +100,6 @@ public class MenuGameObject extends GameObject {
 
 	private class MenuGameObjectContainer {
 		Text[] menuOptions = new Text[4];
-
 		public MenuGameObjectContainer() {
 			menuOptions[0] = new Text("StartOption", "Start", new Transform(295, 260), Layer.UI, null);
 			menuOptions[1] = new Text("ExtraOption", "Extras", new Transform(290, 280), Layer.UI, null);

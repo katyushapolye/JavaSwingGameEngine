@@ -1,4 +1,5 @@
 jsge/components/Collider.class
+jsge/demo/MenuScene/MenuScene.class
 jsge/data/StateMachine.class
 jsge/components/AnimationController.class
 jsge/prefabs/Text.class
@@ -7,8 +8,9 @@ jsge/managers/SceneManager.class
 jsge/components/Transform.class
 jsge/core/GameRendererWindow$1.class
 jsge/utils/Clock.class
-jsge/demo/Player.class
-jsge/demo/Enemy.class
+jsge/prefabs/ColoredPanel.class
+jsge/demo/stage_1/Enemy.class
+jsge/utils/Timer.class
 jsge/managers/GameStateManager.class
 jsge/utils/GameState.class
 jsge/data/StateMachine$State.class
@@ -22,11 +24,16 @@ jsge/utils/Layers.class
 jsge/managers/LogicManager.class
 jsge/data/StateMachine$Transition.class
 jsge/components/Collider$ColliderType.class
+jsge/demo/MenuScene/MenuGameObject.class
 jsge/utils/GameState$GameStates.class
 jsge/core/GameRendererWindow$RendererCanvas.class
 jsge/utils/Layers$Layer.class
+jsge/utils/Callback.class
 jsge/utils/Point.class
+jsge/demo/stage_1/Stage_1_Scene.class
 jsge/core/GameObject.class
 jsge/core/GameRendererWindow.class
+jsge/demo/MenuScene/MenuGameObject$MenuGameObjectContainer.class
 jsge/core/GameKeyEvent$EventType.class
 jsge/managers/InputManager.class
+jsge/demo/stage_1/Player.class

@@ -1,4 +1,4 @@
-package jsge.demo;
+package jsge.demo.stage_1;
 import jsge.components.AnimationController;
 import jsge.components.Transform;
 

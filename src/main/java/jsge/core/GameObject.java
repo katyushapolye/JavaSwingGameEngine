@@ -2,6 +2,8 @@ package jsge.core;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+
 import jsge.components.AnimationController;
 import jsge.components.Collider;
 import jsge.components.Sprite;
@@ -48,10 +50,15 @@ public class GameObject {
 	public static void destroyAllGameObjects() {
 		TOTAL_GAME_OBJECT_COUNT= 0;
 		//Call all destroy functions
+		try {
 		for (GameObject gameObject : totalGameObjects) {
 			gameObject.onDestroy();
 		}
 		totalGameObjects.clear();
+		}
+		catch(Exception e) {
+			
+		}
 	}
 	
 	public static void destroyGameObject(GameObject gameObjectToDestroy) {
@@ -272,6 +279,9 @@ public class GameObject {
 			System.out.println("GameObject: Warning - Transformless or Spriteless GameObject, the sprite may have failed to load or the Transform was manually set as null, Is this intended Behaviour?");;
 			return;
 		}
+		
+		;
+
 		g.drawImage(sprite.getSprite(), applyTransform(), null);
 		g.setColor(new Color(0,0,255));
 		//g.drawOval(this.collider.getX()-collider.getRadius(),this.collider.getY() -  collider.getRadius(), collider.getRadius()*2,collider.getRadius()*2); 
@@ -351,7 +361,7 @@ public class GameObject {
 		AffineTransform af = new AffineTransform();
 		af.translate(this.transform.getX() ,this.transform.getY());
 		af.scale(this.transform.getScale()[0],this.transform.getScale()[1]);
-
+		
 		af.rotate(Math.toRadians(this.transform.getRotation()));
 		af.translate(-sprite.getWidth()/2,-sprite.getHeight()/2);	
 		return af;
