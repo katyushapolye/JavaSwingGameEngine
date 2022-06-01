@@ -26,7 +26,7 @@ public class MenuGameObject extends GameObject {
 		Scene stage_1 = new Stage_1_Scene();
 		Game.getSceneManager().loadScene(stage_1);
 		
-		BG.getTransform().setScale(0.90,0.75);
+		BG.getTransform().setScale(0.90,0.80);
 		
 		BG.getSpriteComponent().setAlpha(0.5d);
 		UIOptions = new MenuGameObjectContainer();

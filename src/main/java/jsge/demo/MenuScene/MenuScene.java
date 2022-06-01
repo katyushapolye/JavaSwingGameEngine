@@ -44,7 +44,7 @@ public class MenuScene extends Scene{
 		loadingFadeOut = new ColoredPanel("debug",Layer.UI,640,480,320,240);
 		//Sleight of hand pra evitar criar um objeto inteiro so pra a loading screen, animatorcontroller n atualiza se n estiver vinculado a gameobject
 		loadingScreen = new GameObject("LoadingScreen","src/main/resources/Assets/Loading/Loading_0.png",new Transform(320,240),Layer.BACKGROUND);
-		loadingSM = new StateMachine<AnimationClip>(false);
+		loadingSM = new StateMachine<AnimationClip>(true);
 		def = new AnimationClip();
 		def.loadAnimationSpriteSheet("default","src/main/resources/Assets/Loading/Loading",0.75f,8,true,true);
 		loadingSM.addState("default", def, null,null);
