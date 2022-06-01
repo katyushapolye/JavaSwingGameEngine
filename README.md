@@ -20,8 +20,8 @@ If you with to contact the programmers for any questions
 
 | Creator | README |
 | ------ | ------ |
-| Raphael Laroca | [raphael.laroca@gmail.com][PlDb] |
-| Antonio Marcos | [email][PlGh] |
+| Raphael Laroca | [raphael.laroca@gmail.com]|
+| Antonio Marcos | [email]|
 
 #### Building for source
 
