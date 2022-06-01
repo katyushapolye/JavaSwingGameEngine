@@ -32,7 +32,7 @@ public class MenuGameObject extends GameObject {
 		UIOptions = new MenuGameObjectContainer();
 		UIOptions.menuOptions[0].getTransform().offsetPosition(5,0);
 		UIOptions.menuOptions[0].setColor(new Color(150,0,128));
-		pastSelectedOption = -10;
+		pastSelectedOption = 0;
 
 	}
 
@@ -66,22 +66,14 @@ public class MenuGameObject extends GameObject {
 			currentSelectedOption = 3;
 		}
 		
-		for (int i = 0;i<4;i++) {
-			if(i == currentSelectedOption) {
-				UIOptions.menuOptions[i].getTransform().offsetPosition(5,0);
-				UIOptions.menuOptions[i].setColor(new Color(150,0,128));
-				}
-			if(i == pastSelectedOption) {
-				UIOptions.menuOptions[i].getTransform().offsetPosition(-5,0);
-				UIOptions.menuOptions[i].setColor(new Color(100,0,180));
-			}
-			else {
-				continue;
-				
-			}
+				UIOptions.menuOptions[currentSelectedOption].getTransform().offsetPosition(5,0);
+				UIOptions.menuOptions[currentSelectedOption].setColor(new Color(150,0,128));
+				UIOptions.menuOptions[pastSelectedOption].getTransform().offsetPosition(-5,0);
+				UIOptions.menuOptions[pastSelectedOption].setColor(new Color(100,0,180));
+			
 			
 		
-			}
+			
 		}
 		
 		//Check for deviation because of holding down the trigger, engine limitations maybe
