@@ -2,6 +2,7 @@ package jsge.demo;
 
 import jsge.core.Game;
 import jsge.data.Scene;
+import jsge.demo.MenuScene.MenuScene;
 import jsge.prefabs.Text;
 
 public class Program {

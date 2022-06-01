@@ -49,6 +49,7 @@ public class Sprite {
 			System.out.println("Sprite: Warning - Failed to load file "+ pathToFile + ". This may lead to Unexpected behaviour!");
 			this.width = -1;
 			this.height = -1;
+			this.spriteTexture = null;
 		}
 	}
 

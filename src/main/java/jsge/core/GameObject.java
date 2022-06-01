@@ -26,6 +26,7 @@ public class GameObject {
 	
 	protected Layer layer = null;
 	private boolean receivesInput = false;
+	private boolean wasSetADefaultSprite = true;
 	
 	
 	
@@ -79,12 +80,16 @@ public class GameObject {
 		this.transform = transform;
 		this.collider = new Collider(colliderRadius,transform);
 		this.sprite = new Sprite(pathToSprite);
+		if(this.sprite.getSprite() ==  null) {
+			this.wasSetADefaultSprite = false;
+		}
 		
 		
 		totalGameObjects.add(this);
 		TOTAL_GAME_OBJECT_COUNT++;
 		
 	}
+	
 	
 	public GameObject(String name,Transform transform,Layer initLayer){
 		if(name == null) {
@@ -96,9 +101,34 @@ public class GameObject {
 			System.out.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
+		this.sprite = new Sprite();
 		this.layer = initLayer;
 		this.receivesInput = false;
-		this.transform = transform;	
+		this.transform = transform;
+		this.wasSetADefaultSprite = false;
+		totalGameObjects.add(this);
+		TOTAL_GAME_OBJECT_COUNT++;
+		
+	}
+	public GameObject(String name,Transform transform,Layer initLayer,boolean receivesInput){
+		if(name == null) {
+			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
+		}
+		this.name = name;
+		if(initLayer == null) {
+			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
+		}
+		this.sprite = new Sprite();
+		this.layer = initLayer;
+		this.transform = transform;
+		this.wasSetADefaultSprite = false;
+		this.receivesInput = receivesInput;
+		
+		if(receivesInput) {
+			inputReceiverGameObjects.add(this);
+		}
 		totalGameObjects.add(this);
 		TOTAL_GAME_OBJECT_COUNT++;
 		
@@ -121,6 +151,9 @@ public class GameObject {
 		this.collider = new Collider(colliderWidth,colliderHeight,this.transform);
 		this.sprite = new Sprite(pathToSprite);
 		
+		if(this.sprite.getSprite() ==  null) {
+			this.wasSetADefaultSprite = false;
+		}
 		
 		totalGameObjects.add(this);
 		inputReceiverGameObjects.add(this);
@@ -144,6 +177,10 @@ public class GameObject {
 		this.transform = transform;
 		this.collider = null;
 		this.sprite = new Sprite(pathToSprite);
+		
+		if(this.sprite.getSprite() ==  null) {
+			this.wasSetADefaultSprite = false;
+		}
 		
 		
 		totalGameObjects.add(this);
@@ -169,9 +206,15 @@ public class GameObject {
 		this.collider = new Collider(colliderWidth,colliderHeight,this.transform);
 		this.sprite = new Sprite(pathToSprite);
 		
+		if(this.sprite.getSprite() ==  null) {
+			this.wasSetADefaultSprite = false;
+		}
+		
 		
 		totalGameObjects.add(this);
-		inputReceiverGameObjects.add(this);
+		if(receivesInput) {
+			inputReceiverGameObjects.add(this);
+		}
 		TOTAL_GAME_OBJECT_COUNT++;
 		
 	}
@@ -193,9 +236,14 @@ public class GameObject {
 		this.collider = new Collider(colliderRadius,this.transform);
 		this.sprite = new Sprite(pathToSprite);
 		
+		if(this.sprite.getSprite() ==  null) {
+			this.wasSetADefaultSprite = false;
+		}
 		
 		totalGameObjects.add(this);
-		inputReceiverGameObjects.add(this);
+		if(receivesInput) {
+			inputReceiverGameObjects.add(this);
+		}
 		TOTAL_GAME_OBJECT_COUNT++;
 		
 	}
@@ -210,6 +258,9 @@ public class GameObject {
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		
+		this.sprite =  new Sprite();
+		this.transform =  new Transform();
+		this.wasSetADefaultSprite = false;
 		this.transform = new Transform();
 		totalGameObjects.add(this);
 		TOTAL_GAME_OBJECT_COUNT++;
@@ -217,8 +268,8 @@ public class GameObject {
 	}
 		
 	public void draw(Graphics2D g) {
-		if(sprite == null || this.transform == null) {
-			System.out.println("GameObject: Warning - Spriteless or Transformless GameObject, the sprite may have failed to load or the Transform was manually set as null, Is this intended Behaviour?");;
+		if((sprite == null || this.transform == null) && this.wasSetADefaultSprite == true) {
+			System.out.println("GameObject: Warning - Transformless or Spriteless GameObject, the sprite may have failed to load or the Transform was manually set as null, Is this intended Behaviour?");;
 			return;
 		}
 		g.drawImage(sprite.getSprite(), applyTransform(), null);
@@ -293,8 +344,9 @@ public class GameObject {
 	
 	//Metodos internos para controle e transform
 	protected AffineTransform applyTransform() {
-		if(sprite.getHeight() == -1) {
+		if(sprite == null && this.wasSetADefaultSprite == true) {
 			System.out.println("GameObject: Warning - No sprite set as default, please check your GameObject Constructor");
+			return null;
 		}
 		AffineTransform af = new AffineTransform();
 		af.translate(this.transform.getX() ,this.transform.getY());

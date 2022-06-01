@@ -16,7 +16,7 @@ public class Timer <T> {
 	
 	
 	public static ArrayList<Timer<Object>> getAllActiveTimers() {
-		return (ArrayList<Timer<Object>>) allActiveTimers;
+		return (ArrayList<Timer<Object>>) allActiveTimers; //Polimorfismo brabo
 	};
 	
 	
