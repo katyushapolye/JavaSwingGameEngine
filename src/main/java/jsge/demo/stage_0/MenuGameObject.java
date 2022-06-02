@@ -1,4 +1,4 @@
-package jsge.demo.MenuScene;
+package jsge.demo.stage_0;
 
 import java.awt.Color;
 
@@ -22,13 +22,15 @@ public class MenuGameObject extends GameObject {
 
 	public MenuGameObject() {
 		super("menuInputHandler", new Transform(0, 0), Layer.BACKGROUND, true);
-		BG = new GameObject("BG","src/main/resources/Assets/Scratchs/Touhou_Etherial_Nightmare_BG.jpg",new Transform(320,240),Layer.BACKGROUND);
+		BG = new GameObject("BG","src/main/resources/Assets/Scratchs/Touhou_Etherial_Nightmare_BG.png",new Transform(320,240),Layer.BACKGROUND);
 		Scene stage_1 = new Stage_1_Scene();
 		Game.getSceneManager().loadScene(stage_1);
 		
 		BG.getTransform().setScale(0.90,0.80);
 		
-		BG.getSpriteComponent().setAlpha(0.5d);
+		BG.getSpriteComponent().setAlpha(255);
+		
+		
 		UIOptions = new MenuGameObjectContainer();
 		UIOptions.menuOptions[0].getTransform().offsetPosition(5,0);
 		UIOptions.menuOptions[0].setColor(new Color(150,0,128));

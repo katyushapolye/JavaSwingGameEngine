@@ -1,4 +1,5 @@
 package jsge.components;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -8,12 +9,12 @@ public class Sprite {
 	BufferedImage spriteTexture;
 	int width;
 	int height;
-	byte alpha;
+	int alpha;
 	
 	public Sprite() {
 		this.width = -1;
 		this.height = -1;
-		this.alpha = (byte) 255;
+		this.alpha =  255;
 		this.spriteTexture = null;
 	}
 	public Sprite(String pathToFile){
@@ -41,21 +42,25 @@ public class Sprite {
 	}
 	
 	//Terrivelmente ineficiente, setta manualmente Alpha de cada pixel.
-	public void setAlpha(double alphaPercentage) {       
+	public void setAlpha(int alpha) {
+		if(alpha < 0 )this.alpha = 0;
+		if(this.alpha + alpha > 255) {
+			this.alpha = 255;
+		}
 	    for (int x = 0; x < this.spriteTexture.getWidth(); x++) {          
-        for (int y = 0; y < this.spriteTexture.getHeight(); y++) {
-                //
-            int argb = this.spriteTexture.getRGB(x, y); //always returns TYPE_INT_ARGB
-            int alpha = (argb >> 24) & 0xff;  //isolate alpha
-
-            alpha *= alphaPercentage; //similar distortion to tape saturation (has scrunching effect, eliminates clipping)
-            alpha &= 0xff;      //keeps alpha in 0-255 range
-
-            argb &= 0x00ffffff; //remove old alpha info
-            argb |= (alpha << 24);  //add new alpha info
-            this.spriteTexture.setRGB(x, y, argb);            
-        }
-    }
+	    	for (int y = 0; y < this.spriteTexture.getHeight(); y++) {
+	    		Color temp = new  Color(this.spriteTexture.getRGB(x, y),true);
+	    		int red = temp.getRed();
+	    		int green =  temp.getGreen();
+	    		int blue = temp.getBlue();
+	    		int[] rgb = {red,green,blue,alpha};
+	    
+	    		this.spriteTexture.setRGB(x, y, new Color(rgb[0],rgb[1],rgb[2],alpha).getRGB());
+	    		System.out.println();
+	    		
+                        
+	    		}
+	    	}
 	    }
 
 	

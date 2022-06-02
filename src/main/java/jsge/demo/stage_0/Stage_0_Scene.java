@@ -1,4 +1,4 @@
-package jsge.demo.MenuScene;
+package jsge.demo.stage_0;
 
 import jsge.components.AnimationController;
 import jsge.components.Transform;
@@ -12,7 +12,7 @@ import jsge.utils.Callback;
 import jsge.utils.Layers.Layer;
 import jsge.utils.Timer;
 
-public class MenuScene extends Scene{
+public class Stage_0_Scene extends Scene{
 	
 	//UI vars
 	
@@ -32,7 +32,7 @@ public class MenuScene extends Scene{
 	
 	
 	
-	public MenuScene(String sceneName) {
+	public Stage_0_Scene(String sceneName) {
 		super(sceneName);
 		
 	
