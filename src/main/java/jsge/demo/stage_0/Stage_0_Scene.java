@@ -6,7 +6,8 @@ import jsge.core.GameObject;
 import jsge.data.AnimationClip;
 import jsge.data.Scene;
 import jsge.data.StateMachine;
-import jsge.prefabs.ColoredPanel;
+import jsge.demo.utils.SceneTransitionAnimation;
+import jsge.prefabs.Panel;
 import jsge.prefabs.Text;
 import jsge.utils.Callback;
 import jsge.utils.Layers.Layer;
@@ -17,7 +18,6 @@ public class Stage_0_Scene extends Scene{
 	//UI vars
 	
 	MenuGameObject menu;
-	ColoredPanel loadingFadeOut;
 	GameObject loadingScreen;
 	AnimationController loadingController;
 	AnimationClip def;
@@ -26,8 +26,7 @@ public class Stage_0_Scene extends Scene{
 	
 	Callback<Void> callback = (Void) -> startMenuTransition();
 	Timer<Void> loadingtimer = new Timer<Void>(callback,null,3,false);
-	
-	private boolean isTransitionHappening = false;
+
 	
 	
 	
@@ -41,7 +40,6 @@ public class Stage_0_Scene extends Scene{
 
 	@Override
 	public void sceneBootStrap() {
-		loadingFadeOut = new ColoredPanel("debug",Layer.UI,640,480,320,240);
 		//Sleight of hand pra evitar criar um objeto inteiro so pra a loading screen, animatorcontroller n atualiza se n estiver vinculado a gameobject
 		loadingScreen = new GameObject("LoadingScreen","src/main/resources/Assets/Loading/Loading_0.png",new Transform(320,240),Layer.BACKGROUND);
 		loadingSM = new StateMachine<AnimationClip>(true);
@@ -58,9 +56,7 @@ public class Stage_0_Scene extends Scene{
 		
 		 	loadingController.internalUpdate();
 		 	
-		 	if(isTransitionHappening) {
-		 		loadingFadeOut.offsetColor(0, 0, 0,10);
-		 	}
+		
 		 	
 		 	
 		
@@ -68,7 +64,8 @@ public class Stage_0_Scene extends Scene{
 	private Void startMenuTransition() {
 		Callback<Void> callback = (Void) -> finishMenuTransition();
 		Timer<Void> Transitiontimer = new Timer<Void>(callback,null,0.75,false);
-		isTransitionHappening = true;
+		SceneTransitionAnimation anim = new SceneTransitionAnimation(1.5);
+		
 		System.out.println("Finished Loading");
 		return null;
 
@@ -76,7 +73,7 @@ public class Stage_0_Scene extends Scene{
 	
 	private Void finishMenuTransition() {
 		GameObject.destroyGameObject(loadingScreen);
-		GameObject.destroyGameObject(loadingFadeOut);
+		
 		menu = new MenuGameObject();
 		return null;
 		

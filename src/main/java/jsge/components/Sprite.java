@@ -14,11 +14,15 @@ public class Sprite {
 	public Sprite() {
 		this.width = -1;
 		this.height = -1;
-		this.alpha =  255;
+		this.alpha =  0;
 		this.spriteTexture = null;
 	}
 	public Sprite(String pathToFile){
 		loadSprite(pathToFile);
+	}
+	
+	public int getAlpha() {
+		return this.alpha;
 	}
 	
 	
@@ -43,25 +47,32 @@ public class Sprite {
 	
 	//Terrivelmente ineficiente, setta manualmente Alpha de cada pixel.
 	public void setAlpha(int alpha) {
-		if(alpha < 0 )this.alpha = 0;
-		if(this.alpha + alpha > 255) {
+		this.alpha  = alpha;
+		if(this.alpha > 255) {
 			this.alpha = 255;
 		}
+		if(this.alpha < 0) {
+			this.alpha = 0;
+		}
+		//optimização possivel possivelmente com possibilidade de uso de operadores bitwise
 	    for (int x = 0; x < this.spriteTexture.getWidth(); x++) {          
 	    	for (int y = 0; y < this.spriteTexture.getHeight(); y++) {
 	    		Color temp = new  Color(this.spriteTexture.getRGB(x, y),true);
 	    		int red = temp.getRed();
 	    		int green =  temp.getGreen();
 	    		int blue = temp.getBlue();
-	    		int[] rgb = {red,green,blue,alpha};
-	    
-	    		this.spriteTexture.setRGB(x, y, new Color(rgb[0],rgb[1],rgb[2],alpha).getRGB());
-	    		System.out.println();
+	    	
+	    		this.spriteTexture.setRGB(x, y, new Color(red,green,blue,this.alpha).getRGB());
+	    		//System.out.println();
 	    		
                         
 	    		}
 	    	}
 	    }
+	
+	public void offSetAlpha(int a) {
+		setAlpha(this.alpha + a);
+	}
 
 	
 	public void loadSprite(String pathToFile) {

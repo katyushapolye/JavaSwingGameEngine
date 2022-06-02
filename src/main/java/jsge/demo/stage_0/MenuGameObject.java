@@ -6,7 +6,7 @@ import jsge.components.Transform;
 import jsge.core.Game;
 import jsge.core.GameKeyEvent;
 import jsge.core.GameKeyEvent.EventType;
-import jsge.prefabs.ColoredPanel;
+import jsge.prefabs.Panel;
 import jsge.prefabs.Text;
 import jsge.core.GameObject;
 import jsge.data.Scene;
@@ -19,7 +19,6 @@ public class MenuGameObject extends GameObject {
 	private int pastSelectedOption = 0;
 	private MenuGameObjectContainer UIOptions;
 	private GameObject BG; 
-
 	public MenuGameObject() {
 		super("menuInputHandler", new Transform(0, 0), Layer.BACKGROUND, true);
 		BG = new GameObject("BG","src/main/resources/Assets/Scratchs/Touhou_Etherial_Nightmare_BG.png",new Transform(320,240),Layer.BACKGROUND);
@@ -29,6 +28,8 @@ public class MenuGameObject extends GameObject {
 		BG.getTransform().setScale(0.90,0.80);
 		
 		BG.getSpriteComponent().setAlpha(255);
+		
+
 		
 		
 		UIOptions = new MenuGameObjectContainer();
@@ -86,6 +87,10 @@ public class MenuGameObject extends GameObject {
 	
 	@Override
 	public void update(double deltaTime) {
+		
+		
+		
+		//debug
 	}
 	
 	
