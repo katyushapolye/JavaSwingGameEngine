@@ -16,7 +16,7 @@ import jsge.utils.Layers.Layer;
 import jsge.utils.Timer;
 import jsge.utils.Callback;
 
-import jsge.demo.utils.SceneTransitionAnimation;
+import jsge.demo.utils.FadeInOut;
 public class MenuGameObject extends GameObject {
 	private int currentSelectedOption = 0;
 	private int pastSelectedOption = 0;
@@ -59,7 +59,7 @@ public class MenuGameObject extends GameObject {
 			case 10:
 				if(this.currentSelectedOption == 0) { 
 					Timer<Void> changeScene = new Timer<Void>(call = (Void)-> loadNextStage(),null,0.75,false);
-					SceneTransitionAnimation anim = new SceneTransitionAnimation(1.5);
+					FadeInOut anim = new FadeInOut(1.5);
 
 				}
 				else if(this.currentSelectedOption == 3) {

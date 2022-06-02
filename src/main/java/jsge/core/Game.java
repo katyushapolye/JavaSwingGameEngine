@@ -15,7 +15,7 @@ public class Game {
 	private static boolean openInstance = false; 
 	
 	static final long SECOND_IN_NANO = 1000000000l;
-	static final long TARGET_FPS = 60l;
+	public static final long TARGET_FPS = 60l;
 	final long FRAME_TARGET_TIME = SECOND_IN_NANO / TARGET_FPS;
 	
 	public static double DELTA_TIME = 0;

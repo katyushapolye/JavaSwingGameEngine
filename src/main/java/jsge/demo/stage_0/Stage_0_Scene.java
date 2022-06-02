@@ -6,7 +6,7 @@ import jsge.core.GameObject;
 import jsge.data.AnimationClip;
 import jsge.data.Scene;
 import jsge.data.StateMachine;
-import jsge.demo.utils.SceneTransitionAnimation;
+import jsge.demo.utils.FadeInOut;
 import jsge.prefabs.Panel;
 import jsge.prefabs.Text;
 import jsge.utils.Callback;
@@ -64,7 +64,7 @@ public class Stage_0_Scene extends Scene{
 	private Void startMenuTransition() {
 		Callback<Void> callback = (Void) -> finishMenuTransition();
 		Timer<Void> Transitiontimer = new Timer<Void>(callback,null,0.75,false);
-		SceneTransitionAnimation anim = new SceneTransitionAnimation(1.5);
+		FadeInOut anim = new FadeInOut(1.5);
 		
 		System.out.println("Finished Loading");
 		return null;

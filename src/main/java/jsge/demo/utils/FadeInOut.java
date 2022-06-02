@@ -2,23 +2,27 @@ package jsge.demo.utils;
 
 import java.awt.Color;
 
+import jsge.core.Game;
 import jsge.core.GameObject;
 import jsge.prefabs.Panel;
 import jsge.utils.Layers.Layer;
 import jsge.utils.Timer;
 import jsge.utils.Callback;
 
-public class SceneTransitionAnimation {
+public class FadeInOut {
 	Panel fadeIn;
 	Panel fadeOut;
 	
 	
 	double transitionDuration;
+	
+	int alphaModifier = 10;
 	Callback<Void> end = (Void) -> cleanUp();
 	Callback<Void> middle = (Void) -> endTransition();
 	
-	public SceneTransitionAnimation(double transitionDuration) {
+	public FadeInOut(double transitionDuration) {
 		this.transitionDuration = transitionDuration;
+		this.alphaModifier = (int)((255/(transitionDuration/2))/Game.TARGET_FPS)+3;
 		
 		startTransition();
 		
@@ -28,7 +32,7 @@ public class SceneTransitionAnimation {
 	
 	
 	private Void startTransition() {
-		fadeIn = new FadePanel(true);
+		fadeIn = new FadePanel(true,alphaModifier);
 		Timer<Void> middleTimer = new Timer<Void>(middle,null,transitionDuration/2,false);
 		return null;
 		
@@ -36,7 +40,7 @@ public class SceneTransitionAnimation {
 	
 	private Void endTransition() {
 		GameObject.destroyGameObject(fadeIn);
-		fadeOut = new FadePanel(false);
+		fadeOut = new FadePanel(false,alphaModifier);
 		Timer<Void> endTimer = new Timer<Void>(end,null,transitionDuration/2,false);
 		
 		
@@ -54,12 +58,14 @@ public class SceneTransitionAnimation {
 	
 	
 	private class FadePanel extends Panel{
-		int alphaMod = 10;
-		public FadePanel(boolean fadeIn) {
+		
+		int alphaMod;
+		public FadePanel(boolean fadeIn,int alphaMod) {
 			super("FadePanel",Layer.UI,640,480,320,240,new Color(0,0,0,0));
+			this.alphaMod = alphaMod;
 			if(fadeIn == false) {
 				this.setColor(new Color(0,0,0,255));
-				alphaMod = -10;
+				this.alphaMod = -this.alphaMod;
 			}
 		}
 		@Override
