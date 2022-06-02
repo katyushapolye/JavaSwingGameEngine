@@ -50,15 +50,13 @@ public class GameObject {
 	public static void destroyAllGameObjects() {
 		TOTAL_GAME_OBJECT_COUNT= 0;
 		//Call all destroy functions
-		try {
-		for (GameObject gameObject : totalGameObjects) {
-			gameObject.onDestroy();
-		}
-		totalGameObjects.clear();
-		}
-		catch(Exception e) {
+		for(int i = 0;i<totalGameObjects.size();i++) {
+			totalGameObjects.get(i).onDestroy();
+			
 			
 		}
+		totalGameObjects.clear();
+		
 	}
 	
 	public static void destroyGameObject(GameObject gameObjectToDestroy) {

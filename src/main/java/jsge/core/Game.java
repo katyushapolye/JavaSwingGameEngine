@@ -93,17 +93,14 @@ public class Game {
 				//System.out.println("FPS: " + 1f/DELTA_TIME);
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();
-					try {
-						
 					
-					for (GameObject go : GameObject.getAllInputReceiverGameObjects()) {
-						go.receiveInput(e);
-					}
-					}
-					catch(Exception exception) {
 						
-					}
+					for(int i =0;i<GameObject.getAllInputReceiverGameObjects().size();i++) {
+						GameObject.getAllInputReceiverGameObjects().get(i).receiveInput(e);
+					
+				
 
+				}
 				}
 
 				if (gameStateManager.getCurrentGameState() != GameStates.Halted) {
