@@ -13,12 +13,17 @@ import jsge.data.Scene;
 import jsge.demo.stage_1.Stage_1_Scene;
 import jsge.utils.GameState;
 import jsge.utils.Layers.Layer;
+import jsge.utils.Timer;
+import jsge.utils.Callback;
 
+import jsge.demo.utils.SceneTransitionAnimation;
 public class MenuGameObject extends GameObject {
 	private int currentSelectedOption = 0;
 	private int pastSelectedOption = 0;
 	private MenuGameObjectContainer UIOptions;
 	private GameObject BG; 
+	
+	private Callback<Void> call = (Void) -> loadNextStage();
 	public MenuGameObject() {
 		super("menuInputHandler", new Transform(0, 0), Layer.BACKGROUND, true);
 		BG = new GameObject("BG","src/main/resources/Assets/Scratchs/Touhou_Etherial_Nightmare_BG.png",new Transform(320,240),Layer.BACKGROUND);
@@ -52,8 +57,10 @@ public class MenuGameObject extends GameObject {
 				currentSelectedOption++;
 				break;
 			case 10:
-				if(this.currentSelectedOption == 0) {
-					Game.getSceneManager().changeScene(Game.getSceneManager().getFirstSceneIndexByName("stage_1"));
+				if(this.currentSelectedOption == 0) { 
+					Timer<Void> changeScene = new Timer<Void>(call = (Void)-> loadNextStage(),null,0.75,false);
+					SceneTransitionAnimation anim = new SceneTransitionAnimation(1.5);
+
 				}
 				else if(this.currentSelectedOption == 3) {
 					Game.getGameStateManager().changeGameState(GameState.GameStates.Exit);
@@ -91,6 +98,11 @@ public class MenuGameObject extends GameObject {
 		
 		
 		//debug
+	}
+	
+	private Void loadNextStage() {
+		Game.getSceneManager().changeScene(Game.getSceneManager().getFirstSceneIndexByName("stage_1"));
+		return null;
 	}
 	
 	
