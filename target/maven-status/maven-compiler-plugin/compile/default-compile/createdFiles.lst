@@ -29,13 +29,13 @@ jsge/core/GameRendererWindow$RendererCanvas.class
 jsge/utils/Layers$Layer.class
 jsge/utils/Callback.class
 jsge/prefabs/Panel.class
+jsge/demo/utils/FadeInOut.class
 jsge/utils/Point.class
 jsge/demo/stage_1/Stage_1_Scene.class
 jsge/demo/stage_0/MenuGameObject$MenuGameObjectContainer.class
 jsge/core/GameObject.class
 jsge/core/GameRendererWindow.class
-jsge/demo/utils/SceneTransitionAnimation.class
+jsge/demo/utils/FadeInOut$FadePanel.class
 jsge/core/GameKeyEvent$EventType.class
 jsge/managers/InputManager.class
-jsge/demo/utils/SceneTransitionAnimation$FadePanel.class
 jsge/demo/stage_1/Player.class

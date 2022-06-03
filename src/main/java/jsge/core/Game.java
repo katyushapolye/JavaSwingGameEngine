@@ -35,8 +35,8 @@ public class Game {
 			throw new RuntimeException(new Error("Terminated - Error 0x0013 - GAME MUST HAVE ONE, AND ONLY ONE INSTANCE"));
 		}
 		openInstance = true;
-		
-		
+
+
 		gameWindow = new GameRendererWindow(ScreenWidth, ScreenHeight);
 		inputManager = gameWindow.getInputManager();
 		logicManager = new LogicManager();
@@ -94,7 +94,8 @@ public class Game {
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();
 					
-						
+				
+					
 					for(int i =0;i<GameObject.getAllInputReceiverGameObjects().size();i++) {
 						GameObject.getAllInputReceiverGameObjects().get(i).receiveInput(e);
 					
@@ -115,6 +116,7 @@ public class Game {
 					gameWindow.display();
 				}
 
+				//System.out.println(1.d/DELTA_TIME);
 				
 				
 				if (gameStateManager.getCurrentGameState() == GameStates.Exit) {

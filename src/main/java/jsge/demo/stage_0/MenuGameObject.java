@@ -6,7 +6,6 @@ import jsge.components.Transform;
 import jsge.core.Game;
 import jsge.core.GameKeyEvent;
 import jsge.core.GameKeyEvent.EventType;
-import jsge.prefabs.Panel;
 import jsge.prefabs.Text;
 import jsge.core.GameObject;
 import jsge.data.Scene;
@@ -14,7 +13,7 @@ import jsge.demo.stage_1.Stage_1_Scene;
 import jsge.utils.GameState;
 import jsge.utils.Layers.Layer;
 import jsge.utils.Timer;
-import jsge.utils.Callback;
+
 
 import jsge.demo.utils.FadeInOut;
 public class MenuGameObject extends GameObject {
@@ -23,7 +22,6 @@ public class MenuGameObject extends GameObject {
 	private MenuGameObjectContainer UIOptions;
 	private GameObject BG; 
 	
-	private Callback<Void> call = (Void) -> loadNextStage();
 	public MenuGameObject() {
 		super("menuInputHandler", new Transform(0, 0), Layer.BACKGROUND, true);
 		BG = new GameObject("BG","src/main/resources/Assets/Scratchs/Touhou_Etherial_Nightmare_BG.png",new Transform(320,240),Layer.BACKGROUND);
@@ -58,8 +56,8 @@ public class MenuGameObject extends GameObject {
 				break;
 			case 10:
 				if(this.currentSelectedOption == 0) { 
-					Timer<Void> changeScene = new Timer<Void>(call = (Void)-> loadNextStage(),null,0.75,false);
-					FadeInOut anim = new FadeInOut(1.5);
+					new Timer<Void>((Void)-> loadNextStage(),null,1.5,false);
+					new FadeInOut(3.0);
 
 				}
 				else if(this.currentSelectedOption == 3) {

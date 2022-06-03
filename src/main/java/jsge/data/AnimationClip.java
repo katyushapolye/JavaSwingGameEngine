@@ -18,7 +18,12 @@ public class AnimationClip {
 		public AnimationClip(){
 			
 		}
+	
 		
+		public AnimationClip(String animationClipName, String basePathName, float duration, int amountOfFrames, boolean isLooping, boolean updatesOnPause) {
+			loadAnimationSpriteSheet(animationClipName, basePathName, duration, amountOfFrames, isLooping, updatesOnPause);
+			
+		}
 		//Feito assim por limitações no swing
 		public void loadAnimationSpriteSheet(String animationClipName,String basePathName,float duration,int amountOfFrames,boolean isLooping,boolean updatesOnPause) {
 			BufferedImage[] newSpriteSheet =  new BufferedImage[amountOfFrames];

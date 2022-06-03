@@ -33,7 +33,7 @@ public class FadeInOut {
 	
 	private Void startTransition() {
 		fadeIn = new FadePanel(true,alphaModifier);
-		Timer<Void> middleTimer = new Timer<Void>(middle,null,transitionDuration/2,false);
+		new Timer<Void>(middle,null,transitionDuration/2,false);
 		return null;
 		
 	}
@@ -41,7 +41,7 @@ public class FadeInOut {
 	private Void endTransition() {
 		GameObject.destroyGameObject(fadeIn);
 		fadeOut = new FadePanel(false,alphaModifier);
-		Timer<Void> endTimer = new Timer<Void>(end,null,transitionDuration/2,false);
+		new Timer<Void>(end,null,transitionDuration/2 - 20*(transitionDuration)/100,false);
 		
 		
 		return null;

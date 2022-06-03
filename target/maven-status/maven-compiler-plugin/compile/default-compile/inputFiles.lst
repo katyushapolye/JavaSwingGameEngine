@@ -11,6 +11,7 @@
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/utils/Callback.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/stage_1/Enemy.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/utils/Clock.java
+/home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/utils/FadeInOut.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/utils/Timer.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/stage_1/Player.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/components/Collider.java
@@ -26,5 +27,4 @@
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/SceneManager.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/components/Transform.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/InputManager.java
-/home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/utils/SceneTransitionAnimation.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/stage_1/Stage_1_Scene.java
