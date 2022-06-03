@@ -13,7 +13,7 @@ public class FadeInOut {
 	Panel fadeIn;
 	Panel fadeOut;
 	
-	
+	//generalize for any sprite/panel
 	double transitionDuration;
 	
 	int alphaModifier = 10;
