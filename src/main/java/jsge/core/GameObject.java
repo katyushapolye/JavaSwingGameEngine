@@ -65,6 +65,28 @@ public class GameObject {
 		
 	}
 	
+	public static void stopGameObjectReceivingInput(GameObject gameObject) {
+		if(gameObject.receivesInput) {
+			inputReceiverGameObjects.remove(gameObject);
+			gameObject.receivesInput = false;
+		}
+		else {
+			System.out.println("GameObject: Warning - This GameObject WAS NOT listening to input before, so calling the function was unecessary, Is This Intended Behaviour?");
+			return;
+		}
+	}
+	
+	public static void startGameObjectReceivingInput(GameObject gameObject) {
+		if(gameObject.receivesInput) {
+			System.out.println("GameObject: Warning - This GameObject IS ALREADY listening to input, so calling the function was unecessary, Is This Intended Behaviour?");
+			return;
+		}
+		else {
+			inputReceiverGameObjects.add(gameObject);
+			gameObject.receivesInput = true;
+		}
+	}
+	
 	
 	
 	//Adicionar overloads nesse metodo, para opções vazias etc

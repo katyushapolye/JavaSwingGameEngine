@@ -58,6 +58,7 @@ public class MenuGameObject extends GameObject {
 				if(this.currentSelectedOption == 0) { 
 					new Timer<Void>((Void)-> loadNextStage(),null,1.5,false);
 					new FadeInOut(3.0);
+					GameObject.stopGameObjectReceivingInput(this);
 
 				}
 				else if(this.currentSelectedOption == 3) {

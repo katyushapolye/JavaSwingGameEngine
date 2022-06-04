@@ -26,7 +26,6 @@ public class Player extends GameObject{
 	private boolean isPlayerDead = false;
 	
 	private boolean isShooting = false;
-	private boolean isOnCooldown = true;
 	private double shotCoolDownTime = 0.05d;
 	private Clock playerShotClock =  new Clock();
 	
@@ -34,9 +33,9 @@ public class Player extends GameObject{
 	private int playerPower = 0;
 
 	
-	private int playerVelocity = 380;
+	private int playerVelocity = 280;
 	
-	private int rotatingVelocity = 200;
+	private int rotatingVelocity = 160;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
 		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,4,true);
@@ -248,7 +247,7 @@ public class Player extends GameObject{
 	private void playerShoot() {
 		//check player power
 		if(playerShotClock.getElapsedTimeInSeconds() >= shotCoolDownTime) {
-			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY(),90,1500);
+			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY()-15,90,1500);
 			playerShotClock.resetClock();
 		}
 	}

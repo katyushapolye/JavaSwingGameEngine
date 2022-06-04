@@ -9,6 +9,7 @@ import jsge.utils.Timer;
 public class Stage_1_Scene extends Scene {
 	Player player;
 	GameObject BG;
+	GameObject stage_BG;
 	
 	Enemy[] wave1 =  new Enemy[2];
 
@@ -20,6 +21,9 @@ public class Stage_1_Scene extends Scene {
 	public void sceneBootStrap() {
 		player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 320, 240, 0);
 		BG = new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", new Transform(320, 240), Layer.UI);
+		stage_BG = new GameObject("stage_BG", "src/main/resources/Assets/Stage_1/Stage_1_BG.jpeg", new Transform(193, 225), Layer.BACKGROUND);
+		stage_BG.getTransform().setScale(1.2,1.3);
+		
 		
 		//stage into
 		
