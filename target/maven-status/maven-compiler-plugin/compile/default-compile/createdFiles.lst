@@ -9,13 +9,16 @@ jsge/components/Transform.class
 jsge/core/GameRendererWindow$1.class
 jsge/utils/Clock.class
 jsge/demo/stage_1/Enemy.class
+jsge/demo/stage_1/Bullet.class
 jsge/utils/Timer.class
 jsge/managers/GameStateManager.class
+jsge/demo/stage_1/Bullet$Tag.class
 jsge/demo/stage_0/MenuGameObject.class
 jsge/utils/GameState.class
 jsge/data/StateMachine$State.class
 jsge/core/GameRendererWindow$RendererManager.class
 jsge/data/AnimationClip.class
+jsge/demo/stage_1/Enemy$1.class
 jsge/core/GameKeyEvent.class
 jsge/components/Sprite.class
 jsge/data/Scene.class
@@ -25,6 +28,7 @@ jsge/managers/LogicManager.class
 jsge/data/StateMachine$Transition.class
 jsge/components/Collider$ColliderType.class
 jsge/utils/GameState$GameStates.class
+jsge/demo/stage_1/Enemy$EnemyPattern.class
 jsge/core/GameRendererWindow$RendererCanvas.class
 jsge/utils/Layers$Layer.class
 jsge/utils/Callback.class

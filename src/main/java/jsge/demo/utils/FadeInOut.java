@@ -53,10 +53,6 @@ public class FadeInOut {
 	}
 	
 	
-	
-	
-	
-	
 	private class FadePanel extends Panel{
 		
 		int alphaMod;

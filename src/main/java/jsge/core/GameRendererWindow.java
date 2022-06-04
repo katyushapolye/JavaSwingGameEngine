@@ -177,7 +177,7 @@ private class RendererCanvas extends JPanel{
 		for(int i = 0;i<gameObjectList.size();i++) {
 		    	gameObjectList.get(i).draw(g2d);
 			}
-		Toolkit.getDefaultToolkit().sync();
+		Toolkit.getDefaultToolkit().sync(); //evita lag 
 		gameObjectList.clear();
 			
 		

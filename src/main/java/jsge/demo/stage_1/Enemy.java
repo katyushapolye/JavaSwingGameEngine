@@ -112,7 +112,7 @@ public class Enemy extends GameObject{
 		switch(pattern) {
 		case Linear:
 			for(int i = 240;i<=320;i+=30 ) {
-				new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),i,120);
+				new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),i,120); //checl for weird bug, no angle on less then 120 vel, look into
 			}
 			
 			
