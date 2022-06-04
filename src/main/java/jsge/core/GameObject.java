@@ -323,6 +323,7 @@ public class GameObject {
 	
 	public void setSpriteComponent(Sprite sprite) {
 		this.sprite = sprite;
+		this.wasSetADefaultSprite = true;
 	}
 	
 	public Sprite getSpriteComponent() {

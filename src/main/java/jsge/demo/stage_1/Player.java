@@ -10,6 +10,8 @@ import jsge.core.GameObject;
 import jsge.core.GameKeyEvent.EventType;
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
+import jsge.demo.stage_1.Bullet.Tag;
+import jsge.utils.Clock;
 import jsge.utils.GameState.GameStates;
 import jsge.utils.Layers.Layer;
 
@@ -23,9 +25,16 @@ public class Player extends GameObject{
 	
 	private boolean isPlayerDead = false;
 	
+	private boolean isShooting = false;
+	private boolean isOnCooldown = true;
+	private double shotCoolDownTime = 0.05d;
+	private Clock playerShotClock =  new Clock();
+	
+	
+	private int playerPower = 0;
 
 	
-	private int playerVelocity = 420;
+	private int playerVelocity = 380;
 	
 	private int rotatingVelocity = 200;
 	
@@ -71,7 +80,10 @@ public class Player extends GameObject{
 	}
 	@Override
 	public void onCollision(GameObject collision) {
-		//	GameObject.destroyGameObject(this);
+		if(collision.getClass() ==  Enemy.class) {
+			isPlayerDead = true;
+			destroyGameObject(this);
+		}
 	}
 	@Override
 	public void update(double deltaTime) {
@@ -97,6 +109,9 @@ public class Player extends GameObject{
 		}
 		checkAnimationState();
 		checkPlayerBounds();
+		if(isShooting) {
+			playerShoot();
+		}
 		
 		super.update(deltaTime);
 				
@@ -139,6 +154,10 @@ public class Player extends GameObject{
 				break;
 			case 27:
 				Game.getGameStateManager().changeGameState(GameStates.Paused);
+				break;
+			case 90:
+				this.isShooting = true;
+				break;
 				}
 			}
 			
@@ -166,6 +185,8 @@ public class Player extends GameObject{
 			case 69:
 				this.isRotatingRight = false;
 				break;
+			case 90:
+				this.isShooting = false;
 				}
 			}
 		}
@@ -183,6 +204,7 @@ public class Player extends GameObject{
 	
 		
 	}
+	
 	
 	
 	private void checkAnimationState() {
@@ -211,6 +233,14 @@ public class Player extends GameObject{
 		}
 		if(this.transform.getY() >= 448+16-15) {
 			this.transform.setY(448+16-15);
+		}
+	}
+	
+	private void playerShoot() {
+		//check player power
+		if(playerShotClock.getElapsedTimeInSeconds() >= shotCoolDownTime) {
+			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY(),0);
+			playerShotClock.resetClock();
 		}
 	}
 		

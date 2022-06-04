@@ -1,6 +1,7 @@
 package jsge.demo.stage_1;
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
+import jsge.demo.stage_1.Bullet.Tag;
 import jsge.components.AnimationController;
 import jsge.components.Transform;
 import jsge.core.GameObject;
@@ -69,8 +70,14 @@ public class Enemy extends GameObject{
 	
 	@Override
 	public void onCollision(GameObject collision) {
-		GameObject.destroyGameObject(this);
-		super.onCollision(collision);
+		if(collision.getClass() == Bullet.class) {
+			Bullet temp = ((Bullet)collision);
+			if(temp.getTag() == Tag.Player) {
+				GameObject.destroyGameObject(this);
+				
+				//Send Score to PlayerData -> 100
+			}
+		}
 	}
 	
 	
