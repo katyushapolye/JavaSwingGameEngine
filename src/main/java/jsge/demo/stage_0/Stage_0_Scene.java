@@ -22,8 +22,8 @@ public class Stage_0_Scene extends Scene{
 	StateMachine<AnimationClip> loadingSM;
 	
 	
-	Callback<Void> callback = (Void) -> startMenuTransition();
-	Timer<Void> loadingtimer = new Timer<Void>(callback,null,3,false);
+	Callback callback = () -> startMenuTransition();
+	Timer loadingtimer = new Timer(callback,3,false);
 
 	
 	public Stage_0_Scene(String sceneName) {
@@ -54,7 +54,7 @@ public class Stage_0_Scene extends Scene{
 		 	
 	}
 	private Void startMenuTransition() {
-		new Timer<Void>((Void) -> finishMenuTransition(),null,1.5,false);
+		new Timer(() -> finishMenuTransition(),1.5,false);
 		new FadeInOut(3);
 		
 		System.out.println("Finished Loading");

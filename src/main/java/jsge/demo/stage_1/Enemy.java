@@ -18,10 +18,11 @@ public class Enemy extends GameObject{
 
 	Point initialPosition;
 	Point finalPosition;
-	Timer<Void> bulletTimer;
+	Timer bulletTimer;
 	
+	//set somethings as static, so we will save some memory
 	int enemyVelocity = 200;
-	int enemyHealth = 100;
+	int enemyHealth = 1000;
 	
 	
 	static public enum EnemyPattern{
@@ -40,7 +41,7 @@ public class Enemy extends GameObject{
 		this.initialPosition =  transform.getPosition();
 		
 		this.enemyVelocity = enemySpeed;
-		bulletTimer = new Timer<Void>((Void)-> shootPattern(),null,shootingCooldown,true);
+		bulletTimer = new Timer(()-> shootPattern(),shootingCooldown,true);
 		
 		//Calculate final position for each pattern
 		switch (pattern) {
@@ -48,7 +49,7 @@ public class Enemy extends GameObject{
 			this.finalPosition =  new Point(this.initialPosition.X,this.initialPosition.Y+160);
 			break;
 		case SideLinear:
-			this.finalPosition =  new Point(this.initialPosition.X +600,this.initialPosition.Y);
+			this.finalPosition =  new Point(this.initialPosition.X +800,this.initialPosition.Y);
 			break;
 
 		default:
@@ -60,12 +61,8 @@ public class Enemy extends GameObject{
 	
 	@Override
 	public void onDestroy() {
-		try {
-			bulletTimer.destroyTimer();
-		}
-		catch(Exception e) {
-			
-		}
+		
+		bulletTimer.destroyTimer();
 		super.onDestroy();
 	}
 	
@@ -88,6 +85,9 @@ public class Enemy extends GameObject{
 			break;
 		}
 		
+		if(this.transform.getX() > 500 || this.transform.getY() > 600) {
+			destroyGameObject(this);
+		}
 	//Destoy this if out of bounds
 	super.update(deltaTime);	
 	}
@@ -97,11 +97,17 @@ public class Enemy extends GameObject{
 		if(collision.getClass() == Bullet.class) {
 			Bullet temp = ((Bullet)collision);
 			if(temp.getTag() == Tag.Player) {
-				bulletTimer.destroyTimer();
-				bulletTimer = null;
-				GameObject.destroyGameObject(this);
-				
-				//Send Score to PlayerData -> 100
+				this.enemyHealth -= temp.bulletDamage;
+				if(isStillAlive()) {
+					destroyGameObject(collision);
+					return;
+				}
+				else {
+					destroyGameObject(collision);
+					GameObject.destroyGameObject(this);
+					//send score to plyaer
+				}
+
 			}
 		}
 	}
@@ -121,12 +127,11 @@ public class Enemy extends GameObject{
 		switch(pattern) {
 		case DownLinear:
 			for(int i = 240;i<=300;i+=30 ) {
-				new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),i,250); //checl for weird bug, no angle on less then 120 vel, look into
+				new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),i,250);
 			}
 			break;
-			
 		case SideLinear:
-			new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),270,100); //checl for weird bug, no angle on less then 120 vel, look into
+			new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),270,100); 
 			break;
 		default:
 			break;

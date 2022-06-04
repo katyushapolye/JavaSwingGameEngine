@@ -11,7 +11,8 @@ public class Stage_1_Scene extends Scene {
 	GameObject BG;
 	GameObject stage_BG;
 	
-	Enemy[] wave1 =  new Enemy[4];
+	Enemy[] wave1 =  new Enemy[9];
+	Enemy[] wave2 = new Enemy[4];
 
 	public Stage_1_Scene() {
 		super("stage_1");
@@ -27,27 +28,55 @@ public class Stage_1_Scene extends Scene {
 		
 		//stage into
 		
-		new Timer<Void>((Void)-> firstWaveStart(),null,2,false);
+		new Timer(()-> firstWaveStart(),2,false);
+		new Timer(() -> checkForWaveCompletion(wave1),13,false);
+		new Timer(()-> secondWaveStart(),15,true);
 		
 	}
 	
 	//357,-10
 	//91, -10
 	
+	private void checkForWaveCompletion(Enemy[] wave) {
+		for(int i= 0;i<wave.length;i++) {
+			GameObject.destroyGameObject(wave[i]);
+		}
+		
+		 GameObject.getAllGameObjects().trimToSize();
+	}
+	
 	private Void firstWaveStart() {
-		wave1[0] = new Enemy("debug1", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-15,40), 
+		wave1[0] = new Enemy("e0", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-45,40), 
 				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
-		wave1[1] = new Enemy("debug2", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-30, 60), 
+		wave1[1] = new Enemy("e1", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-60, 60), 
 				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
-		wave1[2] = new Enemy("debug1", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-75,40), 
+		wave1[2] = new Enemy("e2", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-75,40), 
 				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
-		wave1[3] = new Enemy("debug2", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-90, 60), 
+		wave1[3] = new Enemy("e3", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-90, 60), 
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
+		wave1[4] = new Enemy("e4", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-105,40), 
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
+		wave1[5] = new Enemy("e5", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-120, 60), 
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
+		wave1[6] = new Enemy("e6", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-135,40), 
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
+		wave1[7] = new Enemy("e7", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-150, 60), 
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
+		wave1[8] = new Enemy("e8", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(-165, 40), 
 				Layer.GAMEOBJECT,Enemy.EnemyPattern.SideLinear,1f,80);
 		//wave1[2] = new Enemy("debug1", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(327, -10), 
 				//Layer.GAMEOBJECT,Enemy.EnemyPattern.Linear);
 		//wave1[3] = new Enemy("debug2", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(121, -10), 
 				//Layer.GAMEOBJECT,Enemy.EnemyPattern.Linear);
 	return null;
+		
+	}
+	
+	private void secondWaveStart() {
+		wave2[0] = new Enemy("e9", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(357,-10), 
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.DownLinear,1f,80);
+		wave2[1] = new Enemy("e10", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(91,-10), 
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.DownLinear,1f,80);
 		
 	}
 

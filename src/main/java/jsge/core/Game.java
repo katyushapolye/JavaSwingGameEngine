@@ -90,7 +90,7 @@ public class Game {
 
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
 				DELTA_TIME = gameClock.resetClock();
-				System.out.println("FPS: " + 1f/DELTA_TIME);
+				//System.out.println("FPS: " + 1f/DELTA_TIME);
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();
 					
@@ -121,7 +121,8 @@ public class Game {
 				
 				if (gameStateManager.getCurrentGameState() == GameStates.Exit) {
 					return;
-				}		
+				}	
+				System.out.println("CURRENT GAMEOBJECTS LOADED: "+ GameObject.getAllGameObjects().size());
 					
 
 			} else {

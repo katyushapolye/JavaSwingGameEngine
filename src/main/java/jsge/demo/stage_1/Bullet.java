@@ -13,6 +13,7 @@ public class Bullet extends GameObject{
 	static long BULLET_ID = 0;
 	
 	int bulletSpeed = 1500;
+	int bulletDamage =100;
 	
 	static enum Tag{
 		Enemy,

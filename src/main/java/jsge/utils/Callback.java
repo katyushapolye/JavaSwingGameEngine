@@ -1,5 +1,5 @@
 package jsge.utils;
 
-public interface Callback <T> {
-	Void callback(T[] args);
+public interface Callback{
+	void callback();
 }

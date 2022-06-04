@@ -17,8 +17,8 @@ public class FadeInOut {
 	double transitionDuration;
 	
 	int alphaModifier = 10;
-	Callback<Void> end = (Void) -> cleanUp();
-	Callback<Void> middle = (Void) -> endTransition();
+	Callback end = () -> cleanUp();
+	Callback middle = () -> endTransition();
 	
 	public FadeInOut(double transitionDuration) {
 		this.transitionDuration = transitionDuration;
@@ -31,25 +31,23 @@ public class FadeInOut {
 	
 	
 	
-	private Void startTransition() {
+	private void startTransition() {
 		fadeIn = new FadePanel(true,alphaModifier);
-		new Timer<Void>(middle,null,transitionDuration/2,false);
-		return null;
+		new Timer(middle,transitionDuration/2,false);
+		
 		
 	}
 	
-	private Void endTransition() {
+	private void endTransition() {
 		GameObject.destroyGameObject(fadeIn);
 		fadeOut = new FadePanel(false,alphaModifier);
-		new Timer<Void>(end,null,transitionDuration/2 - 20*(transitionDuration)/100,false);
+		new Timer(end,transitionDuration/2 - 20*(transitionDuration)/100,false);
 		
-		
-		return null;
 	}
 	
-	private Void cleanUp() {
+	private void cleanUp() {
 		GameObject.destroyGameObject(fadeOut);
-		return null;
+	
 	}
 	
 	
