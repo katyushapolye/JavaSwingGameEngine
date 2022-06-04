@@ -26,9 +26,6 @@ public class Stage_0_Scene extends Scene{
 	Timer<Void> loadingtimer = new Timer<Void>(callback,null,3,false);
 
 	
-	
-	
-	
 	public Stage_0_Scene(String sceneName) {
 		super(sceneName);
 		
@@ -39,6 +36,7 @@ public class Stage_0_Scene extends Scene{
 	@Override
 	public void sceneBootStrap() {
 		//Sleight of hand pra evitar criar um objeto inteiro so pra a loading screen, animatorcontroller n atualiza se n estiver vinculado a gameobject
+		
 		loadingScreen = new GameObject("LoadingScreen","src/main/resources/Assets/Loading/Loading_0.png",new Transform(320,240),Layer.BACKGROUND);
 		loadingSM = new StateMachine<AnimationClip>(true);
 		def = new AnimationClip();
@@ -54,10 +52,6 @@ public class Stage_0_Scene extends Scene{
 		
 		 	loadingController.internalUpdate();
 		 	
-		
-		 	
-		 	
-		
 	}
 	private Void startMenuTransition() {
 		new Timer<Void>((Void) -> finishMenuTransition(),null,1.5,false);

@@ -30,6 +30,10 @@ public class Timer <T> {
 		allActiveTimers.add((Timer<Object>)this);
 	}
 	
+	public void destroyTimer() {
+		allActiveTimers.remove(this);
+	}
+	
 	
 	Void executeCallback() {
 		return timerCallback.callback(args);

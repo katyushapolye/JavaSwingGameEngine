@@ -39,7 +39,7 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 200;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,10,true);
+		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,4,true);
 		
 		
 		//check directory bug in windows
@@ -81,8 +81,17 @@ public class Player extends GameObject{
 	@Override
 	public void onCollision(GameObject collision) {
 		if(collision.getClass() ==  Enemy.class) {
+			
 			isPlayerDead = true;
 			destroyGameObject(this);
+			return;
+		}
+		if(collision.getClass() == Bullet.class) {
+			Bullet temp = (Bullet)collision;
+			if(temp.getTag() == Tag.Enemy) {
+				isPlayerDead = true;
+				destroyGameObject(this);
+			}
 		}
 	}
 	@Override
@@ -239,7 +248,7 @@ public class Player extends GameObject{
 	private void playerShoot() {
 		//check player power
 		if(playerShotClock.getElapsedTimeInSeconds() >= shotCoolDownTime) {
-			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY(),0);
+			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY(),90,1500);
 			playerShotClock.resetClock();
 		}
 	}

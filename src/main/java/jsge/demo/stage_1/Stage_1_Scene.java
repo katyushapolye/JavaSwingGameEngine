@@ -29,9 +29,9 @@ public class Stage_1_Scene extends Scene {
 	
 	private Void firstWaveStart() {
 		wave1[0] = new Enemy("debug1", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(357, -10), 
-				Layer.GAMEOBJECT, 40,Enemy.EnemyPattern.Linear);
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.Linear);
 		wave1[1] = new Enemy("debug2", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(91, -10), 
-				Layer.GAMEOBJECT, 40,Enemy.EnemyPattern.Linear);
+				Layer.GAMEOBJECT,Enemy.EnemyPattern.Linear);
 	return null;
 		
 	}

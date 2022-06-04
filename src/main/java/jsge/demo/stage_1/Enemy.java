@@ -8,6 +8,7 @@ import jsge.core.GameObject;
 import jsge.utils.Clock;
 import jsge.utils.Layers.Layer;
 import jsge.utils.Point;
+import jsge.utils.Timer;
 
 public class Enemy extends GameObject{
 	
@@ -17,6 +18,7 @@ public class Enemy extends GameObject{
 
 	Point initialPosition;
 	Point finalPosition;
+	Timer<Void> bulletTimer;
 	
 	int enemyVelocity = 200;
 	int enemyHealth = 100;
@@ -30,12 +32,14 @@ public class Enemy extends GameObject{
 	
 	private EnemyPattern pattern;
 	Clock enemyClock = new Clock();
-	public Enemy(String name, String pathToSprite, Transform transform, Layer initLayer, int colliderRadius,EnemyPattern pattern) {
-		super(name, pathToSprite, transform, initLayer, colliderRadius);
+	public Enemy(String name, String pathToSprite, Transform transform, Layer initLayer,EnemyPattern pattern) {
+		super(name, pathToSprite, transform, initLayer,10);
 		sm.addState("Idle",idle,null,null);
 		this.animationController = new AnimationController(sm,this.sprite);
 		this.pattern = pattern;
 		this.initialPosition =  transform.getPosition();
+		
+		bulletTimer = new Timer<Void>((Void)-> shootPattern(),null,0.8f,true);
 		
 		//Calculate final position for each pattern
 		switch (pattern) {
@@ -48,6 +52,17 @@ public class Enemy extends GameObject{
 		}
 		
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void onDestroy() {
+		try {
+			bulletTimer.destroyTimer();
+		}
+		catch(Exception e) {
+			
+		}
+		super.onDestroy();
 	}
 	
 	@Override
@@ -73,6 +88,8 @@ public class Enemy extends GameObject{
 		if(collision.getClass() == Bullet.class) {
 			Bullet temp = ((Bullet)collision);
 			if(temp.getTag() == Tag.Player) {
+				bulletTimer.destroyTimer();
+				bulletTimer = null;
 				GameObject.destroyGameObject(this);
 				
 				//Send Score to PlayerData -> 100
@@ -89,5 +106,23 @@ public class Enemy extends GameObject{
 		}
 		return true;
 	}
+	
+	private Void shootPattern() {
+		
+		switch(pattern) {
+		case Linear:
+			for(int i = 240;i<=320;i+=30 ) {
+				new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),i,120);
+			}
+			
+			
+			break;
+		default:
+			break;
+		}
+	
+	return null;
+	}
 
 }
+
