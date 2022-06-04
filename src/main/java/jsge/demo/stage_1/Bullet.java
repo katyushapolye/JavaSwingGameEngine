@@ -1,5 +1,7 @@
 package jsge.demo.stage_1;
 
+import java.math.BigDecimal;
+
 import jsge.components.Collider;
 import jsge.components.Sprite;
 import jsge.components.Transform;
@@ -16,6 +18,11 @@ public class Bullet extends GameObject{
 		Enemy,
 		Player
 	}
+	@Override
+	public void onDestroy() {
+		return;
+	}
+	
 	private Tag bulletTag;
 	public Bullet(Tag bulletTag,int initX,int initY,int degrees,int bulletSpeed) {
 		super("bullet_"+BULLET_ID,new Transform(initX,initY), Layer.GAMEOBJECT);
@@ -37,12 +44,19 @@ public class Bullet extends GameObject{
 	@Override
 	public void update(double deltaTime) {
 		 //trignomoetria para angulo
-		int xComponent = (int)((this.bulletSpeed * Math.cos(Math.toRadians(this.transform.getRotation()))));
-		int yComponent = (int)((this.bulletSpeed * Math.sin(Math.toRadians(this.transform.getRotation()))));
+		double xComponent = ((this.bulletSpeed * Math.cos(Math.toRadians(this.transform.getRotation()))));
+		double yComponent = ((this.bulletSpeed * Math.sin(Math.toRadians(this.transform.getRotation()))));
 		
-		this.transform.offsetPosition((int)(xComponent*deltaTime), (int)(-yComponent*deltaTime));
+		//Problema na aproximação quando o valor fica proximo de zero, e aproximação por valores negativos dificulta a vida
 		
-		if(this.transform.getY() >= 640 || this.transform.getY()<=0  || this.transform.getX() >= 400 || this.transform.getX() <= 0) {
+		
+		
+		this.transform.offsetPosition((int)Math.ceil(((xComponent)*deltaTime)), (int)Math.ceil((-yComponent*deltaTime)));
+		//this.transform.offsetPosition(1,3);
+		
+		
+		//System.out.println("X: " + (int)Math.ceil((xComponent*deltaTime))+ " Y: "+(int)Math.ceil((xComponent*deltaTime)));
+		if(this.transform.getY() >= 640 || this.transform.getY()<=0  || this.transform.getX() >= 500 || this.transform.getX() <= 0) {
 			GameObject.destroyGameObject(this);
 		}
 		super.update(deltaTime);

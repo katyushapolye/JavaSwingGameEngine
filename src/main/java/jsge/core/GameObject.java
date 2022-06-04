@@ -329,7 +329,7 @@ public class GameObject {
 		}
 	}
 	public void onCollision(GameObject collision) {
-		System.out.println(this.name + " COLLIDED WITH " + collision.name);
+		//System.out.println(this.name + " COLLIDED WITH " + collision.name);
 	}
 	
 	public void update(double deltaTime) {

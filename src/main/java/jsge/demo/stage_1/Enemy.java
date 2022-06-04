@@ -25,26 +25,30 @@ public class Enemy extends GameObject{
 	
 	
 	static public enum EnemyPattern{
-		Straight,
-		Exponential,
-		Linear,
+		
+		SideLinear,
+		DownLinear,
 	}
 	
 	private EnemyPattern pattern;
 	Clock enemyClock = new Clock();
-	public Enemy(String name, String pathToSprite, Transform transform, Layer initLayer,EnemyPattern pattern) {
+	public Enemy(String name, String pathToSprite, Transform transform, Layer initLayer,EnemyPattern pattern,float shootingCooldown,int enemySpeed) {
 		super(name, pathToSprite, transform, initLayer,10);
 		sm.addState("Idle",idle,null,null);
 		this.animationController = new AnimationController(sm,this.sprite);
 		this.pattern = pattern;
 		this.initialPosition =  transform.getPosition();
 		
-		bulletTimer = new Timer<Void>((Void)-> shootPattern(),null,0.8f,true);
+		this.enemyVelocity = enemySpeed;
+		bulletTimer = new Timer<Void>((Void)-> shootPattern(),null,shootingCooldown,true);
 		
 		//Calculate final position for each pattern
 		switch (pattern) {
-		case Linear:
+		case DownLinear:
 			this.finalPosition =  new Point(this.initialPosition.X,this.initialPosition.Y+160);
+			break;
+		case SideLinear:
+			this.finalPosition =  new Point(this.initialPosition.X +600,this.initialPosition.Y);
 			break;
 
 		default:
@@ -73,13 +77,18 @@ public class Enemy extends GameObject{
 			return;
 		}
 		switch(pattern) {
-		case Linear:
+		case DownLinear:
 			this.transform.offsetPosition(0, (int)(deltaTime*enemyVelocity));
+			break;
+		case SideLinear:
+			this.transform.offsetPosition((int)(deltaTime*enemyVelocity),0);
+			
+			break;
 		default:
 			break;
 		}
 		
-		
+	//Destoy this if out of bounds
 	super.update(deltaTime);	
 	}
 	
@@ -110,12 +119,14 @@ public class Enemy extends GameObject{
 	private Void shootPattern() {
 		
 		switch(pattern) {
-		case Linear:
-			for(int i = 240;i<=320;i+=30 ) {
-				new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),i,120); //checl for weird bug, no angle on less then 120 vel, look into
+		case DownLinear:
+			for(int i = 240;i<=300;i+=30 ) {
+				new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),i,250); //checl for weird bug, no angle on less then 120 vel, look into
 			}
+			break;
 			
-			
+		case SideLinear:
+			new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),270,100); //checl for weird bug, no angle on less then 120 vel, look into
 			break;
 		default:
 			break;

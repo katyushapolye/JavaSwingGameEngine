@@ -31,8 +31,6 @@ public class LogicManager {
 	//peça pro raphael explicar
 	// para otimizar pois g1g2 = g2g1
 	private void checkAllColisions(ArrayList<GameObject> GameObjectOnScene) {
-
-	
 		// analisar se o trycatch é realmente necessario, objetos se destruindo e o indice dando segfault pois esta altersndo o obejto durante a iteração
 		try {
 			for(int i = 0;i<GameObjectOnScene.size();i++) {
