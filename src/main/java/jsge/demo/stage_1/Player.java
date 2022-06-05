@@ -254,7 +254,7 @@ public class Player extends GameObject{
 		//check player power
 		if(playerShotClock.getElapsedTimeInSeconds() >= shotCoolDownTime) {
 			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY()-15,90,1500);
-			//debug.playTest();
+			debug.play();
 			//debug.playTest();
 			playerShotClock.resetClock();
 		}

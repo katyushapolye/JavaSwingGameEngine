@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -31,6 +33,7 @@ public class AudioClip {
 		try {
 			audioFile = new File(pathToFile);
 			//Creating binary data
+			audioBuffer = Files.readAllBytes(Paths.get(pathToFile));
 			input = AudioSystem.getAudioInputStream(audioFile);
 			
 			//audioBuffer = getAudioBufferFromAudioStream(input);
@@ -89,14 +92,15 @@ public class AudioClip {
 		// Try to fit everythinh into byte array, resetting the stream losses audio
 		// quality ???? and loading a new file everytime is wasteful
 		
-		//input = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioBuffer));
-		input = AudioSystem.getAudioInputStream(audioFile);
+		input = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioBuffer));
+		//input = AudioSystem.getAudioInputStream(audioFile);
 		
 		
 	}
 	
 	
 	//Look into flexible wav header, cant keep up with all the possible ones
+	/*
 	private byte[] getAudioBufferFromAudioStream(AudioInputStream input) throws IOException {
 		byte[] wavHeader =
 				// Intel's little endian hex notation
@@ -132,5 +136,6 @@ public class AudioClip {
 
 	
 	}
+	*/
 
 }

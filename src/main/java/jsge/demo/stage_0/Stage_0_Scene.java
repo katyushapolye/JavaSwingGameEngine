@@ -70,6 +70,11 @@ public class Stage_0_Scene extends Scene{
 		return null;
 		
 	}
+	@Override
+	public void sceneExit() {
+		debug.stop();
+		super.sceneExit();
+	}
 	
 	
 
