@@ -4,6 +4,7 @@ import jsge.components.AnimationController;
 import jsge.components.Transform;
 import jsge.core.GameObject;
 import jsge.data.AnimationClip;
+import jsge.data.AudioClip;
 import jsge.data.Scene;
 import jsge.data.StateMachine;
 import jsge.demo.utils.FadeInOut;
@@ -20,7 +21,7 @@ public class Stage_0_Scene extends Scene{
 	AnimationController loadingController;
 	AnimationClip def;
 	StateMachine<AnimationClip> loadingSM;
-	
+	AudioClip debug = new AudioClip("src/main/resources/Sounds/bossFight.wav");
 	
 	Callback callback = () -> startMenuTransition();
 	Timer loadingtimer = new Timer(callback,3,false);
@@ -64,7 +65,7 @@ public class Stage_0_Scene extends Scene{
 	
 	private Void finishMenuTransition() {
 		GameObject.destroyGameObject(loadingScreen);
-		
+		debug.play();
 		menu = new MenuGameObject();
 		return null;
 		

@@ -33,6 +33,7 @@ public class Player extends GameObject{
 	
 	
 	AudioClip debug;
+	AudioClip debug2;
 	
 
 	
@@ -45,7 +46,7 @@ public class Player extends GameObject{
 		
 		
 		debug = new AudioClip("src/main/resources/Sounds/plst00.wav");
-		
+		debug2 = new AudioClip("src/main/resources/Sounds/damage00.wav");
 		//check directory bug in windows
 		System.out.println("Player: Player Parent GameObject Created");
 		AnimationClip idleAnimation =  new AnimationClip();
@@ -253,7 +254,8 @@ public class Player extends GameObject{
 		//check player power
 		if(playerShotClock.getElapsedTimeInSeconds() >= shotCoolDownTime) {
 			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY()-15,90,1500);
-			debug.playTest();
+			//debug.playTest();
+			//debug.playTest();
 			playerShotClock.resetClock();
 		}
 	}
