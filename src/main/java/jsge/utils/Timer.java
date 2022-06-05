@@ -16,11 +16,10 @@ public class Timer{
 	
 	
 	public static ArrayList<Timer> getAllActiveTimers() {
-		return (ArrayList<Timer>) allActiveTimers; //Polimorfismo brabo
+		return (ArrayList<Timer>) allActiveTimers;
 	};
 	
 	
-	@SuppressWarnings("unchecked")
 	public Timer(Callback initcallback,double intervalInSeconds,boolean recursive){
 		this.timerCallback =  initcallback;
 		this.interval = intervalInSeconds;
@@ -47,7 +46,7 @@ public class Timer{
 	public void checkTimer() {
 		if(epoch+(interval*1000) <= System.currentTimeMillis()) {
 			timerCallback.callback();
-			System.out.println("Timer: Sending Callback, funcion: " + timerCallback.toString());
+			//System.out.println("Timer: Sending Callback, funcion: " + timerCallback.toString());
 			if(this.recursive) {
 				epoch =  System.currentTimeMillis();
 				return;

@@ -2,6 +2,7 @@ package jsge.demo.stage_1;
 import jsge.components.AnimationController;
 import jsge.components.Transform;
 
+import jsge.data.AudioClip;
 import java.awt.Graphics2D;
 
 import jsge.core.Game;
@@ -26,11 +27,13 @@ public class Player extends GameObject{
 	private boolean isPlayerDead = false;
 	
 	private boolean isShooting = false;
-	private double shotCoolDownTime = 0.05d;
+	private double shotCoolDownTime = 0.1d;
 	private Clock playerShotClock =  new Clock();
 	
 	
-	private int playerPower = 0;
+	
+	AudioClip debug;
+	
 
 	
 	private int playerVelocity = 280;
@@ -40,6 +43,8 @@ public class Player extends GameObject{
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
 		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,4,true);
 		
+		
+		debug = new AudioClip("src/main/resources/Sounds/plst00.wav");
 		
 		//check directory bug in windows
 		System.out.println("Player: Player Parent GameObject Created");
@@ -248,6 +253,7 @@ public class Player extends GameObject{
 		//check player power
 		if(playerShotClock.getElapsedTimeInSeconds() >= shotCoolDownTime) {
 			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY()-15,90,1500);
+			debug.playTest();
 			playerShotClock.resetClock();
 		}
 	}

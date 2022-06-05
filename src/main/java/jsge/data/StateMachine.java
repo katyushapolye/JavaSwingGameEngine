@@ -133,7 +133,7 @@ public class StateMachine <T> {
 	
 	public void addState(String stateName,T data,String sourceState,String trigger) {
 		if(sourceState ==  null || stateList.size() == 0) {
-			System.out.println("StateMachine: No state previously set, setting " + stateName + " as default state");
+			if(debugMode)System.out.println("StateMachine: No state previously set, setting " + stateName + " as default state");
 
 			sourceState = "origin";
 			stateList.add(new State<T>(stateName,data));

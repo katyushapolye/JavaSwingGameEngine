@@ -91,6 +91,9 @@ public class Game {
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
 				DELTA_TIME = gameClock.resetClock();
 				//System.out.println("FPS: " + 1f/DELTA_TIME);
+				if(DELTA_TIME > 0.02) {
+					System.out.println("Game: SEVERE WARNING - FALLING BEHIND, THE GAME IS OVERLOADED!");
+				}
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();
 					
@@ -122,7 +125,7 @@ public class Game {
 				if (gameStateManager.getCurrentGameState() == GameStates.Exit) {
 					return;
 				}	
-				System.out.println("CURRENT GAMEOBJECTS LOADED: "+ GameObject.getAllGameObjects().size());
+				//System.out.println("CURRENT GAMEOBJECTS LOADED: "+ GameObject.getAllGameObjects().size());
 					
 
 			} else {

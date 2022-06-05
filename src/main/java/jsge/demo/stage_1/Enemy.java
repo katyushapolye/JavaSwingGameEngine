@@ -14,7 +14,7 @@ public class Enemy extends GameObject{
 	
 	AnimationClip idle =  new AnimationClip("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.5f,4,true,false);
 	//idle.loadAnimationSpriteSheet("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.25f,4,true,false);
-	StateMachine<AnimationClip> sm = new StateMachine<AnimationClip>(true);
+	StateMachine<AnimationClip> sm = new StateMachine<AnimationClip>(false);
 
 	Point initialPosition;
 	Point finalPosition;
@@ -22,7 +22,7 @@ public class Enemy extends GameObject{
 	
 	//set somethings as static, so we will save some memory
 	int enemyVelocity = 200;
-	int enemyHealth = 1000;
+	int enemyHealth = 200;
 	
 	
 	static public enum EnemyPattern{
@@ -122,7 +122,7 @@ public class Enemy extends GameObject{
 		return true;
 	}
 	
-	private Void shootPattern() {
+	private void shootPattern() {
 		
 		switch(pattern) {
 		case DownLinear:
@@ -136,8 +136,6 @@ public class Enemy extends GameObject{
 		default:
 			break;
 		}
-	
-	return null;
 	}
 
 }
