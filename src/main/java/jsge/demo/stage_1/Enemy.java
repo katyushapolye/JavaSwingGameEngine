@@ -104,6 +104,8 @@ public class Enemy extends GameObject{
 				}
 				else {
 					destroyGameObject(collision);
+					PlayerData.addScore(100);
+					Stage_1_Scene.updatePlayerScoreUI();
 					GameObject.destroyGameObject(this);
 					//send score to plyaer
 				}

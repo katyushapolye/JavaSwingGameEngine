@@ -72,7 +72,7 @@ public class Stage_0_Scene extends Scene{
 	}
 	@Override
 	public void sceneExit() {
-		debug.stop();
+		//debug.stop();
 		super.sceneExit();
 	}
 	

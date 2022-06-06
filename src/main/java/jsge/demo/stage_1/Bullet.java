@@ -1,6 +1,10 @@
 package jsge.demo.stage_1;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.math.BigDecimal;
+
+import javax.imageio.ImageIO;
 
 import jsge.components.Collider;
 import jsge.components.Sprite;
@@ -15,6 +19,11 @@ public class Bullet extends GameObject{
 	int bulletSpeed = 1500;
 	int bulletDamage =100;
 	
+	
+	//tentativa desesperada de otimização
+	static BufferedImage playeratlas;
+	static BufferedImage enemyatlas;
+	
 	static enum Tag{
 		Enemy,
 		Player
@@ -24,20 +33,37 @@ public class Bullet extends GameObject{
 		return;
 	}
 	
+	
 	private Tag bulletTag;
 	public Bullet(Tag bulletTag,int initX,int initY,int degrees,int bulletSpeed) {
 		super("bullet_"+BULLET_ID,new Transform(initX,initY), Layer.GAMEOBJECT);
+		if(playeratlas == null || enemyatlas == null ) {
+			try {
+				playeratlas = ImageIO.read(new File("src/main/resources/Assets/Marisa/Marisa_Basic_Bullet.png"));
+				enemyatlas = ImageIO.read(new File("src/main/resources/Assets/EarthSpirit/EarthSpirit_Bullet.png"));
+				
+				
+			}
+			catch(Exception e) {
+				System.out.println("Sprite: Warning - Failed to load file "+ "PLAYERATLAS or ENEMYATLAS" + ". This may lead to Unexpected behaviour!");
+			}
+			
+		
+		
+		}
+	
 		this.bulletTag = bulletTag;
+		if(this.bulletTag == Tag.Player) {
+			this.sprite =  new Sprite(playeratlas);
+		}
+		else {
+			this.sprite = new Sprite(enemyatlas);
+		}
 		this.bulletSpeed = bulletSpeed;
 		this.transform.setRotation(degrees);
-		if(this.bulletTag == Tag.Enemy)this.setSpriteComponent(new Sprite("src/main/resources/Assets/EarthSpiri"
-				+ ""
-				+ "t/EarthSpirit_Bullet.png"));
-		else {
-			this.setSpriteComponent(new Sprite("src/main/resources/Assets/Marisa/Marisa_Basic_Bullet.png"));
-		}
 		this.collider =  new Collider(5,this.transform);
 		BULLET_ID++;
+		
 		
 		
 	}
@@ -58,7 +84,7 @@ public class Bullet extends GameObject{
 		
 		
 		//System.out.println("X: " + (int)Math.ceil((xComponent*deltaTime))+ " Y: "+(int)Math.ceil((xComponent*deltaTime)));
-		if(this.transform.getY() >= 640 || this.transform.getY()<=0  || this.transform.getX() >= 500 || this.transform.getX() <= 0) {
+		if(this.transform.getY() >= 640 || this.transform.getY()<=0  || this.transform.getX() >= 420 || this.transform.getX() <= 0) {
 			GameObject.destroyGameObject(this);
 		}
 		super.update(deltaTime);

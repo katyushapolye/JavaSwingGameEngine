@@ -22,10 +22,12 @@
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/stage_0/Stage_0_Scene.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/data/Scene.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/core/GameRendererWindow.java
+/home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/stage_1/PlayerData.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/utils/Layers.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/GameStateManager.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/LogicManager.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/SceneManager.java
+/home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/data/AudioClip.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/components/Transform.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/InputManager.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/stage_1/Stage_1_Scene.java

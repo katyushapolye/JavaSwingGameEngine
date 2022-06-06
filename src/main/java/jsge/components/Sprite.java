@@ -21,6 +21,13 @@ public class Sprite {
 		loadSprite(pathToFile);
 	}
 	
+	public Sprite(BufferedImage image) {
+		this.spriteTexture = image;
+		this.height =  image.getHeight();
+		this.width = image.getWidth();
+		this.alpha = 255;
+	}
+	
 	public int getAlpha() {
 		return this.alpha;
 	}

@@ -2,6 +2,7 @@ package jsge.core;
 
 import java.awt.event.WindowEvent;
 import jsge.data.Scene;
+import jsge.demo.stage_1.PlayerData;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.managers.SceneManager;
@@ -91,6 +92,7 @@ public class Game {
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
 				DELTA_TIME = gameClock.resetClock();
 				//System.out.println("FPS: " + 1f/DELTA_TIME);
+				//System.out.println(PlayerData.getScore());
 				if(DELTA_TIME > 0.02) {
 					System.out.println("Game: SEVERE WARNING - CAN'T KEEP UP, THE GAME IS OVERLOADED!");
 				}
