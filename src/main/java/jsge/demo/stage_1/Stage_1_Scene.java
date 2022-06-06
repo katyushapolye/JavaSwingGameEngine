@@ -3,6 +3,7 @@ package jsge.demo.stage_1;
 import jsge.components.Transform;
 import jsge.core.GameObject;
 import jsge.data.Scene;
+import jsge.prefabs.Text;
 import jsge.utils.Layers.Layer;
 import jsge.utils.Timer;
 
@@ -24,6 +25,8 @@ public class Stage_1_Scene extends Scene {
 		BG = new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", new Transform(320, 240), Layer.UI);
 		stage_BG = new GameObject("stage_BG", "src/main/resources/Assets/Stage_1/Stage_1_BG.jpeg", new Transform(193, 225), Layer.BACKGROUND);
 		stage_BG.getTransform().setScale(1.2,1.3);
+		Text[] playerLifes4print= new Text[1];
+		playerLifes4print[0]= new Text("TotalLifes", "Numero de Vidas: "+Player.playerLifes, new Transform(400, 300), Layer.UI, null);
 		
 		
 		//stage into

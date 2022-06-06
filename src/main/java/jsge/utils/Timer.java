@@ -32,7 +32,9 @@ public class Timer{
 		allActiveTimers.remove(this);
 	}
 	
-	
+	public static void destroyAllTimers() {
+		allActiveTimers.clear();
+	}
 	void executeCallback() {
 		timerCallback.callback();
 	}

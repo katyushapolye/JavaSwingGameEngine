@@ -12,9 +12,12 @@ import jsge.core.GameKeyEvent.EventType;
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
 import jsge.demo.stage_1.Bullet.Tag;
+import jsge.prefabs.Text;
 import jsge.utils.Clock;
+import jsge.utils.GameState;
 import jsge.utils.GameState.GameStates;
 import jsge.utils.Layers.Layer;
+import jsge.utils.Timer;
 
 public class Player extends GameObject{
 	private boolean isMovingUp = false;
@@ -29,6 +32,8 @@ public class Player extends GameObject{
 	private boolean isShooting = false;
 	private double shotCoolDownTime = 0.1d;
 	private Clock playerShotClock =  new Clock();
+	public static int playerLifes=3;
+	
 	
 	
 	
@@ -85,22 +90,37 @@ public class Player extends GameObject{
 	}
 	@Override
 	public void onCollision(GameObject collision) {
-		if(collision.getClass() ==  Enemy.class) {
+		
+		if(playerLifes>1) {
+			if(collision.getClass() ==  Enemy.class) {
 			
-			isPlayerDead = true;
-			destroyGameObject(this);
-			return;
-		}
-		if(collision.getClass() == Bullet.class) {
-			Bullet temp = (Bullet)collision;
-			if(temp.getTag() == Tag.Enemy) {
 				isPlayerDead = true;
 				destroyGameObject(this);
+				playerLifes--;
+				Timer.destroyAllTimers();
+				Game.getSceneManager().changeScene(Game.getSceneManager().getFirstSceneIndexByName("stage_1"));
+				
+				return;
 			}
+			if(collision.getClass() == Bullet.class) {
+				Bullet temp = (Bullet)collision;
+				if(temp.getTag() == Tag.Enemy) {
+					isPlayerDead = true;
+					destroyGameObject(this);
+					playerLifes--;
+					Timer.destroyAllTimers();
+					Game.getSceneManager().changeScene(Game.getSceneManager().getFirstSceneIndexByName("stage_1"));
+				}
+			}
+	
 		}
-	}
+		else {
+			Game.getGameStateManager().changeGameState(GameState.GameStates.Exit);
+		}
+	}	
 	@Override
 	public void update(double deltaTime) {
+		
 		this.animationController.internalUpdate();
 		//System.out.println("X: " + this.X + "Y: " +this.Y);
 		if(isMovingUp) {
@@ -133,6 +153,7 @@ public class Player extends GameObject{
 	
 	@Override
 	public void draw(Graphics2D g) {
+		
 		super.draw(g);
 	}
 	

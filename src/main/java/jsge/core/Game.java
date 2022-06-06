@@ -1,13 +1,18 @@
 package jsge.core;
 
 import java.awt.event.WindowEvent;
+
+import jsge.components.Transform;
 import jsge.data.Scene;
+import jsge.demo.stage_1.Player;
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.managers.SceneManager;
+import jsge.prefabs.Text;
 import jsge.managers.GameStateManager;
 import jsge.utils.Clock;
 import jsge.utils.GameState.GameStates;
+import jsge.utils.Layers.Layer;
 import jsge.utils.Timer;
 
 public class Game {
@@ -90,7 +95,6 @@ public class Game {
 
 			if (gameClock.getElapsedTimeInNanoSeconds() >= FRAME_TARGET_TIME) {
 				DELTA_TIME = gameClock.resetClock();
-				//System.out.println("FPS: " + 1f/DELTA_TIME);
 				if(DELTA_TIME > 0.02) {
 					System.out.println("Game: SEVERE WARNING - FALLING BEHIND, THE GAME IS OVERLOADED!");
 				}
