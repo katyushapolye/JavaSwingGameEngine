@@ -12,7 +12,7 @@ import jsge.utils.Timer;
 
 public class Enemy extends GameObject{
 	
-	AnimationClip idle =  new AnimationClip("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.5f,4,true,false);
+	static AnimationClip idle =  new AnimationClip("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.5f,4,true,false);
 	//idle.loadAnimationSpriteSheet("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.25f,4,true,false);
 	StateMachine<AnimationClip> sm = new StateMachine<AnimationClip>(false);
 
