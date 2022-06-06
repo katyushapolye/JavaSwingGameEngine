@@ -60,6 +60,7 @@ public class GameObject {
 	}
 	
 	public static void destroyGameObject(GameObject gameObjectToDestroy) {
+		if(gameObjectToDestroy == null) {return;}
 		gameObjectToDestroy.onDestroy();
 		totalGameObjects.remove(gameObjectToDestroy);
 		

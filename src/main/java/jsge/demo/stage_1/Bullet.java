@@ -52,6 +52,7 @@ public class Bullet extends GameObject{
 		
 		
 		
+		
 		this.transform.offsetPosition((int)Math.ceil(((xComponent)*deltaTime)), (int)Math.ceil((-yComponent*deltaTime)));
 		//this.transform.offsetPosition(1,3);
 		

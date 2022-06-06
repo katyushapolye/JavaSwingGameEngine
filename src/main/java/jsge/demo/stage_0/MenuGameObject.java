@@ -110,7 +110,13 @@ public class MenuGameObject extends GameObject {
 
 	private class MenuGameObjectContainer {
 		Text[] menuOptions = new Text[4];
+		Text gameTitle;
+		Text subTitle;
 		public MenuGameObjectContainer() {
+			gameTitle = new Text("GameTitle","Touhou",new Transform(225,200),Layer.UI,null);
+			gameTitle.setSize(30f);
+			gameTitle.setColor(new Color(210,40,40));
+			gameTitle = new Text("GameSubTitle","Extra",new Transform(280,220),Layer.UI,null);
 			menuOptions[0] = new Text("StartOption", "Start", new Transform(295, 260), Layer.UI, null);
 			menuOptions[1] = new Text("ExtraOption", "Extras", new Transform(290, 280), Layer.UI, null);
 			menuOptions[2] = new Text("OptionOption", "Options", new Transform(285, 300), Layer.UI, null);

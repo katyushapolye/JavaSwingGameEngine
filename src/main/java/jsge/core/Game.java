@@ -92,7 +92,7 @@ public class Game {
 				DELTA_TIME = gameClock.resetClock();
 				//System.out.println("FPS: " + 1f/DELTA_TIME);
 				if(DELTA_TIME > 0.02) {
-					System.out.println("Game: SEVERE WARNING - FALLING BEHIND, THE GAME IS OVERLOADED!");
+					System.out.println("Game: SEVERE WARNING - CAN'T KEEP UP, THE GAME IS OVERLOADED!");
 				}
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();

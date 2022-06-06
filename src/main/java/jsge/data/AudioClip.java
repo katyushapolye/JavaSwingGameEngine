@@ -44,7 +44,7 @@ public class AudioClip {
 				@Override
 				public void update(LineEvent event) {
 					if (event.getType().equals(Type.STOP)) {
-						System.out.println("END");
+						//System.out.println("END");
 						//audioClip.drain();
 						//audioClip.flush();
 						audioClip.close();
