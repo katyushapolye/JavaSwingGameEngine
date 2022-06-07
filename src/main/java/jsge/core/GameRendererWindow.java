@@ -173,10 +173,15 @@ private class RendererCanvas extends JPanel{
 		if(gameObjectList == null) {
 			return;
 		}
-		
+		try {
 		for(int i = 0;i<gameObjectList.size();i++) {
 		    	gameObjectList.get(i).draw(g2d);
 			}
+		}
+		catch(Exception e) {
+			System.err.println("Renderer: FATAL ERROR - EVERY OTHER SAFEGUARD HAS FAILED, UNKNOWN/UNEXPECTED EXCEPTION HAS OCURRED");
+			throw e;
+		}
 		Toolkit.getDefaultToolkit().sync(); //evita lag 
 		gameObjectList.clear();
 			

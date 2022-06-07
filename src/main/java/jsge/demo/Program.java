@@ -11,7 +11,7 @@ public class Program {
 	public static void main(String[] args){
 		Text.setDefaultFont("src/main/resources/Assets/Font/kongtext.ttf");
 		
-		Scene firstScene = new Stage_0_Scene("Menu");
+		Scene firstScene = new Stage_0_Scene("stage_0");
 		Game game = new Game(800,600,firstScene);
 		game.gameStart();
 		

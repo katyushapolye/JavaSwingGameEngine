@@ -1,6 +1,7 @@
 package jsge.demo.stage_1;
 
 import jsge.components.Transform;
+import jsge.core.Game;
 import jsge.core.GameObject;
 import jsge.data.Scene;
 import jsge.prefabs.Text;
@@ -28,6 +29,7 @@ public class Stage_1_Scene extends Scene {
 		stage_BG = new GameObject("stage_BG", "src/main/resources/Assets/Stage_1/Stage_1_BG.jpeg", new Transform(193, 225), Layer.BACKGROUND);
 		stage_BG.getTransform().setScale(1.2,1.3);
 		playerCurrentScoreText = new Text("GameSubTitle","Score: ",new Transform(430,20),Layer.UI,null);
+		Game.getSceneManager().unloadScene(Game.getSceneManager().getFirstSceneIndexByName("stage_0"));
 		updatePlayerScoreUI();
 		
 		//stage into

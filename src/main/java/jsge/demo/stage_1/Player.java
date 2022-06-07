@@ -27,7 +27,7 @@ public class Player extends GameObject{
 	private boolean isPlayerDead = false;
 	
 	private boolean isShooting = false;
-	private double shotCoolDownTime = 0.075d;
+	private double shotCoolDownTime = 0.2d;
 	private Clock playerShotClock =  new Clock();
 	
 	

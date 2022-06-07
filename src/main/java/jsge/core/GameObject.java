@@ -93,12 +93,12 @@ public class GameObject {
 	//Adicionar overloads nesse metodo, para opções vazias etc
 	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer,int colliderRadius){
 		if(name == null) {
-			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			System.err.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.layer = initLayer;
@@ -121,12 +121,12 @@ public class GameObject {
 	
 	public GameObject(String name,Transform transform,Layer initLayer){
 		if(name == null) {
-			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			System.err.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.sprite = new Sprite();
@@ -140,12 +140,12 @@ public class GameObject {
 	}
 	public GameObject(String name,Transform transform,Layer initLayer,boolean receivesInput){
 		if(name == null) {
-			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			System.err.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.sprite = new Sprite();
@@ -163,12 +163,12 @@ public class GameObject {
 	}
 	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer,int colliderWidth,int colliderHeight){
 		if(name == null) {
-			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			System.err.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.layer = initLayer;
@@ -190,12 +190,12 @@ public class GameObject {
 	}
 	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer){
 		if(name == null) {
-			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			System.err.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.layer = initLayer;
@@ -218,12 +218,12 @@ public class GameObject {
 	}
 	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer,int colliderWidth,int colliderHeight,boolean receivesInput){
 		if(name == null) {
-			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			System.err.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.layer = initLayer;
@@ -248,12 +248,12 @@ public class GameObject {
 	}
 	public GameObject(String name,String pathToSprite,Transform transform,Layer initLayer,int colliderRadius,boolean receivesInput){
 		if(name == null) {
-			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			System.err.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		this.layer = initLayer;
@@ -277,12 +277,12 @@ public class GameObject {
 	}
 	public GameObject(String name,Layer initLayer){
 		if(name == null || name.contentEquals("")) {
-			System.out.println("GameObject: Error - Nameless GameObject initialized");
+			System.err.println("GameObject: Error - Nameless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0001 - GameObject Must Have A Valid Identification"));
 		}
 		this.name = name;
 		if(initLayer == null) {
-			System.out.println("GameObject: Error - Layerless GameObject initialized");
+			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
 		
@@ -334,7 +334,7 @@ public class GameObject {
 	}
 	
 	public void update(double deltaTime) {
-		internalUpdate();
+		internalUpdate();	//System.err.println("Game: FATAL ERROR - ONLY ONE INSTANCE ALLOWED OF GAME");
 		//System.out.println("Waring - Object default Update has not been overridden, Please do not instantiate raw GameObjects");
 	}
 	

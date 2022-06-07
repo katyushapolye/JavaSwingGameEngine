@@ -32,7 +32,7 @@ public class Game {
 	public Game(int ScreenWidth, int ScreenHeight,Scene firstScene) {
 		
 		if(openInstance == true) {
-			System.out.println("Game: FATAL ERROR - ONLY ONE INSTANCE ALLOWED OF GAME");
+			System.err.println("Game: FATAL ERROR - ONLY ONE INSTANCE ALLOWED OF GAME");
 			throw new RuntimeException(new Error("Terminated - Error 0x0013 - GAME MUST HAVE ONE, AND ONLY ONE INSTANCE"));
 		}
 		openInstance = true;
@@ -50,7 +50,7 @@ public class Game {
 	}	
 	public static GameStateManager getGameStateManager() {
 		if(gameStateManager == null) {
-			System.out.println("Game: FATAL ERROR - NOT ALLOWED TO CALL GAMESTATEMANAGER WHEN THERE ISN'T A GAME RUNNING");
+			System.err.println("Game: FATAL ERROR - NOT ALLOWED TO CALL GAMESTATEMANAGER WHEN THERE ISN'T A GAME RUNNING");
 			throw new RuntimeException(new Error("Terminated - Error 0x0012 - GAME MUST HAVE A VALID INSTANCE"));
 			
 		}
@@ -59,7 +59,7 @@ public class Game {
 	
 	public static SceneManager getSceneManager() {
 		if(sceneManager == null) {
-			System.out.println("Game: FATAL ERROR - NOT ALLOWED TO CALL SCENEMANAGER WHEN THERE ISN'T A GAME RUNNING");
+			System.err.println("Game: FATAL ERROR - NOT ALLOWED TO CALL SCENEMANAGER WHEN THERE ISN'T A GAME RUNNING");
 			throw new RuntimeException(new Error("Terminated - Error 0x0012 - GAME MUST HAVE A VALID INSTANCE"));
 		}
 		return sceneManager;
