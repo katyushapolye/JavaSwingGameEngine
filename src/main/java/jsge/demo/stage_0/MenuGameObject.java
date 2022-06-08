@@ -1,5 +1,9 @@
-package jsge.demo.stage_0;
+//Identificação START
+//Raphael Nogueira Rezende Laroca Pinto - 202135014
+//Antônio Marcos da Silva Júnior -  202135002
+//Identificação END
 
+package jsge.demo.stage_0;
 import java.awt.Color;
 
 import jsge.components.Transform;
@@ -116,7 +120,7 @@ public class MenuGameObject extends GameObject {
 			gameTitle = new Text("GameTitle","Touhou",new Transform(225,200),Layer.UI,null);
 			gameTitle.setSize(30f);
 			gameTitle.setColor(new Color(210,40,40));
-			gameTitle = new Text("GameSubTitle","Extra",new Transform(280,220),Layer.UI,null);
+			subTitle = new Text("GameSubTitle","Extra",new Transform(280,220),Layer.UI,null);
 			menuOptions[0] = new Text("StartOption", "Start", new Transform(295, 260), Layer.UI, null);
 			menuOptions[1] = new Text("ExtraOption", "Extras", new Transform(290, 280), Layer.UI, null);
 			menuOptions[2] = new Text("OptionOption", "Options", new Transform(285, 300), Layer.UI, null);

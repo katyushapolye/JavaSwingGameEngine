@@ -1,8 +1,12 @@
+// Identificação START
+// Raphael Nogueira Rezende Laroca Pinto - 202135014
+// Antônio Marcos da Silva Júnior -  202135002
+// Identificação END
 package jsge.demo.stage_1;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.math.BigDecimal;
+
 
 import javax.imageio.ImageIO;
 

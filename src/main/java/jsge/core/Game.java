@@ -1,8 +1,14 @@
+//Identificação START
+//Raphael Nogueira Rezende Laroca Pinto - 202135014
+//Antônio Marcos da Silva Júnior -  202135002
+//Identificação END
+
 package jsge.core;
+
 
 import java.awt.event.WindowEvent;
 import jsge.data.Scene;
-import jsge.demo.stage_1.PlayerData;
+
 import jsge.managers.InputManager;
 import jsge.managers.LogicManager;
 import jsge.managers.SceneManager;

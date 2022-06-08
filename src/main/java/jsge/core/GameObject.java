@@ -1,3 +1,8 @@
+//Identificação START
+//Raphael Nogueira Rezende Laroca Pinto - 202135014
+//Antônio Marcos da Silva Júnior -  202135002
+//Identificação END
+
 package jsge.core;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -382,7 +387,7 @@ public class GameObject {
 	//Fim getters and setters
 	
 	
-	//Metodos internos para controle e transform
+	//Metodos internos para controle e transform, OPTIMIZAÇÃO AQUI, SO ATIALIZAR TRANSFORM QUANDO MUDAR COMPONENTE ETC - > INTERSSANTE;
 	protected AffineTransform applyTransform() {
 		if(sprite == null && this.wasSetADefaultSprite == true) {
 			System.out.println("GameObject: Warning - No sprite set as default, please check your GameObject Constructor");

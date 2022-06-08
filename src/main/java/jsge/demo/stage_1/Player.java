@@ -1,3 +1,8 @@
+//Identificação START
+//Raphael Nogueira Rezende Laroca Pinto - 202135014
+//Antônio Marcos da Silva Júnior -  202135002
+//Identificação END
+
 package jsge.demo.stage_1;
 import jsge.components.AnimationController;
 import jsge.components.Transform;
@@ -28,6 +33,7 @@ public class Player extends GameObject{
 	
 	private boolean isShooting = false;
 	private double shotCoolDownTime = 0.2d;
+	
 	private Clock playerShotClock =  new Clock();
 	
 	

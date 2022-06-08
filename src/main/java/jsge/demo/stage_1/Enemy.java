@@ -1,3 +1,8 @@
+//Identificação START
+//Raphael Nogueira Rezende Laroca Pinto - 202135014
+//Antônio Marcos da Silva Júnior -  202135002
+//Identificação END
+
 package jsge.demo.stage_1;
 import jsge.data.AnimationClip;
 import jsge.data.StateMachine;
@@ -14,7 +19,7 @@ public class Enemy extends GameObject{
 	
 	static AnimationClip idle =  new AnimationClip("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.5f,4,true,false);
 	//idle.loadAnimationSpriteSheet("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.25f,4,true,false);
-	StateMachine<AnimationClip> sm = new StateMachine<AnimationClip>(false);
+	static StateMachine<AnimationClip> sm = new StateMachine<AnimationClip>(false);
 
 	Point initialPosition;
 	Point finalPosition;
