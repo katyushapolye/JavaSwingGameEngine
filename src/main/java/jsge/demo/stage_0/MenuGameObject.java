@@ -36,9 +36,6 @@ public class MenuGameObject extends GameObject {
 		
 		BG.getSpriteComponent().setAlpha(255);
 		
-
-		
-		
 		UIOptions = new MenuGameObjectContainer();
 		UIOptions.menuOptions[0].getTransform().offsetPosition(5,0);
 		UIOptions.menuOptions[0].setColor(new Color(150,0,128));

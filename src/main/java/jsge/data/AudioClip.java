@@ -39,6 +39,7 @@ public class AudioClip {
 			//audioBuffer = getAudioBufferFromAudioStream(input);
 			resetAudioStream();
 			audioClip =  AudioSystem.getClip();
+			
 			audioClip.addLineListener(new LineListener() {
 
 				@Override
@@ -91,7 +92,7 @@ public class AudioClip {
 	private void resetAudioStream() throws UnsupportedAudioFileException, IOException {
 		// Try to fit everythinh into byte array, resetting the stream losses audio
 		// quality ???? and loading a new file everytime is wasteful
-		
+		//stream.reset
 		input = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioBuffer));
 		//input = AudioSystem.getAudioInputStream(audioFile);
 		

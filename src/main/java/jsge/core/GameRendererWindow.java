@@ -185,6 +185,7 @@ private class RendererCanvas extends JPanel{
 		catch(Exception e) {
 			System.err.println("Renderer: FATAL ERROR - EVERY OTHER SAFEGUARD HAS FAILED, UNKNOWN/UNEXPECTED EXCEPTION HAS OCURRED");
 			throw e;
+			//System.abort
 		}
 		Toolkit.getDefaultToolkit().sync(); //evita lag 
 		gameObjectList.clear();

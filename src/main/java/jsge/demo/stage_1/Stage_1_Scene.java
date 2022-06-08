@@ -21,6 +21,7 @@ public class Stage_1_Scene extends Scene {
 	Enemy[] wave2 = new Enemy[4];
 	
 	static Text playerCurrentScoreText;
+	Text gameFPSUI;
 
 	public Stage_1_Scene() {
 		super("stage_1");
@@ -32,7 +33,8 @@ public class Stage_1_Scene extends Scene {
 		BG = new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", new Transform(320, 240), Layer.UI);
 		stage_BG = new GameObject("stage_BG", "src/main/resources/Assets/Stage_1/Stage_1_BG.jpeg", new Transform(193, 225), Layer.BACKGROUND);
 		stage_BG.getTransform().setScale(1.2,1.3);
-		playerCurrentScoreText = new Text("GameSubTitle","Score: ",new Transform(430,20),Layer.UI,null);
+		playerCurrentScoreText = new Text("GameSubTitle","Score: ",new Transform(430,40),Layer.UI,null);
+		gameFPSUI = new Text("GameSubTitle","FPS: ",new Transform(430,300),Layer.UI,null);
 		Game.getSceneManager().unloadScene(Game.getSceneManager().getFirstSceneIndexByName("stage_0"));
 		updatePlayerScoreUI();
 		
@@ -44,6 +46,12 @@ public class Stage_1_Scene extends Scene {
 		new Timer(()-> firstWaveStart(),14,true);
 		new Timer(()-> firstWaveStart(),20,true);
 		
+	}
+	@Override
+	public void sceneUpdate() {
+		
+		gameFPSUI.setText(String.format("FPS: %f",1.f/Game.DELTA_TIME));
+	
 	}
 	
 	//357,-10
