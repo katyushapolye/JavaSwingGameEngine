@@ -41,8 +41,8 @@ public class Game {
 			System.err.println("Game: FATAL ERROR - ONLY ONE INSTANCE ALLOWED OF GAME");
 			throw new RuntimeException(new Error("Terminated - Error 0x0013 - GAME MUST HAVE ONE, AND ONLY ONE INSTANCE"));
 		}
-		openInstance = true;
-
+		openInstance = true; 
+		
 
 		gameWindow = new GameRendererWindow(ScreenWidth, ScreenHeight);
 		inputManager = gameWindow.getInputManager();
@@ -102,10 +102,10 @@ public class Game {
 				if(DELTA_TIME > 0.02) {
 					System.out.println("Game: SEVERE WARNING - CAN'T KEEP UP, THE GAME IS OVERLOADED!");
 				}
+				System.out.println(GameObject.getAllGameObjects().size());
+
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();
-					
-				
 					
 					for(int i =0;i<GameObject.getAllInputReceiverGameObjects().size();i++) {
 						GameObject.getAllInputReceiverGameObjects().get(i).receiveInput(e);
@@ -138,6 +138,7 @@ public class Game {
 
 			} else {
 				try {
+					
 					Thread.sleep((FRAME_TARGET_TIME - gameClock.getElapsedTimeInNanoSeconds()) / 1000000);
 				} catch (Exception e) {
 

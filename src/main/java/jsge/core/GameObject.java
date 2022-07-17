@@ -300,7 +300,7 @@ public class GameObject {
 		
 	}
 		
-	public void draw(Graphics2D g) {
+	public  void draw(Graphics2D g) {
 		if((sprite == null || this.transform == null) && this.wasSetADefaultSprite == true) {
 			System.out.println("GameObject: Warning - Transformless or Spriteless GameObject, the sprite may have failed to load or the Transform was manually set as null, Is this intended Behaviour?");;
 			return;

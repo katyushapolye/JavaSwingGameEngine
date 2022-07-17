@@ -40,11 +40,11 @@ public class Stage_1_Scene extends Scene {
 		
 		//stage into
 		
-		new Timer(()-> firstWaveStart(),2,false);
-		new Timer(() -> checkForWaveCompletion(wave1),12,false);
-		new Timer(()-> secondWaveStart(),8,true);
-		new Timer(()-> firstWaveStart(),14,true);
-		new Timer(()-> firstWaveStart(),20,true);
+		new Timer(()-> firstWaveStart(),6,true);
+		//new Timer(() -> checkForWaveCompletion(wave1),12,true);
+		new Timer(()-> secondWaveStart(),10,true);
+		//new Timer(() -> checkForWaveCompletion(wave2),20,true);
+
 		
 	}
 	@Override

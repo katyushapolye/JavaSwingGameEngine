@@ -93,6 +93,7 @@ public class AudioClip {
 		// Try to fit everythinh into byte array, resetting the stream losses audio
 		// quality ???? and loading a new file everytime is wasteful
 		//stream.reset
+		//input.reset();
 		input = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioBuffer));
 		//input = AudioSystem.getAudioInputStream(audioFile);
 		

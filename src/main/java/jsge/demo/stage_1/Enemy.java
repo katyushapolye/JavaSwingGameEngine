@@ -74,13 +74,15 @@ public class Enemy extends GameObject{
 	@Override
 	public void update(double deltaTime) {
 		//Needs improvement, glitches out on certain cases, but should work for simple patterns;
-		if(this.transform.getPosition().X >=this.finalPosition.X && this.transform.getPosition().Y >= this.finalPosition.Y) {
-			super.update(deltaTime);
-			return;
-		}
 		switch(pattern) {
 		case DownLinear:
 			this.transform.offsetPosition(0, (int)(deltaTime*enemyVelocity));
+			if(this.transform.getY() >= this.finalPosition.Y) {
+				this.finalPosition.Y = 0;
+				this.enemyVelocity = 0;
+				new Timer(()->changeDirection(),4,false);
+				
+			}
 			break;
 		case SideLinear:
 			this.transform.offsetPosition((int)(deltaTime*enemyVelocity),0);
@@ -129,6 +131,9 @@ public class Enemy extends GameObject{
 		return true;
 	}
 	
+	private void changeDirection() {
+		this.enemyVelocity = -80;
+	}
 	private void shootPattern() {
 		
 		switch(pattern) {

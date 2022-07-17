@@ -181,10 +181,14 @@ private class RendererCanvas extends JPanel{
 		for(int i = 0;i<gameObjectList.size();i++) {
 		    	gameObjectList.get(i).draw(g2d);
 			}
+		//Toolkit.getDefaultToolkit().sync(); //evita lag 
+		//gameObjectList.clear();
 		}
+		
 		catch(Exception e) {
 			System.err.println("Renderer: FATAL ERROR - EVERY OTHER SAFEGUARD HAS FAILED, UNKNOWN/UNEXPECTED EXCEPTION HAS OCURRED");
-			throw e;
+			e.printStackTrace();
+			System.exit(-1);
 			//System.abort
 		}
 		Toolkit.getDefaultToolkit().sync(); //evita lag 
