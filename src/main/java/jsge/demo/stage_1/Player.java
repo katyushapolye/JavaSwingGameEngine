@@ -40,12 +40,12 @@ public class Player extends GameObject{
 	
 	
 	
-	AudioClip debug;
-	AudioClip debug2;
+	AudioClip playerShotSound;
+	AudioClip playerDeathSound;
 	
 
 	
-	private int playerVelocity = 280;
+	private int playerVelocity = 400;
 	
 	private int rotatingVelocity = 160;
 	
@@ -53,8 +53,9 @@ public class Player extends GameObject{
 		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,4,true);
 		
 		
-		debug = new AudioClip("src/main/resources/Sounds/plst00.wav");
-		debug2 = new AudioClip("src/main/resources/Sounds/damage00.wav");
+		playerShotSound = new AudioClip("src/main/resources/Sounds/plst00.wav");
+		playerDeathSound = new AudioClip("src/main/resources/Sounds/pldead00.wav");
+		
 		//check directory bug in windows
 		System.out.println("Player: Player Parent GameObject Created");
 		AnimationClip idleAnimation =  new AnimationClip();
@@ -89,7 +90,7 @@ public class Player extends GameObject{
 		System.out.println("Player: Player Created");
 		
 		startInvencibility();
-		new Timer(()->endInvencibility(),3,false);
+		new Timer(()->endInvencibility(),3.1,false);
 		BlinkPlayer();
 
 		
@@ -98,7 +99,7 @@ public class Player extends GameObject{
 	@Override
 	public void onCollision(GameObject collision) {
 		if(collision.getClass() ==  Enemy.class) {
-			
+			playerDeathSound.play();
 			isPlayerDead = true;
 			destroyGameObject(this);
 			return;
@@ -106,6 +107,7 @@ public class Player extends GameObject{
 		if(collision.getClass() == Bullet.class) {
 			Bullet temp = (Bullet)collision;
 			if(temp.getTag() == Tag.Enemy) {
+				playerDeathSound.play();
 				isPlayerDead = true;
 				destroyGameObject(this);
 			}
@@ -273,6 +275,7 @@ public class Player extends GameObject{
 		this.isMovingUp = false;
 		this.isMovingRight = false;
 		this.isMovingLeft = false;
+		this.playerVelocity = 400;
 		this.isPlayerDead = false;
 		
 	}
@@ -302,7 +305,7 @@ public class Player extends GameObject{
 		//check player power
 		if(playerShotClock.getElapsedTimeInSeconds() >= shotCoolDownTime) {
 			new Bullet(Bullet.Tag.Player,this.transform.getX(),this.transform.getY()-15,90,1500);
-			debug.play();
+			playerShotSound.play();
 			//debug.playTest();
 			playerShotClock.resetClock();
 		}
