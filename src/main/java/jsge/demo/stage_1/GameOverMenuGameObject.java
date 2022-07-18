@@ -7,6 +7,7 @@ import jsge.core.Game;
 import jsge.core.GameKeyEvent;
 import jsge.core.GameObject;
 import jsge.core.GameKeyEvent.EventType;
+import jsge.demo.stage_0.Stage_0_Scene;
 import jsge.demo.utils.FadeInOut;
 import jsge.prefabs.Text;
 import jsge.utils.GameState;
@@ -42,13 +43,12 @@ public class GameOverMenuGameObject extends GameObject {
 				break;
 			case 10:
 				if(this.currentSelectedOption == 0) { 
+					softGameReset();
 					//yes
 
 				}
 				else if(this.currentSelectedOption == 1) {
-					new Timer (()-> loadNextStage(),1.5,false);
-					new FadeInOut(3.0);
-					GameObject.stopGameObjectReceivingInput(this);
+				
 				}
 			
 			default:
@@ -78,11 +78,16 @@ public class GameOverMenuGameObject extends GameObject {
 	}
 	
 	private Void loadNextStage() {
+		//Game.getSceneManager().loadScene(new Stage_0_Scene("stage_0"));
 		Game.getSceneManager().changeScene(Game.getSceneManager().getFirstSceneIndexByName("stage_0"));
 		return null;
 	}
 	
 	private void softGameReset() {
+		new Timer (()-> loadNextStage(),1.5,false);
+		new FadeInOut(3.0);
+		GameObject.stopGameObjectReceivingInput(this);
+		PlayerData.resetPlayerData();
 		//reset all player lives and scores
 		//load from menu
 	}

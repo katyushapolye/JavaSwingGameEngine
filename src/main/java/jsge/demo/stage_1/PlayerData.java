@@ -34,5 +34,10 @@ public class PlayerData {
 		//dump to file <- criptografy please . . .
 		
 	}
+	
+	public static void resetPlayerData() {
+		currentScore = 0;
+		playerLives = 0;
+	}
 
 }
