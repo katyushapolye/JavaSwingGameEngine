@@ -16,6 +16,8 @@ public class Sprite {
 	int height;
 	int alpha;
 	
+	boolean isVisible = true;
+	
 	public Sprite() {
 		this.width = -1;
 		this.height = -1;
@@ -25,6 +27,11 @@ public class Sprite {
 	public Sprite(String pathToFile){
 		loadSprite(pathToFile);
 	}
+	
+	public boolean isVisible() {
+		return this.isVisible;
+	}
+	
 	
 	public Sprite(BufferedImage image) {
 		this.spriteTexture = image;
@@ -42,6 +49,7 @@ public class Sprite {
 		this.spriteTexture = spriteTexture;
 		this.width =  this.spriteTexture.getWidth();
 		this.height = this.spriteTexture.getHeight();
+		
 		}
 	
 	
@@ -102,6 +110,9 @@ public class Sprite {
 			this.height = -1;
 			this.spriteTexture = null;
 		}
+	}
+	public void toggleVisibility() {
+		this.isVisible = !this.isVisible;
 	}
 
 }

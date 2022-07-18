@@ -7,7 +7,7 @@ package jsge.demo.stage_1;
 
 public class PlayerData {
 	private static int currentScore = 0;
-	//private static int playerLives = 3;
+	private static int playerLives = 2;
 	
 	
 	public static void addScore(int scoreToAdd) {
@@ -21,6 +21,14 @@ public class PlayerData {
 		return currentScore;
 	}
 	
+	public static int getLifes()
+	{
+		return playerLives;
+	}
+	
+	public static void decreaseLife() {
+		playerLives--;
+	}
 	
 	public static void savePlayerScore() {
 		//dump to file <- criptografy please . . .

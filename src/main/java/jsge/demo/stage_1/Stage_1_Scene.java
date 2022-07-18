@@ -4,6 +4,8 @@
 //Identificação END
 package jsge.demo.stage_1;
 
+import java.awt.Color;
+
 import jsge.components.Transform;
 import jsge.core.Game;
 import jsge.core.GameObject;
@@ -21,7 +23,10 @@ public class Stage_1_Scene extends Scene {
 	Enemy[] wave2 = new Enemy[4];
 	
 	static Text playerCurrentScoreText;
-	Text gameFPSUI;
+	static Text gameFPSUI;
+	
+	static Text playerCurrentLivesStaticText;
+	static Text playerCurrentLivesCounterText;
 
 	public Stage_1_Scene() {
 		super("stage_1");
@@ -29,21 +34,31 @@ public class Stage_1_Scene extends Scene {
 
 	@Override
 	public void sceneBootStrap() {
+		
 		player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 320, 240, 0);
+		
 		BG = new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", new Transform(320, 240), Layer.UI);
+		
 		stage_BG = new GameObject("stage_BG", "src/main/resources/Assets/Stage_1/Stage_1_BG.jpeg", new Transform(193, 225), Layer.BACKGROUND);
 		stage_BG.getTransform().setScale(1.2,1.3);
+		
 		playerCurrentScoreText = new Text("GameSubTitle","Score: ",new Transform(430,40),Layer.UI,null);
 		gameFPSUI = new Text("GameSubTitle","FPS: ",new Transform(430,300),Layer.UI,null);
+		
+		playerCurrentLivesStaticText =  new Text("currentLivesStatic","Current Lives: ",new Transform(430,80),Layer.UI,null);
+		playerCurrentLivesCounterText = new Text("CurrentLivesCounter","99",new Transform(600,80),Layer.UI,null);
+		playerCurrentLivesCounterText.setSize(18);
+		
+		
 		Game.getSceneManager().unloadScene(Game.getSceneManager().getFirstSceneIndexByName("stage_0"));
 		updatePlayerScoreUI();
-		
+		updatePlayerLivesUI();
 		//stage into
 		
-		new Timer(()-> firstWaveStart(),6,true);
+		//new Timer(()-> firstWaveStart(),6,true);
 		//new Timer(() -> checkForWaveCompletion(wave1),12,true);
 		new Timer(()-> secondWaveStart(),10,true);
-		//new Timer(() -> checkForWaveCompletion(wave2),20,true);
+		new Timer(() -> checkForWaveCompletion(wave2),20,true);
 
 		
 	}
@@ -51,6 +66,13 @@ public class Stage_1_Scene extends Scene {
 	public void sceneUpdate() {
 		
 		gameFPSUI.setText(String.format("FPS: %f",1.f/Game.DELTA_TIME));
+		if(player.isPlayerDead() == true) {
+			PlayerData.decreaseLife();
+			updatePlayerLivesUI();
+			player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 320, 240, 0);
+
+			
+		}
 	
 	}
 	
@@ -98,6 +120,31 @@ public class Stage_1_Scene extends Scene {
 	public static void updatePlayerScoreUI() {
 		String s = String.format("Score %d",PlayerData.getScore());
 		playerCurrentScoreText.setText(s);
+	}
+	public static void updatePlayerLivesUI() {
+		
+		String s = String.format("%d",PlayerData.getLifes());
+		
+		playerCurrentLivesCounterText.setText(s);
+		
+		switch (PlayerData.getLifes()) {
+		case 0:
+			playerCurrentLivesCounterText.setColor(new Color(230,10,10));
+			break;
+
+		case 1:
+			playerCurrentLivesCounterText.setColor(new Color(230,230,10));
+			break;
+		case 2:
+			playerCurrentLivesCounterText.setColor(new Color(10,230,10));
+			break;
+		default:
+			playerCurrentLivesCounterText.setColor(new Color(10,10,230));
+
+			break;
+		}
+		
+	
 	}
 
 }

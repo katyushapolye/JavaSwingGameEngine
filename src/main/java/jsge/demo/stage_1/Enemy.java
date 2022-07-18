@@ -66,7 +66,7 @@ public class Enemy extends GameObject{
 	
 	@Override
 	public void onDestroy() {
-		
+		System.out.println("AN ENEMY HAS BEEN DETROYED");
 		bulletTimer.destroyTimer();
 		super.onDestroy();
 	}
@@ -78,7 +78,7 @@ public class Enemy extends GameObject{
 		case DownLinear:
 			this.transform.offsetPosition(0, (int)(deltaTime*enemyVelocity));
 			if(this.transform.getY() >= this.finalPosition.Y) {
-				this.finalPosition.Y = 0;
+				this.finalPosition.Y = -110;
 				this.enemyVelocity = 0;
 				new Timer(()->changeDirection(),4,false);
 				
@@ -92,7 +92,7 @@ public class Enemy extends GameObject{
 			break;
 		}
 		
-		if(this.transform.getX() > 500 || this.transform.getY() > 600) {
+		if(this.transform.getX() > 500 || this.transform.getY() > 600 || this.transform.getY() < -100) {
 			destroyGameObject(this);
 		}
 	//Destoy this if out of bounds

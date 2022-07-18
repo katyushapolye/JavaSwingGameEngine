@@ -68,6 +68,10 @@ public class Collider {
 	public void setY(int Y) {
 		this.Y = Y;
 	}
+	
+	public void setRadius(int r) {
+		this.radius = r;
+	}
 
 	public int getX() {
 		return this.X;
@@ -109,7 +113,7 @@ public class Collider {
 			
 		else {
 			if (this.colliderType == ColliderType.Circle) {
-				if (Point.distance(new Point(this.X, this.Y), new Point(colision.X, colision.Y)) <= this.radius+ colision.radius) {
+				if (Point.distance(new Point(this.X, this.Y), new Point(colision.X, colision.Y)) <= this.radius+ colision.radius && this.radius != 0 && colision.radius != 0) {
 					return true;
 				}
 			}

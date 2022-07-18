@@ -305,8 +305,9 @@ public class GameObject {
 			System.out.println("GameObject: Warning - Transformless or Spriteless GameObject, the sprite may have failed to load or the Transform was manually set as null, Is this intended Behaviour?");;
 			return;
 		}
-		
-		;
+		if(!this.sprite.isVisible()) {
+			return;
+		}
 
 		g.drawImage(sprite.getSprite(), applyTransform(), null);
 		g.setColor(new Color(0,0,255));

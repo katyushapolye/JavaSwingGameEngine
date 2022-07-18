@@ -102,7 +102,7 @@ public class Game {
 				if(DELTA_TIME > 0.02) {
 					System.out.println("Game: SEVERE WARNING - CAN'T KEEP UP, THE GAME IS OVERLOADED!");
 				}
-				System.out.println(GameObject.getAllGameObjects().size());
+			
 
 				while (inputManager.isPoolingDone()) {
 					GameKeyEvent e = inputManager.poolEvent();
@@ -114,6 +114,10 @@ public class Game {
 
 				}
 				}
+				if(gameStateManager.getCurrentGameState() == GameStates.Halted) {
+					//timer halt, and reset time.
+				}
+				
 
 				if (gameStateManager.getCurrentGameState() != GameStates.Halted) {
 					logicManager.handleLogic(GameObject.getAllGameObjects(), DELTA_TIME);

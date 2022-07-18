@@ -20,6 +20,8 @@ import jsge.demo.stage_1.Bullet.Tag;
 import jsge.utils.Clock;
 import jsge.utils.GameState.GameStates;
 import jsge.utils.Layers.Layer;
+import jsge.utils.Point;
+import jsge.utils.Timer;
 
 public class Player extends GameObject{
 	private boolean isMovingUp = false;
@@ -85,6 +87,10 @@ public class Player extends GameObject{
 		System.out.println("Player: Player AnimationController Created");
 		
 		System.out.println("Player: Player Created");
+		
+		startInvencibility();
+		new Timer(()->endInvencibility(),3,false);
+		BlinkPlayer();
 
 		
 		
@@ -107,6 +113,7 @@ public class Player extends GameObject{
 	}
 	@Override
 	public void update(double deltaTime) {
+		//player reset sequence
 		this.animationController.internalUpdate();
 		//System.out.println("X: " + this.X + "Y: " +this.Y);
 		if(isMovingUp) {
@@ -173,7 +180,11 @@ public class Player extends GameObject{
 				this.isRotatingRight = true;
 				break;
 			case 27:
-				Game.getGameStateManager().changeGameState(GameStates.Paused);
+				Game.getGameStateManager().changeGameState(GameStates.Halted);
+				this.isMovingDown = false;
+				this.isMovingUp = false;
+				this.isMovingRight = false;
+				this.isMovingLeft = false;
 				break;
 			case 90:
 				this.isShooting = true;
@@ -256,6 +267,37 @@ public class Player extends GameObject{
 		}
 	}
 	
+	public void playerReset() {
+		this.transform.setPosition(new Point(240, 240));
+		this.isMovingDown = false;
+		this.isMovingUp = false;
+		this.isMovingRight = false;
+		this.isMovingLeft = false;
+		this.isPlayerDead = false;
+		
+	}
+	
+	private void startInvencibility() {
+		this.collider.setRadius(0);
+	}
+	
+	private void BlinkPlayer() {
+		Timer blinkTimer = new Timer(()->  this.sprite.toggleVisibility(),0.1,true);
+		new Timer(()-> blinkTimer.destroyTimer(),3,false);
+	}
+	
+	
+	
+	
+	
+	
+	private void endInvencibility() {
+		
+		this.collider.setRadius(4);
+		if(this.sprite.isVisible() == false) {
+			this.sprite.toggleVisibility();
+		}
+	}
 	private void playerShoot() {
 		//check player power
 		if(playerShotClock.getElapsedTimeInSeconds() >= shotCoolDownTime) {
