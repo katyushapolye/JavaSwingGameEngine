@@ -66,7 +66,7 @@ public class Enemy extends GameObject{
 	
 	@Override
 	public void onDestroy() {
-		System.out.println("AN ENEMY HAS BEEN DETROYED");
+		//System.out.println("AN ENEMY HAS BEEN DETROYED");
 		bulletTimer.destroyTimer();
 		super.onDestroy();
 	}

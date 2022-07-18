@@ -7,7 +7,7 @@ package jsge.demo.stage_1;
 
 public class PlayerData {
 	private static int currentScore = 0;
-	private static int playerLives = 2;
+	private static int playerLives = 0;
 	
 	
 	public static void addScore(int scoreToAdd) {

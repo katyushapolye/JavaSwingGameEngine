@@ -65,6 +65,8 @@ public class SceneManager {
 	}
 	
 	public void unloadScene(int index) {
+		System.out.println("SceneManager: Unloading Scene " + index +  " from memory");
+
 		loadedScenes.remove(index);
 	}
 	
@@ -75,6 +77,7 @@ public class SceneManager {
 				}
 			
 		}
+		System.out.println("SceneManager: Warning - Scene " + name +  " was not found");
 		return -1;
 	}
 	

@@ -22,11 +22,16 @@ public class Stage_1_Scene extends Scene {
 	Enemy[] wave1 =  new Enemy[6];
 	Enemy[] wave2 = new Enemy[6];
 	
+	Timer wave2Timer;
+	Timer wave1Timer;
+	
 	static Text playerCurrentScoreText;
 	static Text gameFPSUI;
 	
 	static Text playerCurrentLivesStaticText;
 	static Text playerCurrentLivesCounterText;
+	
+	boolean isEndingSequenceHappening = false;
 
 	public Stage_1_Scene() {
 		super("stage_1");
@@ -55,9 +60,9 @@ public class Stage_1_Scene extends Scene {
 		updatePlayerLivesUI();
 		//stage into
 		//do not let these be recurrent without any checks behind
-		new Timer(()-> firstWaveStart(),6,true);
+		wave1Timer = new Timer(()-> firstWaveStart(),6,true);
 		//new Timer(() -> checkForWaveCompletion(wave1),12,true);
-		new Timer(()-> secondWaveStart(),10,true);
+		wave2Timer  = new Timer(()-> secondWaveStart(),10,true);
 		//new Timer(() -> checkForWaveCompletion(wave2),20,true);
 
 		
@@ -66,12 +71,16 @@ public class Stage_1_Scene extends Scene {
 	public void sceneUpdate() {
 		
 		gameFPSUI.setText(String.format("FPS: %f",1.f/Game.DELTA_TIME));
+		if(isEndingSequenceHappening) {
+			return;
+		}
 		if(player.isPlayerDead() == true) {
 			PlayerData.decreaseLife();
 			if(PlayerData.getLifes() <= -1) {
-				System.out.println("GAME OVER!");
+				//System.out.println("GAME OVER!");
 				gameOverSequence();
-				new Timer(()->System.exit(0),4,false);
+				
+				//new Timer(()->System.exit(0),4,false);
 				return;
 				
 			}
@@ -122,9 +131,9 @@ public class Stage_1_Scene extends Scene {
 		
 		wave2[1] = new Enemy("e10", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(91,-30), 
 				Layer.GAMEOBJECT,Enemy.EnemyPattern.DownLinear,1.5f,80);
-		wave2[3] = new Enemy("e10", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(121,-20), 
+		wave2[3] = new Enemy("e11", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(121,-20), 
 				Layer.GAMEOBJECT,Enemy.EnemyPattern.DownLinear,1.5f,80);
-		wave2[5] = new Enemy("e10", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(151,-10), 
+		wave2[5] = new Enemy("e12", "src/main/resources/Assets/EarthSpirit/EarthSpirit_0.png",new Transform(151,-10), 
 				Layer.GAMEOBJECT,Enemy.EnemyPattern.DownLinear,1.5f,80);
 		
 	}
@@ -162,8 +171,11 @@ public class Stage_1_Scene extends Scene {
 	private void gameOverSequence() {
 		checkForWaveCompletion(wave1);
 		checkForWaveCompletion(wave2);
-		Text gameOverText = new Text("GAME OVER TEXT","GAME OVER! ",new Transform(80,170),Layer.UI,null);
-		gameOverText.setSize(30);
+		wave1Timer.destroyTimer();
+		wave2Timer.destroyTimer();
+		isEndingSequenceHappening = true;
+		
+		new GameOverMenuGameObject();
 
 		
 	}
