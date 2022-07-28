@@ -1,6 +1,8 @@
 package jsge.demo.stage_1;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import jsge.components.Transform;
 import jsge.core.Game;
@@ -18,6 +20,10 @@ public class GameOverMenuGameObject extends GameObject {
 	
 	int currentSelectedOption = 0;
 	int pastSelectedOption = 0;
+	String playerNameBuffer = "";
+	
+	
+	boolean isEnteringName = false;
 	GameOverMenuGameObjectContainer UIOptions = new GameOverMenuGameObjectContainer(); 
 	public GameOverMenuGameObject() {
 		
@@ -31,6 +37,57 @@ public class GameOverMenuGameObject extends GameObject {
 	
 	@Override
 	public void receiveInput(GameKeyEvent e) {
+		if(isEnteringName) {
+			if (e.getEventType() == EventType.Pressed){
+				switch(e.getKeyCode()) {
+				case 10:
+					if(playerNameBuffer.length() <= 3) {
+						return;
+					}
+					PlayerData.savePlayerScore(playerNameBuffer);
+					softGameReset();
+					
+					
+					break;
+				
+				
+				default:
+					if(playerNameBuffer.length() == 12) {
+						if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+							playerNameBuffer = playerNameBuffer.substring(0, playerNameBuffer.length()-1);
+							UIOptions.menuOptions[0].getTransform().offsetPosition(+6,0);
+							UIOptions.menuOptions[0].setText(playerNameBuffer);
+							
+						}
+						return;
+					}
+					if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+						if(playerNameBuffer.length() == 0) {
+							return;
+						}
+						playerNameBuffer = playerNameBuffer.substring(0, playerNameBuffer.length()-1);
+						UIOptions.menuOptions[0].getTransform().offsetPosition(+6,0);
+						UIOptions.menuOptions[0].setText(playerNameBuffer);
+						
+					}
+					if(e.getKeyChar() < 64 || e.getKeyChar() >123) {
+						return;
+					}
+					playerNameBuffer += (e.getKeyChar());
+					
+					UIOptions.menuOptions[0].getTransform().offsetPosition(-6,0);
+					UIOptions.menuOptions[0].setText(playerNameBuffer);
+					
+					
+					break;
+					
+				}
+				
+			
+			}
+			
+			return;
+		}
 		if (e.getEventType() == EventType.Pressed)  {
 			switch (e.getKeyCode()) {
 			case 38:
@@ -43,11 +100,20 @@ public class GameOverMenuGameObject extends GameObject {
 				break;
 			case 10:
 				if(this.currentSelectedOption == 0) { 
-					softGameReset();
-					//yes
+					UIOptions.gameOverContinueText.setText("Please enter your name...");
+					UIOptions.menuOptions[1].setText("Press enter to confirm.");
+					UIOptions.menuOptions[1].setTransformComponent(new Transform(130,248));		
+					this.isEnteringName = true;
+					UIOptions.menuOptions[0].setText("");
+					UIOptions.menuOptions[0].setColor(new Color(180,255,220));
+					UIOptions.menuOptions[0].setSize(18);
+					UIOptions.menuOptions[0].setTransformComponent(new Transform(205, 225));
+					
+					
 
 				}
 				else if(this.currentSelectedOption == 1) {
+					softGameReset();
 				
 				}
 			
@@ -78,7 +144,7 @@ public class GameOverMenuGameObject extends GameObject {
 	}
 	
 	private Void loadNextStage() {
-		//Game.getSceneManager().loadScene(new Stage_0_Scene("stage_0"));
+		Game.getSceneManager().loadScene(new Stage_0_Scene("stage_0"));
 		Game.getSceneManager().changeScene(Game.getSceneManager().getFirstSceneIndexByName("stage_0"));
 		return null;
 	}
@@ -88,6 +154,7 @@ public class GameOverMenuGameObject extends GameObject {
 		new FadeInOut(3.0);
 		GameObject.stopGameObjectReceivingInput(this);
 		PlayerData.resetPlayerData();
+		//Stage_1_Scene.resetScene();
 		//reset all player lives and scores
 		//load from menu
 	}

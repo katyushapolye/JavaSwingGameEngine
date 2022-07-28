@@ -25,7 +25,7 @@ public class Stage_0_Scene extends Scene{
 	AnimationController loadingController;
 	AnimationClip def;
 	StateMachine<AnimationClip> loadingSM;
-	AudioClip debug = new AudioClip("src/main/resources/Sounds/bossFight.wav");
+	static AudioClip bgm = new AudioClip("src/main/resources/Sounds/bossFight.wav");
 	
 	Callback callback = () -> startMenuTransition();
 	Timer loadingtimer = new Timer(callback,3,false);
@@ -50,6 +50,7 @@ public class Stage_0_Scene extends Scene{
 		loadingController =  new AnimationController(loadingSM,loadingScreen.getSpriteComponent());
 		
 		
+		
 		}	
 	
 	@Override
@@ -69,7 +70,7 @@ public class Stage_0_Scene extends Scene{
 	
 	private Void finishMenuTransition() {
 		GameObject.destroyGameObject(loadingScreen);
-		debug.play();
+		bgm.play();
 		menu = new MenuGameObject();
 		return null;
 		
@@ -77,6 +78,7 @@ public class Stage_0_Scene extends Scene{
 	@Override
 	public void sceneExit() {
 		//debug.stop();
+		
 		super.sceneExit();
 	}
 	

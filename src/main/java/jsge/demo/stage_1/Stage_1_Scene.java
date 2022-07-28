@@ -31,7 +31,7 @@ public class Stage_1_Scene extends Scene {
 	static Text playerCurrentLivesStaticText;
 	static Text playerCurrentLivesCounterText;
 	
-	boolean isEndingSequenceHappening = false;
+	static boolean isEndingSequenceHappening = false;
 
 	public Stage_1_Scene() {
 		super("stage_1");
@@ -39,7 +39,7 @@ public class Stage_1_Scene extends Scene {
 
 	@Override
 	public void sceneBootStrap() {
-		
+		isEndingSequenceHappening = false;
 		player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 320, 240, 0);
 		
 		BG = new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", new Transform(320, 240), Layer.UI);
@@ -167,6 +167,8 @@ public class Stage_1_Scene extends Scene {
 		
 	
 	}
+	
+
 	
 	private void gameOverSequence() {
 		checkForWaveCompletion(wave1);

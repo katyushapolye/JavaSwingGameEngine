@@ -5,9 +5,13 @@
 
 package jsge.demo.stage_1;
 
+import java.io.File;
+
 public class PlayerData {
 	private static int currentScore = 0;
 	private static int playerLives = 0;
+	
+	private final static String dataFilePath = "playerData.dat";
 	
 	
 	public static void addScore(int scoreToAdd) {
@@ -30,14 +34,24 @@ public class PlayerData {
 		playerLives--;
 	}
 	
-	public static void savePlayerScore() {
+	public static void savePlayerScore(String playerName) {
+		
+		//check for existing file
+		
+		File data = new File(dataFilePath);
+		
+		if(!(data.exists())) {
+			
+		}
+		
+		
 		//dump to file <- criptografy please . . .
 		
 	}
 	
 	public static void resetPlayerData() {
 		currentScore = 0;
-		playerLives = 0;
+		playerLives = 3;
 	}
 
 }
