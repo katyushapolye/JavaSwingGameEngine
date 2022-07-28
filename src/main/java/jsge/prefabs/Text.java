@@ -66,6 +66,9 @@ public class Text extends GameObject {
 
 	@Override
 	public void draw(Graphics2D g) {
+		if(!this.getSpriteComponent().isVisible()) {
+			return;
+		}
 		g.setFont(textFont.deriveFont(size));
 		g.setColor(textColor);
 

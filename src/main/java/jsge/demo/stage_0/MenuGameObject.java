@@ -5,7 +5,9 @@
 
 package jsge.demo.stage_0;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
+import jsge.components.Sprite;
 import jsge.components.Transform;
 import jsge.core.Game;
 import jsge.core.GameKeyEvent;
@@ -14,6 +16,7 @@ import jsge.prefabs.Text;
 import jsge.core.GameObject;
 import jsge.data.Scene;
 import jsge.demo.stage_1.Stage_1_Scene;
+import jsge.utils.Clock;
 import jsge.utils.GameState;
 import jsge.utils.Layers.Layer;
 import jsge.utils.Timer;
@@ -24,11 +27,23 @@ public class MenuGameObject extends GameObject {
 	private int currentSelectedOption = 0;
 	private int pastSelectedOption = 0;
 	private MenuGameObjectContainer UIOptions;
+	
+	private ScoreboardGameObjectContainer scoreBoard; 
 	private GameObject BG; 
+	private boolean isShowingScore = false;
+	
+	private Sprite bgScoreSprite;
+	private Sprite bgMainMenuScoreSprite;
 	
 	public MenuGameObject() {
+		
 		super("menuInputHandler", new Transform(0, 0), Layer.BACKGROUND, true);
 		BG = new GameObject("BG","src/main/resources/Assets/Scratchs/Touhou_Etherial_Nightmare_BG.png",new Transform(320,240),Layer.BACKGROUND);
+		
+		bgMainMenuScoreSprite = BG.getSpriteComponent();
+		bgScoreSprite =  new Sprite("src/main/resources/Assets/Scratchs/scoreBG.png");
+		
+		
 		Scene stage_1 = new Stage_1_Scene();
 		Game.getSceneManager().loadScene(stage_1);
 		
@@ -46,6 +61,21 @@ public class MenuGameObject extends GameObject {
 	@Override
 	public void receiveInput(GameKeyEvent e) {
 		if (e.getEventType() == EventType.Pressed)  {
+			if(isShowingScore) {
+				//esc to go back
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					isShowingScore = false;
+					
+					scoreBoard.destroyScoreBoard();
+					scoreBoard = null;
+					UIOptions = new MenuGameObjectContainer();
+					UIOptions.menuOptions[0].getTransform().offsetPosition(5,0);
+					UIOptions.menuOptions[0].setColor(new Color(150,0,128));
+					BG.setSpriteComponent(bgMainMenuScoreSprite);
+					return;
+					
+				}
+			}
 			switch (e.getKeyCode()) {
 			case 38:
 				pastSelectedOption = currentSelectedOption;
@@ -56,6 +86,21 @@ public class MenuGameObject extends GameObject {
 				currentSelectedOption++;
 				break;
 			case 10:
+				if(this.currentSelectedOption == 1) {
+					//entering scoreboard
+					UIOptions.destroyMenuObjects();
+					UIOptions = null;
+					currentSelectedOption = 0;
+					pastSelectedOption = 0;
+					isShowingScore = true;
+					scoreBoard =  new ScoreboardGameObjectContainer();
+					BG.setSpriteComponent(bgScoreSprite);
+					return;
+					
+					
+
+					
+				}
 				if(this.currentSelectedOption == 0) { 
 					new Timer (()-> loadNextStage(),1.5,false);
 					new FadeInOut(3.0);
@@ -105,8 +150,7 @@ public class MenuGameObject extends GameObject {
 		return null;
 	}
 	
-	
-	
+
 	
 
 	private class MenuGameObjectContainer {
@@ -130,5 +174,85 @@ public class MenuGameObject extends GameObject {
 
 		}
 		
+		public void destroyMenuObjects() {
+			GameObject.destroyGameObject(gameTitle);
+			GameObject.destroyGameObject(subTitle);
+			GameObject.destroyGameObject(menuOptions[0]);
+			GameObject.destroyGameObject(menuOptions[1]);
+			GameObject.destroyGameObject(menuOptions[2]);
+			GameObject.destroyGameObject(menuOptions[3]);
+			
+		}
+		
+	}
+	
+
+	private class ScoreboardGameObjectContainer {
+		//May crash the engine, can take shortcuts for optimization
+		String[] names = new String[10];
+		int[] scores = new int[10];
+		
+		Text[] namesUI = new Text[10];
+		Text[] scoresUI = new Text[10];
+		Timer animationTimer;
+		
+		int animationCount = 0;
+		
+	
+		
+		public ScoreboardGameObjectContainer() {
+			readFromDataFile();
+			for(int i = 0;i<10;i++) {
+				namesUI[i] = new Text("name" + i, (i+1)+ "- AAAAAAAA", new Transform(30,35*i + 70), Layer.UI, null);
+				namesUI[i].setSize(20);
+				namesUI[i].setColor(new Color(255,230,230));
+				
+				scoresUI[i] = new Text("name" + i, "999999", new Transform(300,35*i + 70), Layer.UI, null);
+				scoresUI[i].setSize(20);
+				scoresUI[i].setColor(new Color(230,230,230));
+				
+				scoresUI[i].getSpriteComponent().toggleVisibility();
+				namesUI[i].getSpriteComponent().toggleVisibility();
+				}
+				
+					
+			namesUI[9].getTransform().offsetPosition(-20,0);
+			
+			namesUI[0].setColor(new Color(212,175,55));
+			namesUI[1].setColor(new Color(192,192,192));
+			namesUI[2].setColor(new Color(205,127,50));
+			scoresUI[0].setColor(new Color(212,175,55));
+			scoresUI[1].setColor(new Color(192,192,192));
+			scoresUI[2].setColor(new Color(205,127,50));
+			animationTimer =  new Timer(()->animationStep(),0.05,true);
+			
+			
+			
+		}
+		
+		private void animationStep() {
+			namesUI[animationCount].getSpriteComponent().toggleVisibility();
+			scoresUI[animationCount].getSpriteComponent().toggleVisibility();
+			animationCount++;
+			System.out.println("Hell");
+			if(animationCount == 10) {
+				
+				//dodgy code right here
+				animationTimer.destroyTimer();
+				
+			}
+		}
+		
+		private void readFromDataFile() {
+			
+		}
+		
+		public void destroyScoreBoard() {
+			for(int i = 0;i<10;i++) {
+				GameObject.destroyGameObject(namesUI[i]);
+				GameObject.destroyGameObject(scoresUI[i]);
+
+			}
+		}
 	}
 }

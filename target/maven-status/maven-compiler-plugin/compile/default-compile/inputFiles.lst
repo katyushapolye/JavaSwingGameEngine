@@ -27,6 +27,7 @@
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/GameStateManager.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/LogicManager.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/SceneManager.java
+/home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/demo/stage_1/GameOverMenuGameObject.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/data/AudioClip.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/components/Transform.java
 /home/raphael/Projetos/Orientacao_Objetos/JSGE/src/main/java/jsge/managers/InputManager.java

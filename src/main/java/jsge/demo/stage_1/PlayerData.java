@@ -6,6 +6,8 @@
 package jsge.demo.stage_1;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class PlayerData {
 	private static int currentScore = 0;
@@ -38,9 +40,17 @@ public class PlayerData {
 		
 		//check for existing file
 		
-		File data = new File(dataFilePath);
+		try {
+		FileWriter f = new FileWriter(dataFilePath,true);
 		
-		if(!(data.exists())) {
+		f.append(playerName);
+		f.append("--");
+		f.append( String.valueOf(PlayerData.getScore()));
+		f.append(System.getProperty("line.separator"));
+		f.close();
+		}
+		catch(Exception e) {
+			
 			
 		}
 		

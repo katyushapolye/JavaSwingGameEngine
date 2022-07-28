@@ -52,7 +52,7 @@ public class GameOverMenuGameObject extends GameObject {
 				
 				
 				default:
-					if(playerNameBuffer.length() == 12) {
+					if(playerNameBuffer.length() == 8) {
 						if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 							playerNameBuffer = playerNameBuffer.substring(0, playerNameBuffer.length()-1);
 							UIOptions.menuOptions[0].getTransform().offsetPosition(+6,0);
