@@ -6,6 +6,11 @@
 package jsge.demo.stage_0;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import jsge.components.Sprite;
 import jsge.components.Transform;
@@ -15,6 +20,7 @@ import jsge.core.GameKeyEvent.EventType;
 import jsge.prefabs.Text;
 import jsge.core.GameObject;
 import jsge.data.Scene;
+import jsge.demo.stage_1.PlayerData;
 import jsge.demo.stage_1.Stage_1_Scene;
 import jsge.utils.Clock;
 import jsge.utils.GameState;
@@ -38,6 +44,7 @@ public class MenuGameObject extends GameObject {
 	public MenuGameObject() {
 		
 		super("menuInputHandler", new Transform(0, 0), Layer.BACKGROUND, true);
+		isShowingScore = false;
 		BG = new GameObject("BG","src/main/resources/Assets/Scratchs/Touhou_Etherial_Nightmare_BG.png",new Transform(320,240),Layer.BACKGROUND);
 		
 		bgMainMenuScoreSprite = BG.getSpriteComponent();
@@ -63,7 +70,7 @@ public class MenuGameObject extends GameObject {
 		if (e.getEventType() == EventType.Pressed)  {
 			if(isShowingScore) {
 				//esc to go back
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 					isShowingScore = false;
 					
 					scoreBoard.destroyScoreBoard();
@@ -105,6 +112,7 @@ public class MenuGameObject extends GameObject {
 					new Timer (()-> loadNextStage(),1.5,false);
 					new FadeInOut(3.0);
 					GameObject.stopGameObjectReceivingInput(this);
+					this.isShowingScore = false;
 
 				}
 				else if(this.currentSelectedOption == 3) {
@@ -194,6 +202,7 @@ public class MenuGameObject extends GameObject {
 		
 		Text[] namesUI = new Text[10];
 		Text[] scoresUI = new Text[10];
+		Text leaveText;
 		Timer animationTimer;
 		
 		int animationCount = 0;
@@ -202,12 +211,16 @@ public class MenuGameObject extends GameObject {
 		
 		public ScoreboardGameObjectContainer() {
 			readFromDataFile();
+			
+			leaveText = new Text("leave","Press SPACE to leave...",new Transform(65,430),Layer.UI,null);
+			leaveText.setColor(new Color(230,230,230));
+			
 			for(int i = 0;i<10;i++) {
-				namesUI[i] = new Text("name" + i, (i+1)+ "- AAAAAAAA", new Transform(30,35*i + 70), Layer.UI, null);
+				namesUI[i] = new Text("name" + i, (i+1)+ "- " +names[i], new Transform(30,35*i + 70), Layer.UI, null);
 				namesUI[i].setSize(20);
 				namesUI[i].setColor(new Color(255,230,230));
 				
-				scoresUI[i] = new Text("name" + i, "999999", new Transform(300,35*i + 70), Layer.UI, null);
+				scoresUI[i] = new Text("name" + i, String.valueOf(scores[i]), new Transform(300,35*i + 70), Layer.UI, null);
 				scoresUI[i].setSize(20);
 				scoresUI[i].setColor(new Color(230,230,230));
 				
@@ -234,7 +247,6 @@ public class MenuGameObject extends GameObject {
 			namesUI[animationCount].getSpriteComponent().toggleVisibility();
 			scoresUI[animationCount].getSpriteComponent().toggleVisibility();
 			animationCount++;
-			System.out.println("Hell");
 			if(animationCount == 10) {
 				
 				//dodgy code right here
@@ -244,6 +256,54 @@ public class MenuGameObject extends GameObject {
 		}
 		
 		private void readFromDataFile() {
+			ArrayList<String> lines =  new ArrayList<String>();
+			
+			try (BufferedReader br = new BufferedReader(new FileReader(new File(PlayerData.dataFilePath)))) {
+			    String line;
+			    while ((line = br.readLine()) != null) {
+			       lines.add(line);
+			    }
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//bubble sort for names, slow but fast to code
+			boolean isSorted = false;
+			String temp;
+			while(isSorted == false) {
+				isSorted = true;
+				for(int i=0;i<lines.size()-1;i++) {
+					int a = Integer.valueOf(lines.get(i).substring((lines.get(i).indexOf('-')+1)));
+					int b = Integer.valueOf(lines.get(i+1).substring((lines.get(i+1).indexOf('-')+1)));
+					if(a <= b) {
+						temp = lines.get(i);
+						lines.set(i, lines.get(i+1));
+						lines.set(i+1, temp);
+						isSorted = false;
+						
+						
+					}
+					
+					
+				}
+				
+			}
+			
+			for(int i=0;i<10;i++) {
+				if(i>=lines.size()) {
+					names[i] = "";
+					scores[i] = 0;
+					continue;
+				}
+				names[i] = lines.get(i).substring(0,lines.get(i).indexOf('-') );
+				scores[i] = Integer.valueOf( lines.get(i).substring(lines.get(i).indexOf('-')+1));
+				
+			}
+			
+			
+			
+			
 			
 		}
 		
@@ -251,6 +311,7 @@ public class MenuGameObject extends GameObject {
 			for(int i = 0;i<10;i++) {
 				GameObject.destroyGameObject(namesUI[i]);
 				GameObject.destroyGameObject(scoresUI[i]);
+				 GameObject.destroyGameObject(leaveText);
 
 			}
 		}

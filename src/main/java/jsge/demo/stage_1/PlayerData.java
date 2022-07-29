@@ -11,9 +11,9 @@ import java.io.IOException;
 
 public class PlayerData {
 	private static int currentScore = 0;
-	private static int playerLives = 0;
+	private static int playerLives = 3;
 	
-	private final static String dataFilePath = "playerData.dat";
+	public final static String dataFilePath = "playerData.dat";
 	
 	
 	public static void addScore(int scoreToAdd) {
@@ -44,8 +44,9 @@ public class PlayerData {
 		FileWriter f = new FileWriter(dataFilePath,true);
 		
 		f.append(playerName);
-		f.append("--");
+		f.append("-");
 		f.append( String.valueOf(PlayerData.getScore()));
+		
 		f.append(System.getProperty("line.separator"));
 		f.close();
 		}
