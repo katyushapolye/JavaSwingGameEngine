@@ -19,6 +19,7 @@ jsge/data/StateMachine$State.class
 jsge/core/GameRendererWindow$RendererManager.class
 jsge/data/AnimationClip.class
 jsge/demo/stage_1/Enemy$1.class
+jsge/demo/stage_0/MenuGameObject$ScoreboardGameObjectContainer.class
 jsge/demo/stage_1/GameOverMenuGameObject.class
 jsge/core/GameKeyEvent.class
 jsge/components/Sprite.class

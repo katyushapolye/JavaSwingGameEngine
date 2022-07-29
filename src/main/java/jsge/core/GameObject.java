@@ -312,18 +312,6 @@ public class GameObject {
 		g.drawImage(sprite.getSprite(), applyTransform(), null);
 		g.setColor(new Color(0,0,255));
 		
-		//Debug
-		try {
-		g.drawOval(this.collider.getX()-collider.getRadius(),this.collider.getY() -  collider.getRadius(), collider.getRadius()*2,collider.getRadius()*2); 
-		//g.drawRect(this.collider.getX()-collider.getWidth(),this.collider.getY() -  collider.getHeight(), collider.getWidth()*2,collider.getHeight()*2); 
-		//g.setPaintMode()
-		}
-		catch(Exception e) {
-			
-		}
-		//Debug
-		g.setColor(new Color(0,0,0));
-		//debug
 	}
 	
 
