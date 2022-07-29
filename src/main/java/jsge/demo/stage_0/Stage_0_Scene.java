@@ -25,7 +25,7 @@ public class Stage_0_Scene extends Scene{
 	AnimationController loadingController;
 	AnimationClip def;
 	StateMachine<AnimationClip> loadingSM;
-	static AudioClip bgm = new AudioClip("src/main/resources/Sounds/bossFight.wav");
+	public static AudioClip bgm = new AudioClip("src/main/resources/Sounds/bossFight.wav");
 	
 	Callback callback = () -> startMenuTransition();
 	Timer loadingtimer = new Timer(callback,3,false);

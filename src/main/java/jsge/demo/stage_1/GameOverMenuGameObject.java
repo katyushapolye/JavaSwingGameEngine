@@ -154,6 +154,7 @@ public class GameOverMenuGameObject extends GameObject {
 		new FadeInOut(3.0);
 		GameObject.stopGameObjectReceivingInput(this);
 		PlayerData.resetPlayerData();
+		Stage_0_Scene.bgm.stop();
 		//Stage_1_Scene.resetScene();
 		//reset all player lives and scores
 		//load from menu

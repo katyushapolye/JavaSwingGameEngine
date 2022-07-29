@@ -20,7 +20,7 @@ public class PlayerData {
 		
 		//marshall to UI;
 		Stage_1_Scene.updatePlayerScoreUI();
-		currentScore += scoreToAdd;
+		currentScore += scoreToAdd;	
 	}
 	
 	public static int getScore() {
