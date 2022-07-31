@@ -290,6 +290,7 @@ public class GameObject {
 			System.err.println("GameObject: Error - Layerless GameObject initialized");
 			throw new RuntimeException(new Error("Terminated - Error 0x0002 - GameObject Must Have A Valid Layer"));
 		}
+		this.layer = initLayer;
 		
 		this.sprite =  new Sprite();
 		this.transform =  new Transform();

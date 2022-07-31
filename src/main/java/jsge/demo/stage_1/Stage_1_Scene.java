@@ -12,6 +12,7 @@ import jsge.core.GameObject;
 import jsge.data.Scene;
 import jsge.prefabs.Text;
 import jsge.utils.Layers.Layer;
+import jsge.utils.Point;
 import jsge.utils.Timer;
 
 public class Stage_1_Scene extends Scene {
@@ -25,13 +26,22 @@ public class Stage_1_Scene extends Scene {
 	Timer wave2Timer;
 	Timer wave1Timer;
 	
+	CutsceneHandler dialogue =  null;
+	
 	static Text playerCurrentScoreText;
 	static Text gameFPSUI;
 	
 	static Text playerCurrentLivesStaticText;
 	static Text playerCurrentLivesCounterText;
 	
+	Timer playerAnim = null;
+	
 	static boolean isEndingSequenceHappening = false;
+	
+	static boolean isBossSequenceHappeing = false;
+	
+	static boolean isPlayerMoving = false;
+	
 
 	public Stage_1_Scene() {
 		super("stage_1");
@@ -39,8 +49,9 @@ public class Stage_1_Scene extends Scene {
 
 	@Override
 	public void sceneBootStrap() {
+		this.sceneClock.resetClock();
 		isEndingSequenceHappening = false;
-		player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 320, 240, 0);
+		player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 220, 380, 0);
 		
 		BG = new GameObject("BG", "src/main/resources/Assets/Touhou_GameBG.png", new Transform(320, 240), Layer.UI);
 		
@@ -63,6 +74,7 @@ public class Stage_1_Scene extends Scene {
 		wave1Timer = new Timer(()-> firstWaveStart(),6,true);
 		//new Timer(() -> checkForWaveCompletion(wave1),12,true);
 		wave2Timer  = new Timer(()-> secondWaveStart(),10,true);
+		
 		//new Timer(() -> checkForWaveCompletion(wave2),20,true);
 
 		
@@ -71,8 +83,47 @@ public class Stage_1_Scene extends Scene {
 	public void sceneUpdate() {
 		
 		gameFPSUI.setText(String.format("FPS: %f",1.f/Game.DELTA_TIME));
+		//System.out.println(this.sceneClock.getElapsedTimeInSeconds());
+		
+		if(dialogue != null) {
+			if(dialogue.hasEnded) {
+				
+				//start bossfight
+			}
+			
+		}
+		
 		if(isEndingSequenceHappening) {
 			return;
+		}
+		if(this.sceneClock.getElapsedTimeInSeconds() >= 4) {
+			
+			if(isPlayerMoving == true) {
+				if(player.moveToPosition(new Point(220,340)) && isBossSequenceHappeing == true) {
+					isPlayerMoving = false;
+					System.out.println("Player Has ended it's sequence");
+					playerAnim.destroyTimer();
+					
+					
+					
+					//start dialogue sequence
+					
+					dialogue = new CutsceneHandler();
+					
+					
+					
+				}
+			}
+			if(isBossSequenceHappeing == false) {
+				
+			
+			wave1Timer.destroyTimer();
+			wave2Timer.destroyTimer();
+			startBossSequence();
+			isBossSequenceHappeing = true;
+			isPlayerMoving = true;
+			player.startInvencibility();
+			}
 		}
 		if(player.isPlayerDead() == true) {
 			PlayerData.decreaseLife();
@@ -85,7 +136,7 @@ public class Stage_1_Scene extends Scene {
 				
 			}
 			updatePlayerLivesUI();
-			player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 320, 240, 0);
+			player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", this.player.getTransform().getX(), this.player.getTransform().getY(), 0);
 
 			
 		}
@@ -168,6 +219,17 @@ public class Stage_1_Scene extends Scene {
 	
 	}
 	
+	private void startBossSequence() {
+		GameObject.stopGameObjectReceivingInput(player);
+		playerAnim = new Timer(()->startMovingPlayer(),0.01,true);
+		
+		
+		
+	}
+	
+	private void startMovingPlayer() {
+		player.moveToPosition(new Point(220,340));
+	}
 
 	
 	private void gameOverSequence() {

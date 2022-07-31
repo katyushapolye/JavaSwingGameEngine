@@ -28,6 +28,8 @@ public class Bullet extends GameObject{
 	static BufferedImage playeratlas;
 	static BufferedImage enemyatlas;
 	
+	
+	
 	static enum Tag{
 		Enemy,
 		Player

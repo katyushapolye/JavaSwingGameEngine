@@ -50,7 +50,7 @@ public class Player extends GameObject{
 	private int rotatingVelocity = 160;
 	
 	public Player(String PathToImageFile,int X,int Y,int rotation) {
-		super("PLAYER",PathToImageFile, new Transform(240,240),Layer.GAMEOBJECT,4,true);
+		super("PLAYER",PathToImageFile, new Transform(X,Y),Layer.GAMEOBJECT,4,true);
 		
 		
 		playerShotSound = new AudioClip("src/main/resources/Sounds/plst00.wav");
@@ -96,6 +96,37 @@ public class Player extends GameObject{
 		
 		
 	}
+	//gambiarra
+	public boolean moveToPosition(Point p) {
+		this.isMovingDown = false;
+		this.isMovingUp = false;
+		this.isMovingRight = false;
+		this.isMovingLeft = false;
+		this.isShooting = false;
+		if(this.transform.getX() == p.X && this.transform.getY() == p.Y) {
+
+			return true;
+		}
+		if(this.transform.getX() > p.X ) {
+			this.transform.offsetPosition(-1,0);
+			
+		}
+		if(this.transform.getY() > p.Y ) {
+			this.transform.offsetPosition(0,-1);
+			
+		}
+		if(this.transform.getX() < p.X ) {
+			this.transform.offsetPosition(1,0);
+			
+		}
+		if(this.transform.getY() < p.Y ) {
+			this.transform.offsetPosition(0,1);
+		}
+		return false;
+		
+	}
+	
+	
 	@Override
 	public void onCollision(GameObject collision) {
 		if(collision.getClass() ==  Enemy.class) {
@@ -280,7 +311,7 @@ public class Player extends GameObject{
 		
 	}
 	
-	private void startInvencibility() {
+	public void startInvencibility() {
 		this.collider.setRadius(0);
 	}
 	
@@ -294,7 +325,7 @@ public class Player extends GameObject{
 	
 	
 	
-	private void endInvencibility() {
+	public void endInvencibility() {
 		
 		this.collider.setRadius(4);
 		if(this.sprite.isVisible() == false) {
