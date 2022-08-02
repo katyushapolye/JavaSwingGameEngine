@@ -129,7 +129,7 @@ public class Player extends GameObject{
 	
 	@Override
 	public void onCollision(GameObject collision) {
-		if(collision.getClass() ==  Enemy.class) {
+		if(collision.getClass() ==  Enemy.class || collision.getClass() == Umbra.class) {
 			playerDeathSound.play();
 			isPlayerDead = true;
 			destroyGameObject(this);
@@ -211,13 +211,6 @@ public class Player extends GameObject{
 				break;
 			case 69:
 				this.isRotatingRight = true;
-				break;
-			case 27:
-				Game.getGameStateManager().changeGameState(GameStates.Halted);
-				this.isMovingDown = false;
-				this.isMovingUp = false;
-				this.isMovingRight = false;
-				this.isMovingLeft = false;
 				break;
 			case 90:
 				this.isShooting = true;
@@ -312,6 +305,7 @@ public class Player extends GameObject{
 	}
 	
 	public void startInvencibility() {
+		System.out.println("Player: Player started Invencibility");
 		this.collider.setRadius(0);
 	}
 	
@@ -328,6 +322,7 @@ public class Player extends GameObject{
 	public void endInvencibility() {
 		
 		this.collider.setRadius(4);
+		System.out.println("Player: Player has ended Invencibility");
 		if(this.sprite.isVisible() == false) {
 			this.sprite.toggleVisibility();
 		}

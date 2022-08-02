@@ -88,6 +88,12 @@ public class Stage_1_Scene extends Scene {
 		if(dialogue != null) {
 			if(dialogue.hasEnded) {
 				
+				dialogue.destroyDialogue();
+				dialogue = null;
+				System.out.println("Stage_1_SceneHandler: Control Received from CutsceneHandler, defaulting GameState, Starting BossFight Sequence");
+				player.endInvencibility();
+				GameObject.startGameObjectReceivingInput(player);
+				new Umbra();
 				//start bossfight
 			}
 			
@@ -101,7 +107,7 @@ public class Stage_1_Scene extends Scene {
 			if(isPlayerMoving == true) {
 				if(player.moveToPosition(new Point(220,340)) && isBossSequenceHappeing == true) {
 					isPlayerMoving = false;
-					System.out.println("Player Has ended it's sequence");
+					//System.out.println("Player Has ended it's sequence");
 					playerAnim.destroyTimer();
 					
 					

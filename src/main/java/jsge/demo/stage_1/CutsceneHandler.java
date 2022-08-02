@@ -20,7 +20,7 @@ public class CutsceneHandler extends GameObject {
 
 	private boolean animationInProgress = false;
 	
-	private boolean startUpInProgress = true;
+	private boolean startUpInProgress = true; //needed for animation on entry
 	
 	public boolean hasEnded = false;
 	
@@ -45,21 +45,21 @@ public class CutsceneHandler extends GameObject {
 	
 	private int dialogueStep = -1;
 	private String[] dialogueText = {
-			"Hummmm",
-			"Hello, this is a placeholder test dialogue.",
-			"We can even alternate between phrases",
-			"Pretty neat dont 'ya think?",
-			"We should be going now",
-			"Bye!"
+			"They are definitely multiplying...",
+			"Helloooooooooooooo",
+			"????",
+			"Who the hell are you?",
+			"I'm a ghost, can't you see?",
+			"I didn't ask that..."
 	};
 	
 	private String[] dialogueSpeaker= {
+			"Marisa",
 			"Umbra",
 			"Marisa",
 			"Marisa",
 			"Umbra",
-			"Umbra",
-			"Umbra"
+			"Marisa"
 	};
 	
 	public CutsceneHandler() {
@@ -71,7 +71,6 @@ public class CutsceneHandler extends GameObject {
 		//textBox 255,410
 		//TextUI 40,380
 		//TextSpeaker 40,345
-		
 		bossSprite = new GameObject("boss","src/main/resources/Assets/Scratchs/Umbra_Portrait.png",new Transform(120,310),Layer.UI);
 		playerSprite  = new GameObject("player","src/main/resources/Assets/Scratchs/marisa_dialogue.png",new Transform(430,310),Layer.UI);
 		
@@ -84,6 +83,7 @@ public class CutsceneHandler extends GameObject {
 		textBoxUI.setSize(10);
 		speakerNameUI = new Text("text","",new Transform(40,345), Layer.UI,null);
 		startGameObjectReceivingInput(this);
+		System.out.println("CutsceneHandler: CutsceneHandler has started, taking control from SceneHandler");
 		
 		nextLine();
 				
@@ -115,7 +115,8 @@ public class CutsceneHandler extends GameObject {
 	
 	private void nextLine() {
 		if(this.dialogueStep == dialogueText.length -1) {
-			System.out.println("END DIALOGUE");
+			hasEnded = true;
+			System.out.println("CutsceneHandler: End of Cutscene, giving back control to SceneHandler");
 			return;
 		}
 		else {
@@ -166,6 +167,18 @@ public class CutsceneHandler extends GameObject {
 		else {
 			return;
 		}
+		
+	}
+	
+	public void destroyDialogue() {
+		
+		GameObject.destroyGameObject(bossSprite);
+		GameObject.destroyGameObject(speakerNameUI);
+		GameObject.destroyGameObject(textBoxSprite);
+		GameObject.destroyGameObject(playerSprite);
+		GameObject.destroyGameObject(textBoxUI);
+		GameObject.stopGameObjectReceivingInput(this);
+		GameObject.destroyGameObject(this);
 		
 	}
 	

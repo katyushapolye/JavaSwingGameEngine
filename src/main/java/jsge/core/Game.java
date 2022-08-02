@@ -66,7 +66,7 @@ public class Game {
 	public static SceneManager getSceneManager() {
 		if(sceneManager == null) {
 			System.err.println("Game: FATAL ERROR - NOT ALLOWED TO CALL SCENEMANAGER WHEN THERE ISN'T A GAME RUNNING");
-			throw new RuntimeException(new Error("Terminated - Error 0x0012 - GAME MUST HAVE A VALID INSTANCE"));
+			throw new RuntimeException(new Error("Terminated - Error 0x0013 - GAME MUST HAVE A VALID INSTANCE"));
 		}
 		return sceneManager;
 	}
@@ -99,7 +99,7 @@ public class Game {
 				DELTA_TIME = gameClock.resetClock();
 				//System.out.println("FPS: " + 1f/DELTA_TIME);
 				//System.out.println(PlayerData.getScore());
-				if(DELTA_TIME > 0.02) {
+				if(DELTA_TIME > 0.1) {
 					System.out.println("Game: SEVERE WARNING - CAN'T KEEP UP, THE GAME IS OVERLOADED!");
 				}
 			
@@ -116,6 +116,7 @@ public class Game {
 				}
 				if(gameStateManager.getCurrentGameState() == GameStates.Halted) {
 					//timer halt, and reset time.
+					continue;
 				}
 				
 

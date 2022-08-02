@@ -72,7 +72,6 @@ public class MenuGameObject extends GameObject {
 				//esc to go back
 				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 					isShowingScore = false;
-					
 					scoreBoard.destroyScoreBoard();
 					scoreBoard = null;
 					UIOptions = new MenuGameObjectContainer();
@@ -82,6 +81,7 @@ public class MenuGameObject extends GameObject {
 					return;
 					
 				}
+				return;
 			}
 			switch (e.getKeyCode()) {
 			case 38:
