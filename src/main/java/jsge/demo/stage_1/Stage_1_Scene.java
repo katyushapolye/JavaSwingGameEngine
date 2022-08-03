@@ -5,6 +5,8 @@
 package jsge.demo.stage_1;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.io.File;
 
 import jsge.components.Transform;
 import jsge.core.Game;
@@ -41,6 +43,9 @@ public class Stage_1_Scene extends Scene {
 	static Text playerCurrentLivesStaticText;
 	static Text playerCurrentLivesCounterText;
 	
+	Text introText = null;
+	Text introSubText = null;
+	
 	Timer playerAnim = null;
 	
 	Umbra umbra = null;
@@ -55,8 +60,30 @@ public class Stage_1_Scene extends Scene {
 	
 	public static AudioClip bgmBoss = new AudioClip("src/main/resources/Sounds/the_girl_who_played_with_peoples_shapes.wav");
 	
+	Timer fadeinTimer = null;
+	
+	
+	
+	
+	private void fadeInIntroText() {
+		
+		introText.offSetAlpha(5);
+		introSubText.offSetAlpha(5);
+		if(introText.getAlpha() == 255) {
+			fadeinTimer.destroyTimer();
+			fadeinTimer = null;
+			
+		}
+		
+		
+	}
 	
 
+	private void destroyIntroText() {
+		
+		GameObject.destroyGameObject(introSubText);
+		GameObject.destroyGameObject(introText);
+	}
 	
 
 	public Stage_1_Scene() {
@@ -86,6 +113,22 @@ public class Stage_1_Scene extends Scene {
 		currentBGNameText = new Text("CurrentBGName","Let's Live in A Lovely Cemetery",new Transform(430,270),Layer.UI,null);
 		currentBGNameText.setSize(6);
 		
+		introText = new Text("IntroText","STAGE 1 - START",new Transform(110,200),Layer.UI,null);
+		try {
+		introSubText = new Text("IntroSubText","In A World Without Rules, Danmaku Is Nonsense..." ,new Transform(80,230),Layer.UI,Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/Assets/Font/kirnberg.ttf")).deriveFont(12));
+		}
+		catch(Exception e){
+			
+		}
+		
+		introText.setSize(16);
+		introText.setColor(new Color(70,230,70,0));
+		introSubText.setSize(22);
+		introSubText.setColor(new Color(187,187,0,0));
+		
+		fadeinTimer =  new Timer(()->fadeInIntroText(),0.05,true);
+		
+		
 		
 		playerCurrentLivesCounterText.setSize(18);
 		
@@ -93,11 +136,15 @@ public class Stage_1_Scene extends Scene {
 		Game.getSceneManager().unloadScene(Game.getSceneManager().getFirstSceneIndexByName("stage_0"));
 		updatePlayerScoreUI();
 		updatePlayerLivesUI();
+		
+		
 		//stage into
 		//do not let these be recurrent without any checks behind
 		wave1Timer = new Timer(()-> firstWaveStart(),6,true);
 		//new Timer(() -> checkForWaveCompletion(wave1),12,true);
 		wave2Timer  = new Timer(()-> secondWaveStart(),10,true);
+		
+		new Timer(()->destroyIntroText(),6,false);
 		
 		//new Timer(() -> checkForWaveCompletion(wave2),20,true);
 
