@@ -211,7 +211,6 @@ public class MenuGameObject extends GameObject {
 		
 		public ScoreboardGameObjectContainer() {
 			readFromDataFile();
-			System.out.println("control");
 			leaveText = new Text("leave","Press SPACE to leave...",new Transform(65,430),Layer.UI,null);
 			leaveText.setColor(new Color(230,230,230));
 			
@@ -271,12 +270,14 @@ public class MenuGameObject extends GameObject {
 			//bubble sort for names, slow but fast to code
 			boolean isSorted = false;
 			String temp;
+			
+			//problema
 			while(isSorted == false) {
 				isSorted = true;
 				for(int i=0;i<lines.size()-1;i++) {
 					int a = Integer.valueOf(lines.get(i).substring((lines.get(i).indexOf('-')+1)));
 					int b = Integer.valueOf(lines.get(i+1).substring((lines.get(i+1).indexOf('-')+1)));
-					if(a <= b) {
+					if(a < b) {
 						temp = lines.get(i);
 						lines.set(i, lines.get(i+1));
 						lines.set(i+1, temp);
@@ -288,7 +289,9 @@ public class MenuGameObject extends GameObject {
 					
 				}
 				
+				
 			}
+
 			
 			for(int i=0;i<10;i++) {
 				if(i>=lines.size()) {
