@@ -49,6 +49,9 @@ public class AudioClip {
 						//audioClip.drain();
 						//audioClip.flush();
 						audioClip.close();
+						if(isLooping) {
+							audioClip.start();
+						}
 					}
 
 				}
@@ -62,6 +65,10 @@ public class AudioClip {
 	}
 
 	// testing
+	
+	public void setLoop(boolean loops) {
+		isLooping = loops;
+	}
 
 	public void play() {
 		if (audioClip.isOpen()) {

@@ -152,9 +152,10 @@ public class GameOverMenuGameObject extends GameObject {
 	private void softGameReset() {
 		new Timer (()-> loadNextStage(),1.5,false);
 		new FadeInOut(3.0);
+		Stage_1_Scene.bgmStage.stop();
 		GameObject.stopGameObjectReceivingInput(this);
 		PlayerData.resetPlayerData();
-		Stage_0_Scene.bgm.stop();
+		Stage_0_Scene.bgmMenu.stop();
 		//Stage_1_Scene.resetScene();
 		//reset all player lives and scores
 		//load from menu

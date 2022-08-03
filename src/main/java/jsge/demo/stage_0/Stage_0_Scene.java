@@ -25,7 +25,8 @@ public class Stage_0_Scene extends Scene{
 	AnimationController loadingController;
 	AnimationClip def;
 	StateMachine<AnimationClip> loadingSM;
-	public static AudioClip bgm = new AudioClip("src/main/resources/Sounds/bossFight.wav");
+	
+	public static AudioClip bgmMenu = new AudioClip("src/main/resources/Sounds/a_new_wind_at_the_shrine.wav");
 	
 	Callback callback = () -> startMenuTransition();
 	Timer loadingtimer = new Timer(callback,3,false);
@@ -41,7 +42,6 @@ public class Stage_0_Scene extends Scene{
 	@Override
 	public void sceneBootStrap() {
 		//Sleight of hand pra evitar criar um objeto inteiro so pra a loading screen, animatorcontroller n atualiza se n estiver vinculado a gameobject
-		
 		loadingScreen = new GameObject("LoadingScreen","src/main/resources/Assets/Loading/Loading_0.png",new Transform(320,240),Layer.BACKGROUND);
 		loadingSM = new StateMachine<AnimationClip>(true);
 		def = new AnimationClip();
@@ -70,7 +70,7 @@ public class Stage_0_Scene extends Scene{
 	
 	private Void finishMenuTransition() {
 		GameObject.destroyGameObject(loadingScreen);
-		bgm.play();
+		bgmMenu.play();
 		menu = new MenuGameObject();
 		return null;
 		
@@ -79,6 +79,7 @@ public class Stage_0_Scene extends Scene{
 	public void sceneExit() {
 		//debug.stop();
 		
+		bgmMenu.stop();
 		super.sceneExit();
 	}
 	

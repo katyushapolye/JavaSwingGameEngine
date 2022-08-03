@@ -9,6 +9,7 @@ import java.awt.Color;
 import jsge.components.Transform;
 import jsge.core.Game;
 import jsge.core.GameObject;
+import jsge.data.AudioClip;
 import jsge.data.Scene;
 import jsge.prefabs.Text;
 import jsge.utils.Layers.Layer;
@@ -31,16 +32,31 @@ public class Stage_1_Scene extends Scene {
 	static Text playerCurrentScoreText;
 	static Text gameFPSUI;
 	
+	static Text bossHealthText;
+	static Text bossHealthPercentageText;
+	
+	static Text currentBGText;
+	static Text currentBGNameText;
+	
 	static Text playerCurrentLivesStaticText;
 	static Text playerCurrentLivesCounterText;
 	
 	Timer playerAnim = null;
+	
+	Umbra umbra = null;
 	
 	static boolean isEndingSequenceHappening = false;
 	
 	static boolean isBossSequenceHappeing = false;
 	
 	static boolean isPlayerMoving = false;
+	
+	public static AudioClip bgmStage = new AudioClip("src/main/resources/Sounds/lets_live_in_a_lovely_cemetery.wav");
+	
+	public static AudioClip bgmBoss = new AudioClip("src/main/resources/Sounds/the_girl_who_played_with_peoples_shapes.wav");
+	
+	
+
 	
 
 	public Stage_1_Scene() {
@@ -49,6 +65,8 @@ public class Stage_1_Scene extends Scene {
 
 	@Override
 	public void sceneBootStrap() {
+		bgmStage.setLoop(true);
+		bgmStage.play();
 		this.sceneClock.resetClock();
 		isEndingSequenceHappening = false;
 		player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", 220, 380, 0);
@@ -63,6 +81,12 @@ public class Stage_1_Scene extends Scene {
 		
 		playerCurrentLivesStaticText =  new Text("currentLivesStatic","Current Lives: ",new Transform(430,80),Layer.UI,null);
 		playerCurrentLivesCounterText = new Text("CurrentLivesCounter","99",new Transform(600,80),Layer.UI,null);
+		
+		currentBGText = new Text("CurrentBG","Current BGM",new Transform(465,250),Layer.UI,null);
+		currentBGNameText = new Text("CurrentBGName","Let's Live in A Lovely Cemetery",new Transform(430,270),Layer.UI,null);
+		currentBGNameText.setSize(6);
+		
+		
 		playerCurrentLivesCounterText.setSize(18);
 		
 		
@@ -93,7 +117,17 @@ public class Stage_1_Scene extends Scene {
 				System.out.println("Stage_1_SceneHandler: Control Received from CutsceneHandler, defaulting GameState, Starting BossFight Sequence");
 				player.endInvencibility();
 				GameObject.startGameObjectReceivingInput(player);
-				new Umbra();
+				bgmBoss.setLoop(true);
+				bgmBoss.play();
+				umbra = new Umbra();
+				
+				bossHealthText =  new Text("BossHealthTxt","Boss Health:",new Transform(420,180),Layer.UI,null); 
+				
+				bossHealthPercentageText =  new Text("BossHealthPercentage",(String.format("%d",((int)umbra.getBossHealthPercentage())*100))+"%",new Transform(565,180),Layer.UI,null); 
+				currentBGNameText.setSize(5);
+				currentBGNameText.getTransform().offsetPosition(5, 0);
+				currentBGNameText.setText("The Girl Who Played With People's Shapes");
+				
 				//start bossfight
 			}
 			
@@ -103,8 +137,10 @@ public class Stage_1_Scene extends Scene {
 			return;
 		}
 		if(this.sceneClock.getElapsedTimeInSeconds() >= 4) {
+			bgmStage.stop();
 			
 			if(isPlayerMoving == true) {
+				
 				if(player.moveToPosition(new Point(220,340)) && isBossSequenceHappeing == true) {
 					isPlayerMoving = false;
 					//System.out.println("Player Has ended it's sequence");
@@ -130,7 +166,18 @@ public class Stage_1_Scene extends Scene {
 			isPlayerMoving = true;
 			player.startInvencibility();
 			}
+			
+			if(umbra != null) {
+				System.out.println(umbra.getBossHealthPercentage());
+				bossHealthPercentageText.setText((String.format("%.2f",((umbra.getBossHealthPercentage())*100)))+"%");
+				//Gradiente para cor
+				
+				
+				//update health
+			}
 		}
+		
+		
 		if(player.isPlayerDead() == true) {
 			PlayerData.decreaseLife();
 			if(PlayerData.getLifes() <= -1) {
@@ -141,11 +188,14 @@ public class Stage_1_Scene extends Scene {
 				return;
 				
 			}
+			
 			updatePlayerLivesUI();
 			player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", this.player.getTransform().getX(), this.player.getTransform().getY(), 0);
 
 			
 		}
+		
+		
 	
 	}
 	

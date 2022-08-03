@@ -5,6 +5,7 @@
 
 package jsge.demo.stage_1;
 import jsge.data.AnimationClip;
+import jsge.data.AudioClip;
 import jsge.data.StateMachine;
 import jsge.demo.stage_1.Bullet.Tag;
 import jsge.components.AnimationController;
@@ -18,6 +19,10 @@ import jsge.utils.Timer;
 public class Enemy extends GameObject{
 	
 	static AnimationClip idle =  new AnimationClip("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.5f,4,true,false);
+	
+	public AudioClip damageSound;
+	
+	
 	//idle.loadAnimationSpriteSheet("Idle","src/main/resources/Assets/EarthSpirit/EarthSpirit",0.25f,4,true,false);
 	static StateMachine<AnimationClip> sm = new StateMachine<AnimationClip>(false);
 
@@ -41,6 +46,7 @@ public class Enemy extends GameObject{
 	public Enemy(String name, String pathToSprite, Transform transform, Layer initLayer,EnemyPattern pattern,float shootingCooldown,int enemySpeed) {
 		super(name, pathToSprite, transform, initLayer,10);
 		sm.addState("Idle",idle,null,null);
+		damageSound =  new AudioClip("src/main/resources/Sounds/ok00.wav");
 		this.animationController = new AnimationController(sm,this.sprite);
 		this.pattern = pattern;
 		this.initialPosition =  transform.getPosition();
@@ -112,6 +118,7 @@ public class Enemy extends GameObject{
 				else {
 					destroyGameObject(collision);
 					PlayerData.addScore(100);
+					damageSound.play();
 					Stage_1_Scene.updatePlayerScoreUI();
 					GameObject.destroyGameObject(this);
 					//send score to plyaer
