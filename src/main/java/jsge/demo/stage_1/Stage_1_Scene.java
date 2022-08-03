@@ -168,7 +168,7 @@ public class Stage_1_Scene extends Scene {
 			}
 			
 			if(umbra != null) {
-				System.out.println(umbra.getBossHealthPercentage());
+				
 				bossHealthPercentageText.setText((String.format("%.2f",((umbra.getBossHealthPercentage())*100)))+"%");
 				//Gradiente para cor
 				
