@@ -110,6 +110,7 @@ public class MenuGameObject extends GameObject {
 				}
 				if(this.currentSelectedOption == 0) { 
 					new Timer (()-> loadNextStage(),1.5,false);
+					Stage_1_Scene.scenereset();
 					new FadeInOut(3.0);
 					GameObject.stopGameObjectReceivingInput(this);
 					this.isShowingScore = false;

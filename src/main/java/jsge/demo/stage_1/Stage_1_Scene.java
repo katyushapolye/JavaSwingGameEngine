@@ -319,6 +319,15 @@ public class Stage_1_Scene extends Scene {
 		
 	}
 	
+	public static void scenereset() {
+		isEndingSequenceHappening = false;
+		
+		isBossSequenceHappeing = false;
+		
+		isPlayerMoving = false;
+		
+	}
+	
 	public static void updatePlayerScoreUI() {
 		String s = String.format("Score %d",PlayerData.getScore());
 		playerCurrentScoreText.setText(s);

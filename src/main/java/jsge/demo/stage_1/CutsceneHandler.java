@@ -49,11 +49,20 @@ public class CutsceneHandler extends GameObject {
 	private int dialogueStep = -1;
 	private String[] dialogueText = {
 			"They are definitely multiplying...",
-			"Helloooooooooooooo",
+			"Hello Human...",
 			"????",
 			"Who the hell are you?",
 			"I'm a ghost, can't you see?",
-			"I didn't ask that..."
+			"I didn't ask that...",
+			"Welcome to my domain, what brings you here?",
+			"Exterminating ghosts like you.",
+			"...",
+			"What?, Everybody needs to money to eat.",
+			"You will regret coming here.",
+			"Yeah, Yeah, bring it on kid.",
+			"I'M NOT A KID!!!",
+			"Doesn't matter, I'll wipe you anyway~."
+			
 	};
 	
 	private String[] dialogueSpeaker= {
@@ -62,18 +71,21 @@ public class CutsceneHandler extends GameObject {
 			"Marisa",
 			"Marisa",
 			"Umbra",
-			"Marisa"
+			"Marisa",
+			"Umbra",
+			"Marisa",
+			"Umbra",
+			"Marisa",
+			"Umbra",
+			"Marisa",
+			"Umbra",
+			"Marisa"	
 	};
 	
 	public CutsceneHandler() {
 		super("SceneHandler", Layer.UI);
 		
-		//Final coords for
-		//Boss Sprite = 120,310
-		//player = 430,310
-		//textBox 255,410
-		//TextUI 40,380
-		//TextSpeaker 40,345
+
 		bossSprite = new GameObject("boss","src/main/resources/Assets/Scratchs/Umbra_Portrait.png",new Transform(120,310),Layer.UI);
 		playerSprite  = new GameObject("player","src/main/resources/Assets/Scratchs/marisa_dialogue.png",new Transform(430,310),Layer.UI);
 		

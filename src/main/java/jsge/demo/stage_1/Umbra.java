@@ -221,8 +221,15 @@ public class Umbra extends GameObject {
 	
 	@Override
 	public void onDestroy() {
-		bulletTimer.destroyTimer();
-		bulletTimer2.destroyTimer();
+		if(bulletTimer != null) {
+			bulletTimer.destroyTimer();
+			bulletTimer = null;
+		}
+		if(bulletTimer2 != null) {
+			bulletTimer2.destroyTimer();
+			bulletTimer2 = null;
+		}
+		
 		destroySound.play();
 		super.onDestroy();
 	}
