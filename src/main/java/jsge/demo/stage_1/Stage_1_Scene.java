@@ -139,7 +139,7 @@ public class Stage_1_Scene extends Scene {
 			
 		}
 		
-		if(this.sceneClock.getElapsedTimeInSeconds() >= 98) {
+		if(this.sceneClock.getElapsedTimeInSeconds() >= 96) {
 			bgmStage.stop();
 			
 			if(isPlayerMoving == true) {
