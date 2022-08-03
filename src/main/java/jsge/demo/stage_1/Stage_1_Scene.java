@@ -181,6 +181,9 @@ public class Stage_1_Scene extends Scene {
 		if(player.isPlayerDead() == true) {
 			PlayerData.decreaseLife();
 			if(PlayerData.getLifes() <= -1) {
+				if(bgmBoss != null) {
+					bgmBoss.stop();
+				}
 				//System.out.println("GAME OVER!");
 				gameOverSequence();
 				
