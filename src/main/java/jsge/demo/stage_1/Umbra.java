@@ -144,7 +144,7 @@ public class Umbra extends GameObject {
 		}
 		
 		else if(phase ==  Phase.Phase3) {
-			PlayerData.addScore(1000);
+			PlayerData.addScore(10000);
 			System.out.println("Umbra:  Entering Phase 3");
 			stageChangeSound.play();
 			bulletTimer.destroyTimer();

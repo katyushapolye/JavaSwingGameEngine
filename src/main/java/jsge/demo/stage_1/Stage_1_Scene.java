@@ -380,6 +380,7 @@ public class Stage_1_Scene extends Scene {
 		GameObject.stopGameObjectReceivingInput(player);
 		isEndingSequenceHappening = true;
 		player.playerReset();
+		PlayerData.addScore(25000);
 		PlayerData.addScore(PlayerData.getLifes()*1000);
 		new GameOverMenuGameObject(true);
 
