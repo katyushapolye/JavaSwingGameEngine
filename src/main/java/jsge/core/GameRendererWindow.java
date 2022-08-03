@@ -62,6 +62,7 @@ public class GameRendererWindow extends JFrame implements ActionListener{
 		renderingHints =  new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 		renderingHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		
+		
 		System.out.println("RendererWindow: Renderer Window Initialized");	
 	}
 

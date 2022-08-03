@@ -211,7 +211,7 @@ public class MenuGameObject extends GameObject {
 		
 		public ScoreboardGameObjectContainer() {
 			readFromDataFile();
-			
+			System.out.println("control");
 			leaveText = new Text("leave","Press SPACE to leave...",new Transform(65,430),Layer.UI,null);
 			leaveText.setColor(new Color(230,230,230));
 			

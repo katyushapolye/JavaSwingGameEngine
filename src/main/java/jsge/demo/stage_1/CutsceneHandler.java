@@ -7,6 +7,7 @@ import jsge.components.Transform;
 import jsge.core.GameKeyEvent;
 import jsge.core.GameKeyEvent.EventType;
 import jsge.core.GameObject;
+import jsge.data.AudioClip;
 import jsge.prefabs.Text;
 import jsge.utils.Layers.Layer;
 import jsge.utils.Point;
@@ -27,6 +28,8 @@ public class CutsceneHandler extends GameObject {
 	private Text textBoxUI;
 	
 	private Text speakerNameUI;
+	
+	private AudioClip  bgmDialogue;
 	
 	//três paineis, um pra textbox, um pro ator (player) e outro pro boss
 	
@@ -75,6 +78,10 @@ public class CutsceneHandler extends GameObject {
 		playerSprite  = new GameObject("player","src/main/resources/Assets/Scratchs/marisa_dialogue.png",new Transform(430,310),Layer.UI);
 		
 		textBoxSprite =  new GameObject("dialogueBox","src/main/resources/Assets/Scratchs/dialogueBox.png",new Transform(255,410),Layer.UI);
+		
+		bgmDialogue =  new AudioClip("src/main/resources/Sounds/dialogue00.wav");
+		bgmDialogue.setLoop(true);
+		bgmDialogue.play();
 		
 		playerSprite.getTransform().setScale(0.4, 0.4);
 		bossSprite.getTransform().setScale(0.75, 0.75);
@@ -172,6 +179,7 @@ public class CutsceneHandler extends GameObject {
 	
 	public void destroyDialogue() {
 		
+		bgmDialogue.stop();
 		GameObject.destroyGameObject(bossSprite);
 		GameObject.destroyGameObject(speakerNameUI);
 		GameObject.destroyGameObject(textBoxSprite);

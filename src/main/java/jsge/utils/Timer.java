@@ -38,6 +38,10 @@ public class Timer{
 	}
 	
 	
+	public static void destroyAllTimers() {
+		allActiveTimers.clear();
+	}
+	
 	void executeCallback() {
 		timerCallback.callback();
 	}

@@ -23,11 +23,22 @@ public class GameOverMenuGameObject extends GameObject {
 	String playerNameBuffer = "";
 	
 	
+	
+	
 	boolean isEnteringName = false;
-	GameOverMenuGameObjectContainer UIOptions = new GameOverMenuGameObjectContainer(); 
-	public GameOverMenuGameObject() {
+	
+	static private boolean isStageClear = false;
+	
+	
+	GameOverMenuGameObjectContainer UIOptions = null; 
+	public GameOverMenuGameObject(boolean isClear) {
 		
+
 		super("gameOvermenuInputHandler", new Transform(0, 0), Layer.BACKGROUND, true);
+		
+		isStageClear =  isClear;
+		
+		UIOptions = new GameOverMenuGameObjectContainer();
 		UIOptions.menuOptions[0].getTransform().offsetPosition(5,0);
 		UIOptions.menuOptions[0].setColor(new Color(0,255,0));
 
@@ -150,6 +161,10 @@ public class GameOverMenuGameObject extends GameObject {
 	}
 	
 	private void softGameReset() {
+		GameObject.destroyAllGameObjects();
+		
+		Timer.destroyAllTimers();
+		
 		new Timer (()-> loadNextStage(),1.5,false);
 		new FadeInOut(3.0);
 		Stage_1_Scene.bgmStage.stop();
@@ -169,6 +184,7 @@ public class GameOverMenuGameObject extends GameObject {
 		Text gameOverContinueText;
 		Text gameOverText;
 		public GameOverMenuGameObjectContainer() {
+			
 			gameOverText = new Text("gameOverText","GAME OVER! ",new Transform(80,170),Layer.UI,null);
 			gameOverContinueText = new Text("GameTitle","Do you wish to \n"
 					+ "save your score?",new Transform(40,200),Layer.UI,null);
@@ -176,6 +192,13 @@ public class GameOverMenuGameObject extends GameObject {
 			gameOverText.setColor(new Color(210,40,40));
 			menuOptions[0] = new Text("yesOption", "Yes", new Transform(205, 220), Layer.UI, null);
 			menuOptions[1] = new Text("noOption", "No", new Transform(210, 238), Layer.UI, null);
+			
+			if(isStageClear) {
+				gameOverText.setColor(new Color(40,210,40));
+				gameOverText.setText("STAGE CLEAR!");
+				gameOverText.getTransform().offsetPosition(-30,0);
+				
+			}
 			
 			
 			

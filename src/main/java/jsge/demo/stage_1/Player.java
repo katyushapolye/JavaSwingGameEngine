@@ -294,13 +294,15 @@ public class Player extends GameObject{
 	}
 	
 	public void playerReset() {
-		this.transform.setPosition(new Point(240, 240));
+		this.transform.setPosition(new Point(220, 380));
 		this.isMovingDown = false;
 		this.isMovingUp = false;
 		this.isMovingRight = false;
 		this.isMovingLeft = false;
 		this.playerVelocity = 400;
 		this.isPlayerDead = false;
+		this.isShooting = false;
+		BlinkPlayer();
 		
 	}
 	

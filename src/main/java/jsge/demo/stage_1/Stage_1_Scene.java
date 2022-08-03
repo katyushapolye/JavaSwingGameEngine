@@ -106,9 +106,15 @@ public class Stage_1_Scene extends Scene {
 	@Override
 	public void sceneUpdate() {
 		
-		gameFPSUI.setText(String.format("FPS: %f",1.f/Game.DELTA_TIME));
-		//System.out.println(this.sceneClock.getElapsedTimeInSeconds());
 		
+		gameFPSUI.setText(String.format("FPS: %f",1.f/Game.DELTA_TIME));
+		
+		if(isEndingSequenceHappening) {
+				
+			return;
+		}
+		
+		//System.out.println(this.sceneClock.getElapsedTimeInSeconds());
 		if(dialogue != null) {
 			if(dialogue.hasEnded) {
 				
@@ -125,7 +131,7 @@ public class Stage_1_Scene extends Scene {
 				
 				bossHealthPercentageText =  new Text("BossHealthPercentage",(String.format("%d",((int)umbra.getBossHealthPercentage())*100))+"%",new Transform(565,180),Layer.UI,null); 
 				currentBGNameText.setSize(5);
-				currentBGNameText.getTransform().offsetPosition(5, 0);
+				currentBGNameText.getTransform().setPosition(new Point(435, 270));
 				currentBGNameText.setText("The Girl Who Played With People's Shapes");
 				
 				//start bossfight
@@ -133,10 +139,7 @@ public class Stage_1_Scene extends Scene {
 			
 		}
 		
-		if(isEndingSequenceHappening) {
-			return;
-		}
-		if(this.sceneClock.getElapsedTimeInSeconds() >= 4) {
+		if(this.sceneClock.getElapsedTimeInSeconds() >= 98) {
 			bgmStage.stop();
 			
 			if(isPlayerMoving == true) {
@@ -151,6 +154,11 @@ public class Stage_1_Scene extends Scene {
 					//start dialogue sequence
 					
 					dialogue = new CutsceneHandler();
+					
+					currentBGNameText.getTransform().setPosition(new Point(490,270));
+					currentBGNameText.setText("Bad Apple!!");
+					
+					
 					
 					
 					
@@ -170,6 +178,7 @@ public class Stage_1_Scene extends Scene {
 			if(umbra != null) {
 				
 				bossHealthPercentageText.setText((String.format("%.2f",((umbra.getBossHealthPercentage())*100)))+"%");
+				bossHealthPercentageText.setColor(new Color((int)(255*(1-umbra.getBossHealthPercentage())),(int)(255*umbra.getBossHealthPercentage()),0));
 				//Gradiente para cor
 				
 				
@@ -184,6 +193,9 @@ public class Stage_1_Scene extends Scene {
 				if(bgmBoss != null) {
 					bgmBoss.stop();
 				}
+				if(bgmStage != null) {
+					bgmStage.stop();
+				}
 				//System.out.println("GAME OVER!");
 				gameOverSequence();
 				
@@ -195,6 +207,18 @@ public class Stage_1_Scene extends Scene {
 			updatePlayerLivesUI();
 			player = new Player("src/main/resources/Assets/Marisa/Marisa_Idle_Animation/Marisa_Idle_0.png", this.player.getTransform().getX(), this.player.getTransform().getY(), 0);
 
+			
+		}
+		
+		if(umbra != null && umbra.isAlive == false) {
+			
+			GameObject.destroyGameObject(bossHealthPercentageText);
+			GameObject.destroyGameObject(bossHealthText);
+			player.startInvencibility();
+			stageClearSequence();
+			//isEndingSequenceHappening = true;
+			
+			
 			
 		}
 		
@@ -298,9 +322,22 @@ public class Stage_1_Scene extends Scene {
 		wave2Timer.destroyTimer();
 		isEndingSequenceHappening = true;
 		
-		new GameOverMenuGameObject();
+		new GameOverMenuGameObject(false);
 
 		
 	}
+	
+	private void stageClearSequence() {
+		bgmBoss.stop();
+		GameObject.destroyGameObject(umbra);
+		GameObject.stopGameObjectReceivingInput(player);
+		isEndingSequenceHappening = true;
+		player.playerReset();
+		PlayerData.addScore(PlayerData.getLifes()*1000);
+		new GameOverMenuGameObject(true);
+
+		
+	}
+
 
 }

@@ -91,6 +91,8 @@ public class Game {
 	
 	private void gameLoop() {
 		
+		
+		
 		jsge.utils.Clock gameClock = new Clock();
 		
 		while (true) {

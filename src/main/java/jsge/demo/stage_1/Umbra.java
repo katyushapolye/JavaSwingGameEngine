@@ -18,9 +18,15 @@ public class Umbra extends GameObject {
 	static StateMachine<AnimationClip> sm = new StateMachine<AnimationClip>(false);
 
 	Point initialPosition;
+	
 	Timer bulletTimer;
 	
+	Timer bulletTimer2;
+	
 	private static AudioClip damageSound =  new AudioClip("src/main/resources/Sounds/damage00.wav");
+	private static AudioClip stageChangeSound =  new AudioClip("src/main/resources/Sounds/tan00.wav");
+	
+	private static AudioClip destroySound =  new AudioClip("src/main/resources/Sounds/cat00.wav");
 	
 	private boolean isMoving = false;
 	
@@ -28,9 +34,9 @@ public class Umbra extends GameObject {
 	
 	//set somethings as static, so we will save some memory
 	int bossVelocity = 200;
-	int bossHealth = 200000;
+	int bossHealth = 100000;
 	
-	int bossMaxHealth = 200000;
+	int bossMaxHealth = 100000;
 	
 	boolean isAlive = true;
 	
@@ -41,12 +47,13 @@ public class Umbra extends GameObject {
 	
 	
 	enum Phase{
+		Phase0,
 		Phase1,
 		Phase2,
 		Phase3
 	}
 	
-	private Phase currentPhase =  Phase.Phase1;
+	private Phase currentPhase =  Phase.Phase0;
 	
 	
 	public Umbra() {
@@ -58,6 +65,9 @@ public class Umbra extends GameObject {
 		this.initialPosition =  transform.getPosition();
 		
 		this.setPath(new Point(220,60));
+		
+		System.out.println("Umbra:  Boss Created, Setting Inital Path");
+		new Timer(()->changePhase(Phase.Phase1),2,false);
 
 	}
 	
@@ -109,16 +119,63 @@ public class Umbra extends GameObject {
 		
 		else if(phase == Phase.Phase1) {
 			
+			System.out.println("Umbra:  Entering Phase 1");
+			bulletTimer = new Timer(()->shootPattern1(),0.5,true);
+			bulletTimer2 = null;
 			this.setPath(new Point(70,60));
+			this.currentPhase = Phase.Phase1;
 		}
 		
 		else if(phase == Phase.Phase2) {
 			
+			//play audio
+			System.out.println("Umbra:  Entering Phase 2");
+			stageChangeSound.play();
+			PlayerData.addScore(5000);
+			bulletTimer.destroyTimer();
+			bulletTimer = new Timer(()->shootPattern1(),0.75,true);
+			bulletTimer2 = new Timer(()->shootPattern2(180),0.50,true);
+			this.setPath(new Point(70,60));
+			this.movingLeft = false;
+
+			this.currentPhase = Phase.Phase2;
+			
+			
 		}
 		
 		else if(phase ==  Phase.Phase3) {
+			PlayerData.addScore(1000);
+			System.out.println("Umbra:  Entering Phase 3");
+			stageChangeSound.play();
+			bulletTimer.destroyTimer();
+			bulletTimer2.destroyTimer();
+			bulletTimer = new Timer(()->shootPattern1(),0.75,true);
+			bulletTimer2 = new Timer(()->shootPattern2(380),0.50,true);
+			this.setPath(new Point(70,60));
+			this.movingLeft = false;
+
+			this.currentPhase = Phase.Phase3;
 			
 		}
+	}
+	
+	
+	private void shootPattern1() {
+		for(int i = 240;i<=300;i+=30 ) {
+			new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),i,250);
+		}
+		
+	}
+	
+	
+
+
+	
+	
+	private void shootPattern2(int velocity) {
+		new Bullet(Tag.Enemy,this.transform.getX()-10,this.transform.getY(),270,velocity);
+		new Bullet(Tag.Enemy,this.transform.getX(),this.transform.getY(),270,velocity);
+		new Bullet(Tag.Enemy,this.transform.getX()+10,this.transform.getY(),270,velocity);
 	}
 
 	@Override
@@ -131,19 +188,24 @@ public class Umbra extends GameObject {
 				destroyGameObject(collision);
 				damageSound.play();
 				
+				PlayerData.addScore(10);
+				
 				//better than to check at every update
 				
 				if(getBossHealthPercentage() >= 0.66) {
 					changePhase(Phase.Phase1);
+					return;
 					
 				}
 				else if(getBossHealthPercentage() >= 0.33 && getBossHealthPercentage() < 0.66) {
 					changePhase(Phase.Phase2);
+					return;
 					//attack pattern 2
 				}
 				
-				else if(getBossHealthPercentage() >= 0 && getBossHealthPercentage() < 0.33) {
+				else if(getBossHealthPercentage() > 0 && getBossHealthPercentage() < 0.33) {
 					changePhase(Phase.Phase3);
+					return;
 					//attack pattern 3
 					
 					
@@ -151,24 +213,28 @@ public class Umbra extends GameObject {
 				
 				//check for death
 				
-				else {
-					
-					
-				}
-				
-				
-				
-				
+			
+							
 				}
 			}
 		}
 	
+	@Override
+	public void onDestroy() {
+		bulletTimer.destroyTimer();
+		bulletTimer2.destroyTimer();
+		destroySound.play();
+		super.onDestroy();
+	}
 	
 	@Override
 	public void update(double deltaTime) {
 		if(isMoving) {
 			moveToPosition();
 			
+		}
+		if(bossHealth <=0) {
+			this.isAlive = false;
 		}
 		
 		switch (currentPhase) {
@@ -183,16 +249,66 @@ public class Umbra extends GameObject {
 				}
 			}
 			
+		
+			
 			
 			break;
 		}
 		case Phase2:
-			
+			//debug
+			if(!this.isMoving) {
+				if(this.transform.getPosition().Y == 100 && this.transform.getPosition().X == 220) {
+					if(this.movingLeft) {
+						this.setPath(new Point(370,60));
+						
+					}
+					
+					else {
+						this.setPath(new Point(70,60));
+					}
+					
+				}
+				else if(this.getTransform().getX() == 70 && this.getTransform().getY() ==  60) {
+					this.movingLeft = true;
+					this.setPath(new Point(220,100));
+					
+				}
+				else if(this.getTransform().getX() == 370 && this.getTransform().getY() ==  60) {
+					this.movingLeft = false;
+					this.setPath(new Point(220,100));
+					
+				}
+				
+			}		
 			break;
 			
+			//debug
 		case Phase3:
-			
+			if(!this.isMoving) {
+				if(this.transform.getPosition().Y == 200 && this.transform.getPosition().X == 220) {
+					if(this.movingLeft) {
+						this.setPath(new Point(370,60));
+						
+					}
+					else {
+						this.setPath(new Point(70,60));
+					}
+					
+				}
+				else if(this.getTransform().getX() == 70 && this.getTransform().getY() ==  60) {
+					this.movingLeft = true;
+					this.setPath(new Point(220,200));
+					
+				}
+				else if(this.getTransform().getX() == 370 && this.getTransform().getY() ==  60) {
+					this.movingLeft = false;
+					this.setPath(new Point(220,200));
+					
+				}
+			}		
 			break;
+			
+
 		default:
 			
 			break;
